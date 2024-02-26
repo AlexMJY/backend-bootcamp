@@ -83,6 +83,7 @@ public class MethodReference {
 
         //3-2. 람다식 구현
         Collections.sort(list, (s1, s2) -> s1.compareToIgnoreCase(s2));
+        list.sort((o1, o2) -> o1.compareToIgnoreCase(o2));
 
         //3-3. 메서드 참조 구현
         list.sort(String::compareToIgnoreCase);
