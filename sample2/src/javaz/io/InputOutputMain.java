@@ -100,6 +100,7 @@ public class InputOutputMain {
 //        standardOutput();
 //        standardInput();
 //        inputStream();
-        inputStream2();
+//        inputStream2();
+        standardInput();
     }
 }

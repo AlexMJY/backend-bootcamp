@@ -3,13 +3,16 @@ package javaz.io;
 import java.io.File;
 import java.io.FileReader;
 import java.text.SimpleDateFormat;
+import java.util.Scanner;
 
 public class FileDirExercise {
-    public static void main(String[] args) {
+    public static void fileDir() {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd   a HH-mm");
         File src = new File("src");
+
+
         System.out.println(src.getAbsolutePath() + " 디렉터리");
-        
+
         int file_num = 0;
         int dir_num = 0;
         int file_size = 0;
@@ -33,6 +36,11 @@ public class FileDirExercise {
         }
         System.out.println("            " + file_num + "개 파일" + "       " + file_size + "바이트");
         System.out.println("            " + dir_num + "개 디렉터리");
+
+    }
+
+    public static void main(String[] args) {
+        fileDir();
 
     }
 }
