@@ -6,26 +6,23 @@ package javaz.io;
 // - 파일명은 파일 생성 시점의 long타입의 시간정보.log로 저장
 //  중복되지 않도록 처리
 
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.*;
 import java.util.Date;
 
 class ExceptionLog {
     public static void writeLog(Exception e, Date now) {
         // 파일에 예외 정보 저장
-        String fileName = now.getTime() + ".log";
-        try (PrintWriter writer = new PrintWriter(new FileWriter(fileName))) {
-            // 예외 발생 시간 정보 저장
-            writer.println("날짜 및 시간: " + now.toString());
-            // 예외 객체 클래스 이름 저장
-            writer.println("예외 클래스: " + e.getClass().getName());
-            // 예외 메시지 저장
-            writer.println("예외 메시지: " + e.getMessage());
-            System.out.println("예외 정보가 파일에 저장되었습니다: " + fileName);
+        String fileName = "C:\\dev\\" + now.getTime() + ".log";
+
+        try (FileWriter fw = new FileWriter(fileName);
+             BufferedWriter bw = new BufferedWriter(fw)) {
+                bw.write("날짜 및 시간 : " + now.toString() + "\n");
+
+                bw.write("예외 클래스 : " + e.getClass().getName() + "\n");
+
+                bw.write("예외 메시지 : " + e.getMessage());
         } catch (IOException ex) {
-            System.err.println("파일 쓰기 오류: " + ex.getMessage());
-            ex.printStackTrace();
+            throw new RuntimeException(ex);
         }
     }
 }
