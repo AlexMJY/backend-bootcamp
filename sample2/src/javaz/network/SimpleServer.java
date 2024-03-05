@@ -14,6 +14,7 @@ package javaz.network;
 // 서버에 연결 요청,
 
 import java.io.*;
+import java.net.BindException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.text.SimpleDateFormat;
@@ -43,7 +44,7 @@ public class SimpleServer {
                 System.out.println(timeDateStamp(TIME_PTN) + " 클라이언트 접속 완료");
 
                 // 클라이언트의 메시지 읽을 스트림 생성
-                BufferedReader br = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+                br = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
 
 
                 // 클라이언트 접속 정보 출력
@@ -51,20 +52,36 @@ public class SimpleServer {
                 System.out.println("> 접속 PORT\t" + clientSocket.getLocalPort());
                 System.out.println("> 원격 PORT\t" + clientSocket.getPort());
 
-                String nn = br.readLine();
-                System.out.println("> 클라이언트 닉네임 : " + nn);
-
                 String msg = br.readLine();
-                System.out.println("> 클라이언트 메시지 : " + msg);
+                String[] arr = msg.split("#");
+                System.out.println("> 클라이언트 닉네임 : " + arr[0]);
+                System.out.println("> 클라이언트 메시지 : " + arr[1]);
 
-                System.out.println("전송 완료");
-
-
-
+                // 클라이언트에게 보낼 메시시 출력 스트림 생성
+                // "~~님 서버에 접속되었습니다."
+//                BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(clientSocket.getOutputStream()));
+                PrintWriter sw = new PrintWriter(clientSocket.getOutputStream(), true);
+                sw.println(timeDateStamp(TIME_PTN) + arr[0] + "님 서버에 접속되었습니다.");
+                System.out.println(timeDateStamp(TIME_PTN + " 데이터 전송 완료!"));
             }  // END while
+
+
+        } catch (BindException e) {
+            System.err.println("서버가 현재 연결되어있습니다.");
 
         } catch (IOException e) {
             e.printStackTrace();
+
+        } finally {
+            try {
+                if (pw != null) pw.close();
+                if (br != null) br.close();
+                if (clientSocket != null) clientSocket.close();
+            } catch (BindException e) {
+                e.printStackTrace();
+                System.err.println("서버가 이미 가동중입니다.");
+            }
+
         }
     } // END 기본 생성자
 
@@ -73,7 +90,6 @@ public class SimpleServer {
     // 지정된 패턴의 문자열을 반환하는 timeDateStamp 메서드
     public static String timeDateStamp(String ptn) {
         return new SimpleDateFormat(ptn).format(new Date());
-
     }
 
     public static void main(String[] args) throws IOException {
