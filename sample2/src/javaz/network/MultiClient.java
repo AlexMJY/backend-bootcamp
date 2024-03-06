@@ -173,23 +173,13 @@ import java.awt.event.KeyListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
+import java.io.*;
 import java.net.BindException;
 import java.net.ConnectException;
 import java.net.Socket;
 
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
-import javax.swing.ScrollPaneConstants;
+import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 public class MultiClient extends JFrame implements ActionListener, KeyListener {
     private static final long serialVersionUID = 1L;
@@ -336,11 +326,55 @@ public class MultiClient extends JFrame implements ActionListener, KeyListener {
 
         //7.SAVE 버튼이 눌린 경우 이벤트 처리
         if(obj == saveBtn) {
-            System.out.println("SAVE 버튼 클릭됨!!");
-            chatTxt.setText("");	//입력값 지우기
-            chatTxt.requestFocus();	//입력 필드 포커스 맞추기
+            // 파일 저장 대화창 띄우기
+            JFileChooser fc = new JFileChooser("C\\dev\\");
+            fc.setAcceptAllFileFilterUsed(false);
+            FileNameExtensionFilter extFileter = new FileNameExtensionFilter("Text (*txt)", "txt");
+            fc.addChoosableFileFilter(extFileter);
+
+            //a. 저장 버튼이 눌린 경우
+            if(fc.showSaveDialog(this) == JFileChooser.APPROVE_OPTION) {
+                File file = fc.getSelectedFile(); // b
+
+                if (file.exists()) {
+                    int returnVal = JOptionPane.showConfirmDialog(this, "파일이 존재합니다. \n덮어쓸까요?",
+                            "알림", JOptionPane.YES_NO_OPTION);
+                    if (returnVal == JFileChooser.APPROVE_OPTION) {
+                        fileSave(file.toString());
+                    }
+                } else {
+                    String filename = file.toString().endsWith(".txt") ? file.toString() : file + ".txt";
+                }
+            }
+
+            fc.showSaveDialog(this);
+            //b. 선택된 파일 받아와서
+            fc.getSelectedFile();
+            //c. 이미 존재하는 경우
+
+
+            //d. 덮어쓸 것인지 여부 확인 후 대화 내용 파일로 저장
+
+
+            //e. 존재하지 않는 경우에는 바로 대화 내용 파일로 저장
+
         }
     }//END actionPerformed()
+
+    public void fileSave(String filename) {
+        try (FileWriter fw = new FileWriter(filename)) {
+            fw.write(chatArea.getText());
+
+            JOptionPane.showMessageDialog(  // 파일에 대화 내용 저장 후 알림창 표시
+                    this,
+                    "대화 내용이 저장되었습니다.",
+                    "알림",
+                    JOptionPane.INFORMATION_MESSAGE);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
 
 
     public static void main(String[] args) {
