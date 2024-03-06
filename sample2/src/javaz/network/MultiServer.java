@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.net.BindException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketException;
@@ -68,6 +69,8 @@ public class MultiServer {
                 pw = new PrintWriter(clientSocket.getOutputStream(), true);
                 pw.println(timeDateStamp(TIME_PTN) + nickname + "님 서버에 접속되었습니다.");
 
+            } catch (BindException e) {
+                System.err.println("서버가 이미 가동 중입니다.");
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -80,21 +83,29 @@ public class MultiServer {
         //12.4 클라이언트가 퇴장한 경우 퇴장 메시지를 전체에게 브로드 캐스팅한 후 해당 클라이언트 clientMap에서 삭제
         @Override
         public void run() { //12
-            clientMap.put(nickname, pw); //12.1
+            if (clientMap.containsKey(nickname)) {
+                System.out.println("동일한 닉네임이 존재합니다.");
+            } else {
+                clientMap.put(nickname, pw); //12.1
+            }
             broadcast(nickname + "님이 들어오셨습니다."); //12.2
 
             try {
                 while (br != null) { //12.3
                     msg = br.readLine();
-                    if (msg != null && msg.equals("-1")) {
+                    if (msg != null && !msg.equals("-1")) {
                         broadcast(nickname + " > " + msg);
                     } else { //12.4
                         broadcast(nickname + "님이 나가셨습니다.");
                         clientMap.remove(nickname);
                     }
+                    System.out.println(msg);
+
+
+
                 }
             } catch (SocketException e) {
-                e.printStackTrace();
+                System.err.println(nickname + "퇴장");
             } catch (IOException e) {
                 e.printStackTrace();
             } finally {

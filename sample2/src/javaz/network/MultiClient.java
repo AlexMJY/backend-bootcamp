@@ -177,6 +177,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.net.BindException;
 import java.net.ConnectException;
 import java.net.Socket;
 
@@ -208,7 +209,11 @@ public class MultiClient extends JFrame implements ActionListener, KeyListener {
     public MultiClient() { // 채팅 창 UI 설정 ---------------------
         nickname = JOptionPane.showInputDialog(
                 "대화명을 입력해 주세요."); 	// 1.대화명을 입력받아 nickname에 저장
-        if(nickname == null) return; 			// 1.1 대화명을 입력하지 않은 경우 실행 중단
+        if(nickname == null) {
+            return; 			// 1.1 대화명을 입력하지 않은 경우 실행 중단
+        }
+
+
 
         titleLbl = new JLabel("JAVA CHAT v.1", JLabel.CENTER);
         nicknameLbl = new JLabel(nickname);
@@ -265,7 +270,16 @@ public class MultiClient extends JFrame implements ActionListener, KeyListener {
                 //3.서버에서 더 이상 읽어올 값이 없을 때까지
                 //  메시지를 반복하여 수신하고 채팅 화면에 덧붙이기
                 //  >> 스레드로 처리하고 시작시키기
-                chatArea.append("~~~\n");
+                new Thread(() -> {
+                    try {
+                        while (br != null) {
+                            chatArea.append(br.readLine() + "\n");
+                        }
+                    } catch (IOException e1) {
+                        e1.printStackTrace();
+                    }
+                }).start();
+                chatTxt.requestFocus();
             }//END windowOpened()
 
             //채팅 창 종료시 --------------------------
@@ -274,10 +288,20 @@ public class MultiClient extends JFrame implements ActionListener, KeyListener {
                 System.out.println("WINDOW CLOSING....");
                 //4.서버 연결 종료 처리 >> 서버에 -1 전송
                 dispose();	//채팅 창닫기
-                //4.1 입출력 스트림 및 소켓 닫기
-                //4.2 시스템 종료
+
+                System.exit(0); //4.2 시스템 종료
+
+                try { //4.1 입출력 스트림 및 소켓 닫기
+                    if (pw != null) pw.close();
+                    if (br != null) br.close();
+                    if (clientSocket != null) clientSocket.close();
+                } catch (IOException ex) {
+                    throw new RuntimeException(ex);
+                }
+
+
             }//END windowClosing()
-        });//
+        });
     }// END MultiClient 기본 생성자
 
 
@@ -290,9 +314,10 @@ public class MultiClient extends JFrame implements ActionListener, KeyListener {
     @Override
     public void keyReleased(KeyEvent e) {
         //5.엔터키 입력 시 - 값이 입력되어 있는 경우
-        if(e.getKeyCode() == 10) {
+        if(e.getKeyCode() == 10 && !chatTxt.getText().trim().isEmpty())  {
             System.out.println("입력 값 : " + chatTxt.getText());
             //5.1 입력값을 서버로 전송하고
+            pw.println(chatTxt.getText());
             chatTxt.setText("");	//입력값 지우기
             chatTxt.requestFocus();	//입력 필드 포커스 맞추기
         }
