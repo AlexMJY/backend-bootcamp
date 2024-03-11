@@ -25,9 +25,9 @@ public class DBConn {
 
             try {
                 Class.forName(driver);
-                System.out.println("driver ok");
+//                System.out.println("driver ok");
                 con = DriverManager.getConnection(url, username, password);
-                System.out.println("connection ok");
+//                System.out.println("connection ok");
             } catch (SQLException | ClassNotFoundException e) {
                 e.printStackTrace();
             }
@@ -38,7 +38,7 @@ public class DBConn {
     public static void close() {
         try {
             if (con != null) con.close();
-            System.out.println("con closed!");
+//            System.out.println("con closed!");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -49,7 +49,7 @@ public class DBConn {
     public static void close(PreparedStatement pstmt) {
         try {
             if (pstmt != null)  pstmt.close();
-            System.out.println("con closed!");
+//            System.out.println("con closed!");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -60,7 +60,7 @@ public class DBConn {
     public static void close(Statement stmt) {
         try {
             if (stmt != null)  stmt.close();
-            System.out.println("con closed!");
+//            System.out.println("con closed!");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -71,7 +71,7 @@ public class DBConn {
     public static void close(PreparedStatement pstmt, ResultSet rs) {
         try {
             if (rs != null) rs.close();
-            System.out.println("rs closed");
+//            System.out.println("rs closed");
             close(pstmt);
         } catch (SQLException e) {
             e.printStackTrace();

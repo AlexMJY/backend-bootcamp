@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 import memberz.common.DBConn;
 import memberz.vo.MemberVO;
@@ -24,9 +25,8 @@ public class MemberDAO {
             pstmt.setString(1, pw);
             pstmt.setString(2, id);
 
-            result =  pstmt.executeUpdate() == 1;
+            result = pstmt.executeUpdate() == 1;
             DBConn.close(pstmt);
-
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -34,10 +34,11 @@ public class MemberDAO {
     }
 
     public MemberVO selectMember(String id){		//회원 정보 하나 보기
-        query = "SELECT * FROM t_member WHERE id = " + id;
+        query = "SELECT * FROM t_member WHERE id = ?";
         MemberVO mvo = null;
         try {
             pstmt = DBConn.getConnection().prepareStatement(query);
+            pstmt.setString(1, id);
             rs = pstmt.executeQuery();
 
             if (rs.next()) {
@@ -50,10 +51,31 @@ public class MemberDAO {
                 mvo.setGender(rs.getString("gender"));
                 mvo.setJoinDate(rs.getDate("joindate"));
             }
-            DBConn.close();
-
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            DBConn.close(pstmt, rs);
+        }
+        return mvo;
+    }
+
+    public MemberVO selectMember2(String name){		//회원 정보 하나 보기
+        query = "SELECT pw, id FROM t_member WHERE name = ?";
+        MemberVO mvo = null;
+        try {
+            pstmt = DBConn.getConnection().prepareStatement(query);
+            pstmt.setString(1, name);
+            rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                mvo = new MemberVO();
+                mvo.setId(rs.getString("id"));
+
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            DBConn.close(pstmt, rs);
         }
         return mvo;
     }
@@ -67,8 +89,8 @@ public class MemberDAO {
             rs = pstmt.executeQuery();
 
             while (rs.next()) {  // 결과값이 있으면 ExerciseVO에서 가져옴
+//                MemberVO mvo = new MemberVO();
                 MemberVO mvo = new MemberVO();
-                mvo = new MemberVO();
                 mvo.setId(rs.getString("id"));
                 mvo.setPw(rs.getString("pw"));
                 mvo.setName(rs.getString("name"));
@@ -112,25 +134,23 @@ public class MemberDAO {
     }
 
     public boolean loginChk(String id, String pw) {	//로그인 체크
-        query = "SELECT pw FROM t_member WHERE id = " + id;
+//        query = "SELECT pw FROM t_member WHERE id = " + id;
+        query = "SELECT * FROM t_member WHERE id = ? AND pw = ?";
+
         MemberVO mvo = null;
         try {
             pstmt = memberz.common.DBConn.getConnection().prepareStatement(query);
-            rs = pstmt.executeQuery(query);
-            if (rs.next()) {
-                mvo = new MemberVO();
-                mvo.setPw(rs.getString("pw"));
-            }
-            memberz.common.DBConn.close(pstmt, rs);
-
+            pstmt.setString(1, id);
+            pstmt.setString(2, pw);
+            rs = pstmt.executeQuery();
+            if (rs.next())
+                return true;
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            memberz.common.DBConn.close(pstmt, rs);
         }
-        if (mvo.getPw() == pw) {
-            return true;
-        } else {
-            return false;
-        }
+        return false;
     }
 
     public boolean updateMember(MemberVO mvo) { 	//회원정보 수정
@@ -138,14 +158,56 @@ public class MemberDAO {
     }
 
     public boolean deleteMember(String id) { 		//회원정보 삭제
-        return false;
+        query = "DELETE * FROM t_emp WHERE id = ?";
+        try {
+            pstmt = memberz.common.DBConn.getConnection().prepareStatement(query);
+            pstmt.setString(1, id);
+//            rs = pstmt.executeQuery();
+            result = pstmt.executeUpdate() == 1;
+            DBConn.close(pstmt, rs);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return result;
     }
 
     public boolean selectId(String name, String email) { //ID 찾기
+        query = "SELECT * FROM t_member WHERE name = ? AND email = ?";
+
+        MemberVO mvo = null;
+        try {
+            pstmt = memberz.common.DBConn.getConnection().prepareStatement(query);
+            pstmt.setString(1, name);
+            pstmt.setString(2, email);
+
+            rs = pstmt.executeQuery();
+            if (rs.next())
+                return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            memberz.common.DBConn.close(pstmt, rs);
+        }
         return false;
     }
 
-    public boolean selectPw(String name, String email) { //PW 찾기
+    public boolean selectPw(String id, String email) { //PW 찾기
+        query = "SELECT * FROM t_member WHERE id = ? AND email = ?";
+
+        MemberVO mvo = null;
+        try {
+            pstmt = memberz.common.DBConn.getConnection().prepareStatement(query);
+            pstmt.setString(1, id);
+            pstmt.setString(2, email);
+
+            rs = pstmt.executeQuery();
+            if (rs.next())
+                return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            memberz.common.DBConn.close(pstmt, rs);
+        }
         return false;
     }
 
