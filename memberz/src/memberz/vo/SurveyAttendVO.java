@@ -8,7 +8,7 @@ public class SurveyAttendVO {
     private int sno;
     private String id;
     private int num;
-    private Date attendDate;
+    private String attendDate;
 
     public void setAno(int ano) {
         this.ano = ano;
@@ -26,7 +26,7 @@ public class SurveyAttendVO {
         this.num = num;
     }
 
-    public void setAttendDate(Date attendDate) {
+    public void setAttendDate(String attendDate) {
         this.attendDate = attendDate;
     }
 
@@ -46,7 +46,7 @@ public class SurveyAttendVO {
         return num;
     }
 
-    public Date getAttendDate() {
+    public String getAttendDate() {
         return attendDate;
     }
 }

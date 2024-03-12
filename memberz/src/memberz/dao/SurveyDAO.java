@@ -1,8 +1,10 @@
 package memberz.dao;
 
 import memberz.common.DBConn;
+import memberz.vo.SurveyAttendVO;
 import memberz.vo.SurveyVO;
 
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -18,7 +20,7 @@ public class SurveyDAO {
 
     // 설문 목록 가져오기
     public List<SurveyVO> selectSurvey() {
-        query = "SELECT * FROM t_survey";
+        query = "SELECT * FROM t_survey WHERE endDate > SYSDATE AND startDate <= SYSDATE";
         List<SurveyVO> surveyArr = new ArrayList<>();
 
         try {
@@ -31,8 +33,8 @@ public class SurveyDAO {
                 svo.setTitle(rs.getString("title"));
                 svo.setNum1(rs.getString("num1"));
                 svo.setNum2(rs.getString("num2"));
-                svo.setStartDate(rs.getDate("startDate"));
-                svo.setEndDate(rs.getInt("endDate"));
+                svo.setStartDate(rs.getString("startDate"));
+                svo.setEndDate(rs.getString("endDate"));
                 svo.setNum1Cnt(rs.getInt("num1Cnt"));
                 svo.setNum2Cnt(rs.getInt("num2Cnt"));
                 surveyArr.add(svo);
@@ -58,8 +60,8 @@ public class SurveyDAO {
                 svo.setTitle(rs.getString("title"));
                 svo.setNum1(rs.getString("num1"));
                 svo.setNum2(rs.getString("num2"));
-                svo.setStartDate(rs.getDate("startDate"));
-                svo.setEndDate(rs.getInt("endDate"));
+                svo.setStartDate(rs.getString("startDate"));
+                svo.setEndDate(rs.getString("endDate"));
                 svo.setNum1Cnt(rs.getInt("num1Cnt"));
                 svo.setNum2Cnt(rs.getInt("num2Cnt"));
             }
@@ -73,16 +75,17 @@ public class SurveyDAO {
 
     // 설문 만들기
     public boolean insertSurvey(SurveyVO svo) {
-        query = "INSERT INTO t_survey VALUES (?, ?, ?, ?, SYSDATE, ?, ?, ?)";
+        query = "INSERT INTO t_survey VALUES (?, ?, ?, ?, TO_DATE(?, 'yy-MM-dd'), TO_DATE(?, 'yy-MM-dd'), ?, ?)";
         try {
             pstmt = DBConn.getConnection().prepareStatement(query);
             pstmt.setInt(1, svo.getSno());
             pstmt.setString(2, svo.getTitle());
             pstmt.setString(3, svo.getNum1());
             pstmt.setString(4, svo.getNum2());
-            pstmt.setInt(5, svo.getEndDate());
-            pstmt.setInt(6, svo.getNum1Cnt());
-            pstmt.setInt(7, svo.getNum2Cnt());
+            pstmt.setString(5, svo.getStartDate());
+            pstmt.setString(6, svo.getEndDate());
+            pstmt.setInt(7, svo.getNum1Cnt());
+            pstmt.setInt(8, svo.getNum2Cnt());
 
             result = pstmt.executeUpdate() == 1;
             DBConn.close(pstmt);
@@ -92,5 +95,46 @@ public class SurveyDAO {
         return result;
     }
 
+    public boolean doSurveyDAO(SurveyAttendVO savo) {
+        query = "INSERT INTO t_survey_attend VALUES (?, ?, ?, ?, SYSDATE)";
+        try {
+            pstmt = DBConn.getConnection().prepareStatement(query);
+            pstmt.setInt(1, savo.getAno());
+            pstmt.setInt(2, savo.getSno());
+            pstmt.setString(3, savo.getId());
+            pstmt.setInt(4, savo.getNum());
+//            pstmt.setString(5, savo.getAttendDate());
 
+
+            result = pstmt.executeUpdate() == 1;
+
+            DBConn.close(pstmt);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    public boolean updateNumCnt(SurveyAttendVO savo, int getNum) {
+        String property = "";
+        if (getNum == 1) {
+            property = "num1cnt";
+        } else if (getNum == 2) {
+            property = "num2cnt";
+        }
+        query = "UPDATE t_survey SET " + property + " = " + property + " + 1 WHERE sno = ?";
+//        query = "UPDATE t_survey SET ? = ? WHERE sno = ?";
+        try {
+            pstmt = DBConn.getConnection().prepareStatement(query);
+            pstmt.setInt(1, savo.getSno());
+
+            result = pstmt.executeUpdate() == 1;
+
+            DBConn.close(pstmt);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
 }

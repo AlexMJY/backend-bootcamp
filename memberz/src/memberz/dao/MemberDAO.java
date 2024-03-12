@@ -134,7 +134,6 @@ public class MemberDAO {
     }
 
     public boolean loginChk(String id, String pw) {	//로그인 체크
-//        query = "SELECT pw FROM t_member WHERE id = " + id;
         query = "SELECT * FROM t_member WHERE id = ? AND pw = ?";
 
         MemberVO mvo = null;
@@ -153,7 +152,8 @@ public class MemberDAO {
         return false;
     }
 
-    public boolean updateMember(MemberVO mvo) { 	//회원정보 수정
+    public boolean updateMember(String currentId, MemberVO updateInfo) {
+
         return false;
     }
 

@@ -10,7 +10,7 @@ public class MemberMain {
     public static Scanner sc;
     private MemberVO mvo;
     private MemberDAO mdao;
-    private static String loginId;	//로그인 아이디 저장
+    public static String loginId;	//로그인 아이디 저장
     private SurveyMain sm;
 
 
@@ -105,16 +105,15 @@ public class MemberMain {
         while(true) {
             System.out.println();
             System.out.println(">> MEMBER only SYSTEM 관리자 모드 -----");
-            System.out.println("\t\t1.회원목록\t\t2.회원정보조회\t\t3.설문관리\t\t4.로그아웃\t\t5.메인 메뉴");
+            System.out.println("\t\t1.회원목록\t\t2.회원정보조회\t\t3.설문관리\t\t4.로그아웃");
             System.out.print(">> 선택 : ");
             String input = sc.nextLine();
             switch (input) {
                 case "1":	memberList();	break;
                 case "2":   memberSearch(); break;
-                case "4":	logout();		break;
                 case "3":   sm.adminSurveyMenu(); break;
-                case "5":	return;
-                default:System.out.println(">> 1 ~ 4를 입력해주세요.");
+                case "4":	logout();		break;
+                default:System.out.println(">> 1 ~ 5를 입력해주세요.");
             }
         }
     }
@@ -238,7 +237,8 @@ public class MemberMain {
 
     }
 
-    private void updMember() {
+    public void updMember() {
+        System.out.println("hi");
 
     }
 

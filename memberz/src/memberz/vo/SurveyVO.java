@@ -7,10 +7,10 @@ public class SurveyVO {
     private String title;
     private String num1;
     private String num2;
-    private Date startDate;
-    private int endDate;
-    private int num1Cnt;
-    private int num2Cnt;
+    private String startDate;
+    private String endDate;
+    public int num1Cnt;
+    public int num2Cnt;
 
     public void setSno(int sno) {
         this.sno = sno;
@@ -28,12 +28,19 @@ public class SurveyVO {
         this.num2 = num2;
     }
 
-    public void setStartDate(Date startDate) {
+    public void setStartDate(String startDate) {
         this.startDate = startDate;
     }
 
-    public void setEndDate(int endDate) {
+    public void setEndDate(String endDate) {
+//        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+//        try {
+//            this.endDate = format.parse(endDate);
+//        } catch (ParseException e) {
+//            e.printStackTrace();
+//        }
         this.endDate = endDate;
+
     }
 
     public void setNum1Cnt(int num1Cnt) {
@@ -61,11 +68,11 @@ public class SurveyVO {
         return num2;
     }
 
-    public Date getStartDate() {
+    public String getStartDate() {
         return startDate;
     }
 
-    public int getEndDate() {
+    public String getEndDate() {
         return endDate;
     }
 
