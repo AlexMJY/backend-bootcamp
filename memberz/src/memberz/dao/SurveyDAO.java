@@ -115,6 +115,9 @@ public class SurveyDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        if (result) {
+            updateNumCnt(savo, savo.getNum());
+        }
         return result;
     }
 

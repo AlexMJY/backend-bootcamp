@@ -178,7 +178,7 @@ public class SurveyMain {
 
         boolean result = sdao.doSurveyDAO(savo);
         if (result) {
-            sdao.updateNumCnt(savo, savo.getNum());
+            // 여기서 updateNumCnt를 부르는게 아니라 doSurveyDAO에서 바로 불러서 실행
             System.out.println(">> 설문작성을 완료했습니다.");
             new MemberMain().memberMenu();
         } else {
