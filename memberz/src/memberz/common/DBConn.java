@@ -28,6 +28,12 @@ public class DBConn {
 //                System.out.println("driver ok");
                 con = DriverManager.getConnection(url, username, password);
 //                System.out.println("connection ok");
+
+
+//                con.setAutoCommit(false); // 자동 커밋 X
+//                con.commit();             // DB에 반영하기
+//                con.rollback();           // DB에 "  " 되돌리기
+//                con.setAutoCommit(true);
             } catch (SQLException | ClassNotFoundException e) {
                 e.printStackTrace();
             }

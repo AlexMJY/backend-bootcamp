@@ -96,6 +96,9 @@ public class SurveyDAO {
     }
 
     public boolean doSurveyDAO(SurveyAttendVO savo) {
+        // 설문 참여 - 트랜잭션 처리
+        // 설문 참여 테이블에 데이터 추가에 성공한 경우
+        // 설문 테이블에 해당 항목의 응답자 수를 1 증가 처리
         query = "INSERT INTO t_survey_attend VALUES (?, ?, ?, ?, SYSDATE)";
         try {
             pstmt = DBConn.getConnection().prepareStatement(query);

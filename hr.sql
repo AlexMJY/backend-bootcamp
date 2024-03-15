@@ -1,0 +1,8 @@
+SELECT * FROM countries;
+
+-- 아래의 네 개를 모두 조인
+-- DEPARTMENTS - DEPARTMENT_NAME
+-- EMPOLYEES - FIRST_NAME
+-- JOBS - JOB_TITLE
+-- LOCATIONS - CITY
+

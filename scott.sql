@@ -943,6 +943,222 @@ FROM EMP
 WHERE DEPTNO = 30;
 
 
+-- 누적 합계 구하기
+-- SUM
+SELECT 
+DEPTNO, HIREDATE "매출일",
+SAL "당일 판매량",
+SUM(SAL) OVER(PARTITION BY DEPTNO 
+                             ORDER BY HIREDATE, SAL) "누적 판매량"
+FROM EMP
+ORDER BY 1;
 
+-------------------------------------------------
+-- JOIN
+-- 여러 테이블에 흩어져 있는 데이터들을 조합해서 가져옴
+-- 집합 연산자 : 세로 연결
+-- 조인            : 가로 연결
+
+
+-- 오라클 조인
+-- SELECT  테이블이름.컬럼명 
+-- FROM     테이블1이름, 테이블2이름 
+-- WHERE   테이블1이름.컬럼명 = 테이블2이름.컬럼명  -- << 조인조건
+-- AND        -- << 검색 조건
+
+
+-- ANSI 조인
+-- SELECT  테이블이름.컬럼명 
+-- FROM     테이블1이름 [INDER | OUTER] JOIN  테이블2이름 
+-- ON          테이블1이름.컬럼명 = 테이블2이름.컬럼명  -- << 조인조건
+-- WHERE   -- << 검색 조건
+
+
+-- INNER JOIN -  Cartesian Product / CROSS JOIN / 카티션 곱
+-- - 조인 조건을 누락했을 경우
+-- - 해당 조인에 참여하는 모든 대상 행을 출력
+-- - 조인 결과 : 컬럼의 수 = 테이블1 + 테이블2
+--                      행의 수 = 테이블 * 테이블2
+
+SELECT * FROM EMP, DEPT;  -- ORACLE JOIN
+SELECT * FROM EMP CROSS JOIN DEPT; -- ANSI JOIN
+
+--  ERROR column ambiguously defined
+-- DEPTNO가 중복돼서 에러
+SELECT DEPTNO, DNAME FROM EMP, DEPT;  -- ORACLE JOIN
+SELECT * FROM EMP CROSS JOIN DEPT; -- ANSI JOIN
+
+SELECT EMP.DEPTNO, DNAME FROM EMP, DEPT;
+SELECT E.DEPTNO, DNAME FROM EMP E CROSS JOIN DEPT D;
+
+-- INNER JOIN - EQUI JOIN 동등 조인
+-- 선행 테이블에서 데이터를 가져온 후
+-- 조인 조건을 검사하여
+-- 같은 값을 가진 데이터를 후행 테이블에서 꺼내 옴
+
+-- deptno, dname, ename을 조회
+SELECT dept.deptno, dname, ename
+FROM emp, dept
+WHERE dept.deptno = emp.deptno
+AND dept.deptno = 10;
+
+SELECT d.deptno, dname, ename
+FROM emp e JOIN dept d
+ON e.deptno = d.deptno
+WHERE e.deptno = 10;
 
 SELECT * FROM EMP;
+
+
+
+----------------------------------------------------------------------
+----------HR----------------------------------------------------------
+
+-- 사원의 부서이름, 사원이름, 직함  (hr)
+SELECT d.department_id,   -- Oracle  
+       department_name,
+       first_name,
+       job_title
+FROM departments d, employees e, jobs j
+WHERE d.department_id = e.department_id 
+AND e.job_id = j.job_id;
+
+
+SELECT d.department_id,  -- ANSI
+       department_name,
+       first_name,
+       job_title
+FROM departments d JOIN employees e
+ON d.department_id = e.department_id 
+JOIN jobs j
+ON j.job_id = e.job_id;
+
+
+
+-- INNDER JOIN - NON EQUIT JOIN 비동등 조인 (scott)
+-- - '='이 아닌 조건을 사용
+-- - 정확히 일치하지 않는 값으로 조인
+
+-- 모든 sal의 grade를 조회
+SELECT ename, sal, grade, losal, hisal -- ORACLE
+FROM emp, salgrade
+WHERE sal BETWEEN losal AND hisal;
+-- 위와 아래는 같다 (겹치는 게 없으니 굳이 별칭을 쓰지 않아도 된다.)
+SELECT e.ename, e.sal, s.grade, s.losal, s.hisal
+FROM emp e, salgrade s
+WHERE e.sal BETWEEN s.losal AND s.hisal;
+
+SELECT ename, sal, grade, losal, hisal -- ANSI
+FROM emp JOIN salgrade
+ON sal BETWEEN losal AND hisal;
+
+-- 각 grade의 사원 수를 조회하여 grade, 소계로 표시
+SELECT grade || '호봉' AS 호봉, LPAD(COUNT(grade), 2, 0) AS 소계
+FROM emp, salgrade
+WHERE sal BETWEEN losal AND hisal
+GROUP BY grade
+ORDER BY 1;
+
+SELECT grade || '호봉' , LPAD(COUNT(grade), 2, 0)
+FROM emp JOIN salgrade
+ON sal BETWEEN losal AND hisal
+GROUP BY grade
+ORDER BY 1;
+
+-- 각 grade의 사원 수를 조회하여 grade, 소계로 표시
+-- 단, 소계가 3명 이상인 데이터만 대상으로 하여 처리
+SELECT grade || '호봉' AS 호봉, LPAD(COUNT(grade), 2, 0) AS 소계
+FROM emp, salgrade
+WHERE sal BETWEEN losal AND hisal
+HAVING COUNT(grade) >= 3  -- GROUP함수로 정한 변수는 WHERE 대신 HAVING 사용
+GROUP BY grade
+ORDER BY 1;
+
+
+-- INNSER JOIN - SELF JOIN
+--  원하는 데이터가 한 테이블에 모두 들어있는 경우
+--  같은 테이블을 마치 두 개의 테이블인 것처럼 사용하여 조인
+
+
+-- 모든 사원의 ename, ename, mgr, 매니저의 이름을 조회하여 표시
+SELECT e.empno, e.ename, e.mgr, m.ename AS 매니저이름
+FROM emp e, emp m
+WHERE e.mgr = m.empno
+ORDER BY 2;
+
+
+
+-- OUTER JOIN
+-- - INNER JOIN 조건을 만족하지 않는 경우에도 모든 행을 출력
+-- - 한 쪽 테이블에는 데이터가 있고 다른 테이블에는 없는 경우
+--   데이터가 있는 쪽의 내용을 우선하여 출력
+-- - OUTER 키워드 생략 시 INNER 조인 수행
+--   LEFT [OUTER] JOIN  왼쪽 기준으로 출력
+--   RIGHT [OUTER] JOIN 오른쪽 기준으로 출력
+-- - 오라클의 경우 자료가 부족한 쪽에 (+) 표시
+--   FULL [OUTER] JOIN 양쪽 모두 (ANSI가 지원)
+--   ORACLE은 지원하지 않음, 대신 UNION 사용
+--   풀스캔으로 성능에 악영향
+
+
+
+SELECT e.empno, e.ename, e.mgr, m.ename AS 매니저이름 -- ANSI
+FROM emp e JOIN emp m
+ON e.mgr = m.empno
+ORDER BY 2;
+
+SELECT e.empno, e.ename, e.mgr, m.ename AS 매니저이름 -- ANSI
+FROM emp e LEFT OUTER JOIN emp m
+ON e.mgr = m.empno
+ORDER BY 2;
+
+SELECT e.empno, e.ename, e.mgr, m.ename AS 매니저이름 -- ORACLE
+FROM emp e, emp m
+WHERE e.mgr = m.empno (+)  -- 부족한 쪽에 (+)
+ORDER BY 2;
+
+
+-- 모든 사원의 deptno, dname, ename을 조회
+-- 단, 사원이 없는 부서도 포함
+SELECT d.deptno, d.dname, e.ename
+FROM dept d, emp e
+WHERE d.deptno = e.deptno (+)
+ORDER BY 1;
+
+SELECT d.deptno, d.dname, e.ename
+FROM emp e RIGHT OUTER JOIN dept d
+ON d.deptno = e.deptno
+ORDER BY 1;
+
+-- 모든 사원의 deptno, dname, empno, ename 조회
+-- 단, 관리자 없는 사원 및 사원이 없는 부서도 포함
+SELECT d.deptno, d.dname, empno, ename
+FROM emp e FULL OUTER JOIN dept d
+ON d.deptno = e.deptno
+ORDER BY 1;
+
+-- 각 부서별로 sal 합을 계산하여 내림차순 정렬
+-- deptno, dname, 급여합계(세 자리마다 , 표시)
+SELECT  LPAD(NVL(e.deptno, 0), 2, 0) DEPTNO, 
+        NVL(d.dname, 'NONE') DNAME, 
+        NVL(TO_CHAR(SUM(e.sal), '999,999'), 0) 급여합계
+FROM emp e, dept d
+WHERE e.deptno = d.deptno (+)
+GROUP BY e.deptno, d.dname
+ORDER BY 1 DESC;
+
+SELECT LPAD(NVL(e.deptno, 0), 2, 0) DEPTNO, d.dname, NVL(TO_CHAR(SUM(e.sal), '999,999'), 0) 급여합계
+FROM emp e LEFT OUTER JOIN dept d
+ON e.deptno = d.deptno (+)
+GROUP BY e.deptno, d.dname
+ORDER BY 1 DESC;
+
+
+
+
+
+
+
+
+
+SELECT * FROM emp;
