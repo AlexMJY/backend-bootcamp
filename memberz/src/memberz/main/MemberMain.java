@@ -29,6 +29,7 @@ public class MemberMain {
             System.out.println("\t\t1.회원가입\t\t2.로그인\t\t3.ID찾기\t\t4.PW찾기\t\t5.시스템 종료");
             System.out.print(">> 선택 : ");
             String input = sc.nextLine();
+           
 
             switch (input) {
                 case "1":	join();		break;
@@ -257,6 +258,5 @@ public class MemberMain {
     public static void main(String[] args) {
         new MemberMain().menu();
     }
-
 }
 

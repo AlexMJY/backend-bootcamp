@@ -1139,7 +1139,8 @@ ORDER BY 1;
 
 -- 각 부서별로 sal 합을 계산하여 내림차순 정렬
 -- deptno, dname, 급여합계(세 자리마다 , 표시)
-SELECT  LPAD(NVL(e.deptno, 0), 2, 0) DEPTNO, 
+SELECT  -- LPAD(NVL(e.deptno, 0), 2, 0) DEPTNO, 
+        TO_CHAR(NVL(e.deptno, 0), '00') DEPTNO, 
         NVL(d.dname, 'NONE') DNAME, 
         NVL(TO_CHAR(SUM(e.sal), '999,999'), 0) 급여합계
 FROM emp e, dept d
@@ -1154,11 +1155,570 @@ GROUP BY e.deptno, d.dname
 ORDER BY 1 DESC;
 
 
+-------------------------------------------------------------
+--  DDL ; Data Definition Language
+-- - CREATE, ALTER, TRUNCATE, DROP
+-- - 실행 시 자동 COMMIT 되어 ROLLBACK 불가능
+-- 명명 규칙
+-- - 테이블과 컬럼명은 반드시 문자로 시작
+-- - 영문자, 숫자, _, &, # 만 가능
+-- - 최대 30BYTE까지 허용
+-- - 오라클 예약어는 사용 불가
+
+-- 테이블 생성
+-- CREATE TABLE [스키마.]테이블명 (
+--      컬럼명1 데이터타입 [DEFAULT 형식] [컬럼 레벨 제약 조건],
+--      ...
+--  [테이블 레벨 제약 조건]
+-- );
+
+-- 게시판 테이블
+-- 기본 값을 지정하여 테이블 생성
+CREATE TABLE t_board (
+    no  NUMBER(10) DEFAULT 0,
+    title VARCHAR2(100),
+    content VARCHAR2(4000),
+    writer VARCHAR2(50) DEFAULT 'guest',
+    regdate DATE    DEFAULT SYSDATE
+);
+
+
+-- t_board 테이블에 title은 test, content는 test content로 레코드 추가
+INSERT INTO t_board(title, content) VALUES ('test', 'test_content');
+
+SELECT * FROM t_board;
+
+
+-- ALTER
+-- - 기존 객체 변경
+-- - 테이블의 구조 변경
+--      컬럼 추가, 삭제
+--      컬럼명, 데이터 타입, 길이 변경
+
+-- 컬럼 추가
+ALTER TABLE t_emp
+ADD work VARCHAR2(20);
+
+-- 컬럼명 변경
+ALTER TABLE t_emp
+RENAME COLUMN work TO job;
+
+-- 테이블 이름 변경
+RENAME t_board TO board;
+
+-- 컬럼 길이 변경
+ALTER TABLE t_emp
+MODIFY job VARCHAR2(10);
+
+-- 컬럼 타입 변경
+ALTER TABLE t_emp
+MODIFY job NUMBER;
+
+-- 컬럼 삭제
+ALTER TABLE t_emp
+DROP COLUMN job;
+
+DESC t_emp;
+
+-- 테이블 삭제
+DROP TABLE board;  -- 휴지통으로 보내기 (복원 가능)
+
+DROP TABLE board PURGE;  -- 휴지통으로 안보내고 완전 삭제 (복원 불가)
+
+-- 삭제된 테이블 복원
+FLASHBACK TABLE board TO BEFORE DROP;
+
+
+-- emp 테이블을 복사하여 t_temp 테이블 생성
+-- (데이터와 구조 모두)
+CREATE TABLE t_temp AS SELECT * FROM emp;
+
+DELETE FROM t_temp;
+
+ROLLBACK;       -- 되돌리기 x -> 백업 파일로 복구
+
+TRUNCATE TABLE t_temp; -- 데이터, 인덱스 삭제
+
+SELECT * FROM t_temp;
+
+
+RENAME t_temp TO t_readonly;
+
+-- 읽기 전용 테이블로 변경
+ALTER TABLE t_readonly READ ONLY;
+
+-- 읽기, 쓰기 가능 테이블로 변경
+ALTER TABLE t_readonly READ WRITE;
+
+INSERT INTO t_readonly (empno, ename, sal) VALUES(1, 'Lee', 100);
 
 
 
+-- 가상 컬럼 테이블
+CREATE TABLE t_virtual (
+    item1 NUMBER,
+    item2 NUMBER,
+    total NUMBER GENERATED ALWAYS AS (item1 + item2)
+);
+
+INSERT INTO t_virtual (item1, item2) VALUES(100, 200);
+SELECT * FROM t_virtual;
+
+UPDATE t_virtual SET item2 = 2;
 
 
 
+-- DATA DICTIONARY
+SELECT * FROM DICTIONARY;
+SELECT * FROM DICT;
 
+SELECT * FROM ALL_TABLES;
+
+DESC USER_TABLES;
+SELECT * FROM USER_TABLES;
+SELECT * TABLE_NAME FROM USER_TABLES;
+
+SELECT * FROM USER_OBJECTS;
+
+----------------------SYS--------------------------------
+DESC DBA_TABLES;
+SELECT * FROM DBA_TABLES;
+SELECT OWNER, TABLE_NAME FROM DBA_TABLES;
+SELECT OWNER, TABLE_NAME, PCT_FREE, CLUSTER_NAME FROM DBA_TABLES;
+
+SELECT * FROM DBA_USERS
+WHERE USERNAME = 'SCOTT';
+
+SELECT * FROM V$VERSION;
+---------------------------------------------------------
+-------------SCOTT---------------------------------------
+
+SELECT * FROM t_emp;
 SELECT * FROM emp;
+
+-- 서브쿼리를 이용하여 여러 행 입력
+INSERT INTO t_emp
+    SELECT  empno, ename, deptno, sal, hiredate 
+    FROM    emp
+    WHERE   deptno = 10;
+
+INSERT ALL
+    INTO t_emp(deptno) VALUES(50)
+    INTO t_pivot(deptno) VALUES(50)
+    SELECT * FROM dual;
+    
+-- emp 테이블의 데이터 중에서
+-- comm이 null이 아닌 데이터의 ename, job, sal, comm은 bonus테이블로
+-- comm이 null인 데이터의 ename, deptno, sal은 t_emp테이블에 입력
+INSERT ALL
+    WHEN comm IS NOT NULL THEN
+        INTO bonus VALUES(ename, job, sal, comm)
+    WHEN comm IS NULL AND deptno = 20 THEN
+        INTO t_emp (ename, deptno, sal) 
+        VALUES (ename, deptno, sal)
+    SELECT  ename, deptno, job, sal, comm
+    FROM    emp;
+
+
+-- 서브 쿼리를 이용하여 여러 컬럼을 한 번에 수정
+UPDATE t_emp
+SET     empno = 1112,
+        (deptno, sal) = (SELECT deptno, sal FROM t_emp WHERE ename='Kim')
+WHERE ename = 'FORD';
+
+UPDATE t_emp
+SET sal = sal * 1.1
+WHERE deptno = (SELECT deptno FROM t_emp WHERE ename = 'Lee');
+
+-- 부서의 위치가 DALLAS인 사원의 급여를 두 배 인상 업데이트
+-- sal이 없는 경우 1000으로 지정하여 처리
+UPDATE t_emp
+SET sal = NVL(sal, 1000) * 2
+WHERE deptno = (SELECT deptno FROM dept WHERE loc = 'DALLAS');
+
+-- dept = 20
+-- sal = between 3
+-- ename을 꺼내서 레코드 지우기
+DELETE t_emp 
+WHERE ename IN (SELECT ename 
+                FROM t_emp, salgrade 
+                WHERE sal BETWEEN losal AND hisal 
+                AND grade = 3 
+                AND deptno = 20);
+
+
+
+---------------------------------------------------
+-- MERGE
+-- 테이블 병합
+
+-- salgrade 테이블의 구조를 복사하여 t_merge 테이블 생성
+CREATE TABLE t_merge AS SELECT * FROM salgrade WHERE 1=2;
+
+-- salgrade 테이블의 grade가 3이하인 데이터들만 복사하여 salgrade2 테이블 생성
+CREATE TABLE salgrade2 AS SELECT * FROM salgrade WHERE grade <= 3;
+
+MERGE INTO t_merge tm 
+      USING  salgrade sg
+ON (tm.grade = sg.grade)
+WHEN MATCHED THEN
+    UPDATE SET  tm.losal = sg.losal,
+                tm.hisal = sg.hisal
+WHEN NOT MATCHED THEN
+    INSERT VALUES(sg.grade, sg.losal, sg.hisal);
+    
+    
+MERGE INTO t_merge tm 
+      USING  salgrade2 sg
+ON (tm.grade = sg.grade)
+WHEN MATCHED THEN
+    UPDATE SET  tm.losal = sg.losal,
+                tm.hisal = sg.hisal
+WHEN NOT MATCHED THEN
+    INSERT VALUES(sg.grade, sg.losal, sg.hisal);
+    
+SELECT * FROM t_merge;
+SELECT * FROM emp;
+SELECT * FROM t_emp;
+SELECT * FROM t_pivot;
+SELECT * FROM bonus;
+
+----------------------------------------------------------
+-- CONSTRAINTS 제약 조건
+-- PRIMARY KEY : Null x, 중복 값 x >> NOT NULL + QUNIQUE
+-- FOREIGN KEY : 다른 테이블의 PRIMARY KEY 또는 UNIQUE로 설정된 칼럼을 참조
+--               PARENT TABLE - 정보 제공 테이블 / CHILD TABLE - 정보를 제공받는 테이블
+-- UNIQUE : 중복 값 X
+-- CHECK : 저장 가능한 데이터 값의 범위나 조건을 지정하여 설정된 값만 허용
+-- NOT NULL : NULL 입력 X. 컬럼 레벨로만 정의 가능
+
+
+
+
+SELECT * FROM USER_CONSTRAINTS;
+SELECT * FROM USER_CONS_COLUMNS;
+
+
+-- 테이블 생성 시 제약 조건 지정 - 제약 조건 이름 생략
+CREATE TABLE member (
+    userid      VARCHAR2(20)    PRIMARY KEY, 
+    empno       NUMBER          REFERENCES emp(empno),
+    usernm      VARCHAR2(20)    NOT NULL,
+    userpw      VARCHAR2(20)    NOT NULL,
+    email       VARCHAR2(50)    UNIQUE,
+    gender      CHAR(1),        CHECK(gender IN ('M', 'F')),
+    regdate     DATE            DEFAULT SYSDATE
+);
+    
+-- 부모 테이블에 테스트 데이터 추가
+INSERT INTO emp(empno, ename) VALUES (1000, 'Woo');
+INSERT INTO emp(empno, ename) VALUES (2000, 'Goo');
+INSERT INTO emp(empno, ename) VALUES (3000, 'Hoo');
+
+-- member 테이블에 userid가 abc인 레코드 추가
+INSERT INTO member(userid) VALUES ('abc');  -- X (NOT NULL 인 로우값 안넣어줌)
+INSERT INTO member(userid, usernm, userpw) VALUES ('abc', 'Woo', '1111'); -- O
+INSERT INTO member(userid, usernm, userpw) VALUES ('abc', 'Woo', '1111'); -- O (UNIQUE 제약조건 위배)
+INSERT INTO member(userid, usernm, userpw, empno) VALUES ('aaa', 'Goo', '1111', 2222); -- X (emp에 2222가 없음)
+INSERT INTO member(userid, usernm, userpw, empno) VALUES ('aaa', 'Goo', '1111', 2000); -- O
+
+DELETE FROM emp WHERE empno = 2000; -- X (CHILDE 레코드가 있어서 삭제 불가능)
+DELETE FROM member WHERE userid = 'aaa';
+DELETE FROM emp WHERE empno = 2000; -- O
+
+INSERT INTO member(userid, usernm, userpw, gender) VALUES('aaa', 'Goo', '1111', 'Male'); -- X
+INSERT INTO member(userid, usernm, userpw, gender) VALUES('aaa', 'Goo', '1111', 'X'); -- X
+INSERT INTO member(userid, usernm, userpw, gender) VALUES('aaa', 'Goo', '1111', 'F'); -- O
+
+INSERT INTO member(userid, usernm, userpw, email) VALUES('bbb', 'Goo', '1111', 'g@g.com'); -- O
+INSERT INTO member(userid, usernm, userpw, email) VALUES('ccc', 'Goo', '1111', 'g@g.com'); -- O
+
+DROP TABLE member;
+
+
+-- 테이블 생성 시 제약 조건 지정 - 제약 조건 이름 명시
+CREATE TABLE member (
+    userid      VARCHAR2(20)    CONSTRAINT member_pk  PRIMARY KEY, 
+    empno       NUMBER          CONSTRAINT member_fk  REFERENCES emp(empno)   ON DELETE CASCADE, -- 부모 레코드와 함께 삭제
+    usernm      VARCHAR2(20)    ,
+    userpw      VARCHAR2(20)    CONSTRAINT member_pw_chk    CHECK(LENGTH(userpw) >= 4), -- 길이 4자 이상 제한
+    email       VARCHAR2(50)    CONSTRAINT  member_em_nn NOT NULL 
+                                CONSTRAINT  member_em_uq UNIQUE,
+    gender      CHAR(1),        CHECK(gender IN ('M', 'F')),
+    regdate     DATE            DEFAULT SYSDATE
+);
+
+INSERT INTO member(userid, email, empno) VALUES('aaa', 'aaa@aaa.com', 3000);
+INSERT INTO member(userid, email, empno) VALUES('bbb', 'aaa@aaa.com', '123');
+INSERT INTO member(userid, email, userpw) VALUES('bbb', 'bbb@bbb.com', '1234');
+
+DELETE FROM emp WHERE empno = 3000; -- O (ON DELETE CASCADE를 했기 때문)
+
+
+-- 테이블 생성 시 제약 조건 지정
+CREATE TABLE member (
+    userid      VARCHAR2(20), 
+    empno       NUMBER,
+    usernm      VARCHAR2(20) NOT NULL,
+    userpw      VARCHAR2(20),
+    email       VARCHAR2(50),
+    gender      CHAR(1),
+    regdate     DATE    DEFAULT SYSDATE,
+    
+    CONSTRAINT member_pk PRIMARY KEY(userid),
+    CONSTRAINT member_fk FOREIGN KEY(empno) REFERENCES emp(empno) ON DELETE SET NULL, -- 부모 레코드 삭세 시 NULL로 설정
+    CONSTRAINT member_chk CHECK(LENGTH(userpw) >= 4), 
+    UNIQUE(email)
+);
+
+INSERT INTO member(userid, usernm, empno) VALUES('aaa', 'userA', 1000);
+DELETE FROM emp WHERE empno = 1000;
+
+DROP TABLE member;
+SELECT * FROM emp;
+SELECT * FROM member;
+
+
+CREATE TABLE t_qna (
+    qno         NUMBER,
+    question    VARCHAR2(1000),
+    qid         VARCHAR2(20),
+    answer      VARCHAR2(1000),
+    qdate       DATE,
+    adate       DATE,
+    mdate       DATE,
+    hitno       NUMBER
+);
+
+INSERT INTO t_qna(qno, question, qid, qdate, hitno) VALUES(1, 'question?', 'abc', SYSDATE, 0);
+INSERT INTO t_qna(qno, question, qid, qdate, hitno) VALUES(1, 'question???', 'bbb', SYSDATE, 0);
+
+-- 기존 테이블에 제약 조건 추가 - PK
+ALTER TABLE t_qna ADD CONSTRAINT t_qna_pk PRIMARY KEY(qno);  -- X (중복 데이터 있음)
+UPDATE t_qna SET qno = 2 WHERE qid = 'bbb'; -- 중복 제거
+
+ALTER TABLE t_qna ADD CONSTRAINT t_qna_pk PRIMARY KEY(qno);  -- O 
+
+ALTER TABLE t_qna MODIFY qno CONSTRAINT t_qna_pk PRIMARY KEY;
+
+-- 기존 테이블에 제약 조건 추가 - FK
+ALTER TABLE t_qna
+ADD CONSTRAINT t_qna_fk FOREIGN KEY(qid) REFERENCES t_member(id);  -- X (parent keys not found, member의 id랑 안맞음)
+
+-- t_qna테이블의 qid를 모두 aaa로 변경
+UPDATE t_qna SET qid = 'aaaa';
+
+ALTER TABLE t_qna ADD CONSTRAINT t_qna_fk FOREIGN KEY(qid) REFERENCES t_member(id);
+
+ALTER TABLE t_qna MODIFY qid CONSTRAINT t_qna_fk REFERENCES t_member(id) ON DELETE SET NULL;
+
+-- question 컬럼에 NULL을 허용하지 않도록 제약 조건 추가
+ALTER TABLE t_qna
+ADD CONSTRAINT t_qna_nn NOT NULL(question); -- X (NOT NULL은 추가가 아니라 수정하는 것)
+
+ALTER TABLE t_qna MODIFY(question CONSTRAINT t_qna_nn NOT NULL); -- O
+
+
+-- question 컬럼에 중복을 허용하지 않도록 제약 조건 추가
+ALTER TABLE t_qna ADD UNIQUE(question);
+
+ALTER TABLE t_qna MODIFY question UNIQUE;
+
+ALTER TABLE t_qna MODIFY qdate Date DEFAULT SYSDATE;
+
+ALTER TABLE t_qna MODIFY (hitno NUMBER DEFAULT 0);
+
+
+-- 제약 조건 삭제
+ALTER TABLE t_qna DROP CONSTRAINT t_qna_pk;
+ALTER TABLE t_qna DROP CONSTRAINT t_qna_fk;
+ALTER TABLE t_qna DROP CONSTRAINT t_qna_nn;
+ALTER TABLE t_qna DROP CONSTRAINT t_qna_un;
+
+
+-- 제약 조건 이름 변경
+ALTER TABLE t_qna RENAME CONSTRAINT SYS_C007046 TO t_qna_uq;
+    
+
+--------------t_member------------------------------------------------
+
+  CREATE TABLE "SCOTT"."T_MEMBER" 
+   (	"ID" VARCHAR2(20 BYTE) NOT NULL ENABLE, 
+	"PW" VARCHAR2(20 BYTE) NOT NULL ENABLE, 
+	"NAME" VARCHAR2(20 BYTE) NOT NULL ENABLE, 
+	"EMAIL" VARCHAR2(50 BYTE) NOT NULL ENABLE, 
+	"PHOTO" VARCHAR2(100 BYTE), 
+	"GENDER" VARCHAR2(5 BYTE), 
+	"JOINDATE" DATE, 
+	 CONSTRAINT "T_MEMBER_PK" PRIMARY KEY ("ID")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "USERS"  ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "USERS" ;
+---------------------------------------------------------------
+DROP TABLE t_member;  -- X (자식 테이블에서 참조 중)
+ALTER TABLE t_qna DROP CONSTRAINT T_QNA_FK;
+
+-- t_qna 테이블에 qno를 t_member 테이블의 id를 참조하도록 
+-- 외래키 t_qna_fk 추가
+ALTER TABLE t_qna ADD CONSTRAINT t_qna_fk FOREIGN KEY(qid) REFERENCES t_member(id);
+
+DROP TABLE t_member;
+
+DROP TABLE t_member CASCADE CONSTRAINTS; -- 부모 테이블 삭제 시, 자식 테이블의 FK 제거
+
+-- t_member 테이블의 구조와 데이터를 복사하여 t_member2 테이블로 생성
+CREATE TABLE t_member2 AS SELECT * FROM t_member;
+
+
+-- t_member2 테이블의 이름을 t_member로 변경
+-- t_member2 테이블의 id 컬럼을 기본키로 지정
+-- t_qna 테이블의 qno 컬럼을 t_member 테이블의 id를 참조하도록 설정
+-- t_qna 테이블에서 참조하고 있는 id 값으로 t_member 레이블에 레코드 하나 추가
+-- t_member 테이블의 구조와 데이터를 복사하여 t_member3 테이블로 생성
+ALTER TABLE t_member2 RENAME TO t_member;
+ALTER TABLE t_member MODIFY(id PRIMARY KEY);
+ALTER TABLE t_qna ADD CONSTRAINT t_qna_fk FOREIGN KEY(qid) REFERENCES t_member(id);
+INSERT INTO t_member(id, pw, name, email) VALUES ('aaaa', '1111', 'userA', 'a@a.com');
+CREATE TABLE t_member3 AS SELECT * FROM t_member;
+SELECT * FROM t_member;
+
+-- FK로 참조되는 컬럼 삭제
+ALTER TABLE t_member DROP COLUMN id;  -- X (종속)
+ALTER TABLE t_member DROP COLUMN id CASCADE CONSTRAINTS; -- O
+
+-- t_member 테이블에 id 컬럼 추가 및 pk 지정
+-- t_qna 테이블의 qid 컬럼을 t_member 테이블의 id를 참조하도록 설정
+ALTER TABLE t_member ADD id VARCHAR2(20);ww
+ALTER TABLE t_member ADD PRIMARY KEY(id);
+ALTER TABLE t_qna ADD CONSTRAINT t_qna_fk FOREIGN KEY(qid) REFERENCES t_member(id);
+
+
+------------------------------------------------------------------------
+-- 제약 조건 활성화 및 비활성화
+INSERT INTO t_qna(qno, question, qid, qdate, hitno)
+VALUES (3, 'question????????', 'bbb', SYSDATE, 0); -- X (종속으로 연결되어 있는 t_member 부모 테이블에 없는 아이디라서)
+
+ALTER TABLE t_qna DISABLE NOVALIDATE CONSTRAINT T_QNA_FK;  -- FK 비활성화
+
+ALTER TABLE t_qna ENABLE NOVALIDATE CONSTRAINT T_QNA_FK;  -- FK 활성화
+    -- 새로 추가되는 데이터들부터 제약 조건 검사
+    
+INSERT INTO t_qna(qno, question, qid, qdate, hitno)
+VALUES (4, 'question????????', 'bbb', SYSDATE, 0); -- X
+
+UPDATE t_qna SET qid = 'aaaa' WHERE qno = 3;
+
+ALTER TABLE t_qna ENABLE VALIDATE CONSTRAINT T_QNA_FK;
+    -- 모든 데이터 제약 조건 검사
+
+
+ALTER TABLE t_qna DISABLE VALIDATE CONSTRAINT T_QNA_FK;  -- read only / DML 불가능
+
+INSERT INTO t_qna(qno, question, qid, qdate, hitno) VALUES (3, 'question????????', 'bbb', SYSDATE, 0); -- X
+
+
+SELECT * FROM USER_CONS_COLUMNS WHERE table_name = 'T_QNA';
+SELECT * FROM t_qna;
+SELECT * FROM t_member;
+
+-------------------------------------------------------------
+ALTER TABLE t_survey_attend ADD FOREIGN KEY(id) REFERENCES t_member(id);
+-------------------------------------------------------------
+
+
+
+
+
+
+--------------------------------------------------------------
+-- 인덱스
+--  - 어떤 데이터가 어디에 있는지 알려주기 위해 컬럼에 대해 생성하는 오라클 객체
+--  - 원하는 데이터를 빨리 찾기 위해 사용
+--  - 기본 키나 유일 키는 데이터 무결성 확인 및 빠른 조회를 목적으로 오라클 내부에서 자동으로 인덱스 생성
+--  - 오라클 인덱스는 내부적으로 B* 트리 형식으로 구성
+--  - 기본적으로 들어오는 순서대로 기록
+
+
+-- 인덱스 생성 과정
+--  - 전체 테이블 스캔 -> 정렬 -> Block 기록
+
+
+-- 인덱스 장점
+--  - 인덱스를 위한 추가적인 공간 필요
+--  - 인덱스 생성에 시간 소요
+--  - 데이터의 변경(DML)이 자주 일어나는 경우에는 오히려 성능 저하
+
+
+-- 인덱스 사용 O
+--  - 테이블에 행의 수가 많을 때
+--  - WHERE 절에 해당 컬럼이 많이 사용될 때
+--  - 검색 결과가 전체 데이터의 2% ~ 4% 정도일 때
+--  - JOIN에 자주 사용되는 컬럼이나 NULL 포함 컬럼이 많을 때
+
+
+-- 인덱스 사용 X
+--  - 테이블의 행의 수가 적을 때
+--  - WHERE 절에 해당 컬럼이 자주 사용되지 않을 때
+--  - 검색 결과가 전체 데이터의 10% ~ 15% 정도일 때
+--  - DML이 많이 사용될 때
+
+
+-- ROWID
+--  - 오라클의 모든 데이터가 갖는 고유의 주소
+--  - 데이터를 찾아갈 때 필요
+--  - ROWID정보를 모아서 갖고 있는 것인 인덱스
+SELECT ROWID, ROWNUM, ename FROM t_emp;
+
+
+
+SELECT * FROM USER_INDEXES;     --사용자의 모든 인덱스 조회
+SELECT * FROM USER_IND_COLUMNS; --인덱스가 지정된 컬럼 조회
+
+
+-- UNIQUE INDEX
+--  - 기본 키나 유일 키처럼 유일한 값을 갖는 컬럼에 대해서 생성
+--  - 인덱스 내의 키 값에 중복 데이터 X
+--  - 속도가 빠름
+CREATE UNIQUE INDEX t_emp_idx
+ON                  t_emp(empno);
+
+DROP INDEX t_emp_idx;
+
+
+
+-- NON UNIQUE INDEX
+--  - 중복 데이터를 갖는 컬럼에 생성
+CREATE INDEX t_emp_idx
+ON           t_emp(empno);  -- 기본은 오름차순
+
+DROP INDEX t_emp_idx_asc;
+SELECT * FROM t_emp;
+
+CREATE INDEX t_emp_idx_desc
+ON           t_emp(empno DESC);  -- 내림차순 인덱스
+
+CREATE UNIQUE INDEX t_emp_idx_asc
+ON           t_emp(ename);  
+
+SELECT * FROM t_emp WHERE sal >= 2000;
+SELECT * FROM t_emp WHERE ename = 'Lee';
+SELECT * FROM t_emp WHERE empno <= 5000;
+
+SELECT * FROM t_survey;
+
+CREATE UNIQUE INDEX t_survey_pk_desc
+ON           t_survey(sno DESC); 
+
+SELECT * FROM t_survey ORDER BY sno DESC;
+
+
+
+
+
+
