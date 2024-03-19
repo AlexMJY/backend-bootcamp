@@ -1676,6 +1676,12 @@ ALTER TABLE t_survey_attend ADD FOREIGN KEY(id) REFERENCES t_member(id);
 SELECT ROWID, ROWNUM, ename FROM t_emp;
 
 
+-- INDEX 수정 REBUILD
+--  - DML이 잦은 경우 인덱스의 갱신이 주기적으로 일어나 단편화(fragmentation) 발생
+--   -> 삭제된 데이터의 인덱스 값 자리게 비게 되어 성능 저하로 이어지므로 인덱스를 다시 생성해줘야 함
+
+
+
 
 SELECT * FROM USER_INDEXES;     --사용자의 모든 인덱스 조회
 SELECT * FROM USER_IND_COLUMNS; --인덱스가 지정된 컬럼 조회
@@ -1716,9 +1722,256 @@ CREATE UNIQUE INDEX t_survey_pk_desc
 ON           t_survey(sno DESC); 
 
 SELECT * FROM t_survey ORDER BY sno DESC;
+SELECT * FROM t_survey WHERE sno <= 3;
+SELECT * FROM t_survey WHERE sno > 3;
+
+-- 오라클 힌트 : 
+--  - 인덱스를 위에서부터 읽게 하거나 밑에서부터 읽게 방법을 지정
+--  - 정렬을 하지 않고 정렬 효과를 내거나 최대/최소값을 구할 수 있다.
+-- SELECT /*INDEX(테이블명|테이블별칭 인덱스이름*/ * FROM ~~~
+-- SELECT /*INDEX_DESC(테이블명|테이블별칭 인덱스이름*/ * FROM ~~~
+SELECT /*+INDEX_DESC(t_survey t_survey_pk)*/ * FROM t_survey WHERE sno <= 3;
+
+
+ALTER INDEX t_survey_pk_desc REBUILD;
+
+
+----------------------------------------------------------------------------------
+-- VIEW
+--  - 물리적인 테이블에 근거한 논리적인 가상 테이블
+--  - 실질적인 데이터는 없지만 
+--  - 실제 테이블을 사용하는 것과 동일하게 사용 가능
+--  - 기본 테이블에서 파생된 객체로,
+--  - 기본 테이블에 대한 하나의 쿼리문
+
+--  - SELECT문을 매번 입력하지 않아도 됨
+--  - 원본 데이터 보호 및 일부 데이터 한정 노출 가능
+
+--  - DML 사용 가능
+--  -  기본 테이블이 변경됨
+--  - 주요 용도는 조회
+
+SELECT * FROM USER_SYS_PRIVS;
+
+---------------------------- sys-----------------------------
+GRANT CREATE VIEW TO SCOTT;  -- 권한 부여
+-------------------------------------------------------------
+
+-- 뷰 생성
+CREATE VIEW V_EMP
+AS (SELECT DEPTNO, ENAME, SAL
+FROM T_EMP
+WHERE DEPTNO = 99);
+
+SELECT * FROM USER_VIEWS; -- 소유하고 있는 뷰 조회
+SELECT * FROM V_EMP;  -- 생성된 뷰 조회
+
+UPDATE V_EMP SET SAL = 9000 WHERE ENAME = 'Goo';   -- 뷰에서 DML 실행 (원본 테이블도 영향)
+ROLLBACK;
+
+
+
+-- 뷰 재생성 X (동일 이름 존재)
+CREATE VIEW V_EMP
+AS (SELECT DEPTNO, ENAME, SAL
+FROM T_EMP
+WHERE DEPTNO = 40);
+
+-- 동일 이름 뷰 재생성
+CREATE OR REPLACE VIEW V_EMP
+AS (SELECT DEPTNO, ENAME, SAL
+FROM T_EMP
+WHERE DEPTNO = 40);
+
+-- 뷰 생성 조건
+-- WITH CHECK OPTION을 사용하면 뷰에 대한 INSERT 또는 UPDATE 문에서 
+-- 뷰 정의 조건을 위반하는 경우 오라클 데이터베이스에서 오류를 발생시킨다. 
+-- 이를 통해 뷰의 데이터 무결성을 보장할 수 있다.
+CREATE OR REPLACE VIEW V_EMP
+AS (SELECT DEPTNO, ENAME, SAL
+FROM T_EMP
+WHERE DEPTNO = 99)
+WITH CHECK OPTION; 
+
+ROLLBACK;
+
+UPDATE V_EMP SET DEPTNO = 90 WHERE ENAME ='Goo'; -- X
+UPDATE T_EMP SET DEPTNO = 90 WHERE ENAME ='Goo'; -- O
+
+
+-- 읽기 전용 뷰 (SELECT만 가능한 READ ONLY VIEW)
+CREATE OR REPLACE VIEW V_EMP(부서번호, 사원이름, 급여)
+AS (SELECT DEPTNO, ENAME, SAL
+FROM T_EMP
+WHERE DEPTNO = 99)
+WITH READ ONLY;
+
+
+SELECT * FROM V_EMP;
+SELECT * FROM T_EMP;
+
+
+-- 부서별로 평균 급여와, 급여 총액
+-- DEPTNO, DNAME, 평균 급여, 급여 총액으로 표시
+-- 단, DNAME 없는 데이터도 포함하고 
+-- DNAME은 - 로 표시
+
+SELECT E.DEPTNO, NVL(D.DNAME, '-'), TRUNC (AVG(E.SAL)) AS AVG, SUM(E.SAL) AS SUM    -- ORACLE
+FROM T_EMP E, DEPT D
+WHERE E.DEPTNO = D.DEPTNO (+)
+GROUP BY E.DEPTNO, D.DNAME
+ORDER BY 1;
+
+SELECT E.DEPTNO, NVL(D.DNAME, '-'), TRUNC (AVG(E.SAL)) AS AVG, SUM(E.SAL) AS SUM    -- ANSI
+FROM T_EMP E LEFT OUTER JOIN DEPT D
+ON E.DEPTNO = D.DEPTNO (+)
+GROUP BY E.DEPTNO, D.DNAME
+ORDER BY 1;
+
+CREATE OR REPLACE VIEW V_DEPT_SAL(DEPTNO, DNAME, AVG_SAL, SUM_SAL)
+AS (SELECT E.DEPTNO, NVL(D.DNAME, '-'), TRUNC (AVG(E.SAL)), SUM(E.SAL)
+     FROM T_EMP E, DEPT D
+     WHERE E.DEPTNO = D.DEPTNO (+)
+     GROUP BY E.DEPTNO, D.DNAME)
+ORDER BY 1;
+
+
+SELECT e.ename, d.dname, s.grade, e.sal
+FROM emp e, dept d, salgrade s
+WHERE e.deptno = d.deptno
+  AND e.sal BETWEEN s.losal AND s.hisal
+ORDER BY e.ename;
+
+-----------------------------------HR---------------------------------------
+
+
+-- FINANCE 부서 소속 사원들의 부서이름, 사원이름, 급여, 직함, 부서위치 조회
+SELECT D.DEPARTMENT_NAME, E.first_name, E.SALARY, J.JOB_TITLE, L.CITY
+FROM DEPARTMENTS D, EMPLOYEES E, JOBS J, LOCATIONS L
+WHERE D.DEPARTMENT_ID = E.DEPARTMENT_ID
+    AND E.JOB_ID = J.JOB_ID 
+    AND D.LOCATION_ID = L.LOCATION_ID 
+    AND D.DEPARTMENT_NAME = 'Finance';
+    
+
+CREATE OR REPLACE VIEW V_EMP_FINCANCE(부서이름, 사원이름, 급여, 직함, 부서위치)
+AS(
+    SELECT D.DEPARTMENT_NAME, E.first_name, E.SALARY, J.JOB_TITLE, L.CITY
+    FROM DEPARTMENTS D, EMPLOYEES E, JOBS J, LOCATIONS L
+    WHERE D.DEPARTMENT_ID = E.DEPARTMENT_ID
+    AND E.JOB_ID = J.JOB_ID 
+    AND D.LOCATION_ID = L.LOCATION_ID 
+    AND D.DEPARTMENT_NAME = 'Finance'
+);
+SELECT * FROM v_emp_fincance;
+
+
+---------------------------SCOTT---------------------------
+
+
+---------- INLINE VIEW
+--  - CREATE VIEW로 생성된 뷰가 아니라 문장 내에서 임시로 생성된 뷰
+--  - FROM 절에 서브쿼리로 기술
+
+
+-- DEPTNO가 99인 레코드 조회 (V_EMP 뷰 사용)
+SELECT * FROM ( SELECT DEPTNO, ENAME, SAL
+                FROM T_EMP
+                WHERE DEPTNO = 99);            
+                
+SELECT * FROM T_EMP;
+
+-- JOB이 SALESMAN인 사원들의 JOB, ENAME, DNAME을 인라인 뷰를 이용하여 조회
+SELECT E.JOB, E.ENAME, D.DNAME 
+FROM (SELECT * FROM EMP WHERE JOB = 'SALESMAN') E , DEPT D
+WHERE E.DEPTNO = D.DEPTNO;
 
 
 
 
+-- 뷰 삭제
+DROP VIEW V_EMP;
+DROP VIEW V_DEPT_SAL;
 
 
+
+SELECT ROWNUM, ENAME, HIREDATE FROM EMP ORDER BY ENAME;
+
+
+SELECT ROWNUM NO , ENAME, HIREDATE 
+FROM ( SELECT * FROM EMP ORDER BY ENAME);    
+
+-- 인라인뷰를 이용하여 SAL많은 순서로 상위 5명 조회하여
+-- RANKING, ENAME, SAL 표시. 단, SAL이 없는 데이터는 제외
+SELECT RANKING, ENAME, SAL
+FROM (
+    SELECT RANK() OVER (ORDER BY SAL DESC) AS RANKING, ENAME, SAL
+    FROM EMP
+    WHERE SAL IS NOT NULL
+)
+WHERE RANKING <= 5;
+
+SELECT ROWNUM NO, ENAME, SAL 
+FROM (SELECT  * FROM EMP WHERE SAL IS NOT NULL ORDER BY SAL DESC);
+
+SELECT NO, ENAME, HIREDATE
+FROM (SELECT ROWNUM AS NO, E.* -- ENAME, HIREDATE 
+      FROM (SELECT * FROM EMP ORDER BY HIREDATE ASC) E)
+WHERE NO > (SELECT COUNT(*) - 5 FROM EMP);
+
+
+
+CREATE OR REPLACE VIEW V_EMP_HIREDATE(NO, ENAME, HIREDATE)
+AS (SELECT NO, ENAME, HIREDATE
+    FROM (SELECT ROWNUM NO, ENAME, HIREDATE
+          FROM EMP
+          WHERE HIREDATE IS NOT NULL)
+    WHERE NO <= 5)
+ORDER BY HIREDATE ASC;
+
+SELECT * FROM V_EMP_HIREDATE;
+-----------------------------------------------------------------------
+-- 페이지
+SELECT ROWNUM NO, ENAME, SAL 
+FROM (SELECT  * FROM EMP WHERE SAL IS NOT NULL ORDER BY SAL DESC)
+WHERE CEIL(ROWNUM / 3) > 1;
+
+ 
+
+SELECT NO, ENAME, HIREDATE
+FROM (SELECT ROWNUM AS NO, E.* -- ENAME, HIREDATE 
+      FROM (SELECT * FROM EMP ORDER BY HIREDATE ASC) E)
+WHERE NO BETWEEN (5 * 3) - 2 AND 5 * 3;
+
+
+
+-----------------------------------------------------------------
+--  SUB QUERY
+--  - 하나의 쿼리 안에 포함되어 있는 쿼리문
+--  - 메인 쿼리 내에 포함된 쿼리문
+--  - WHERE 절의 조건문에 사용
+
+
+-- 단일 행 서브 쿼리
+--  - 쿼리 실행 결과가 하나의 행만을 반환
+--  - =, >, >=, <=, <, != TKDYD
+
+-- JAMES와 같은 부서에서 일하는 사람들의 DEPTNO, ENAME
+SELECT DEPTNO, ENAME FROM EMP
+WHERE DEPTNO = (SELECT DEPTNO FROM EMP WHERE ENAME = 'JAMES');
+
+-- 평균 SAL 이상을 받는 사람들의 수 조회
+SELECT COUNT(*) FROM EMP
+WHERE SAL >= (SELECT AVG(SAL) FROM EMP);
+
+-- 평균 SAL 이상을 받는 사람들의 DNAME, ENAME, JOB, SAL 조회
+SELECT D.DNAME, E.ENAME, E.JOB, E.SAL
+FROM EMP E, DEPT D
+WHERE E.SAL >= (SELECT AVG(SAL) FROM EMP) AND E.DEPTNO = D.DEPTNO;
+
+
+-- 가장 적은 SAL을 받는 JOB과 해당 JOB의 평균 SAL 조회
+SELECT JOB, AVG(SAL)
+FROM EMP
+WHERE JOB = (SELECT JOB FROM EMP WHERE SAL = (SELECT MIN(SAL) FROM EMP))
+GROUP BY JOB;
