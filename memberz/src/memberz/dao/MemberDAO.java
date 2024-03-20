@@ -111,7 +111,7 @@ public class MemberDAO {
     }
 
     public boolean insertMember(MemberVO mvo) {		//회원가입
-        query = "INSERT INTO t_member VALUES (?, ?, ?, ?, ?, ?, SYSDATE)";
+        query = "INSERT INTO t_member(ID, PW, NAME, EMAIL, PHOTO, GENDER, JOINDATE) VALUES (?, ?, ?, ?, ?, ?, SYSDATE)";
 
         try {
             pstmt = DBConn.getConnection().prepareStatement(query);

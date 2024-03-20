@@ -46,7 +46,6 @@ public class SurveyMain {
                 default:
                     System.out.println(">> 1 ~ 3을 입력해주세요.");
             }
-
         }
     }
 
@@ -189,15 +188,15 @@ public class SurveyMain {
     }
 
 
-    public void join() {  // 설문 생성
+    public void join() {  // 설문 등록
         svo = new SurveyVO();
         System.out.println();
         System.out.println(">> 설문생성");
 
-        System.out.print("설문 번호 : ");
-        int sno = MemberMain.sc.nextInt();
-        MemberMain.sc.nextLine();
-        svo.setSno(sno);
+//        System.out.print("설문 번호 : ");
+//        int sno = MemberMain.sc.nextInt();
+//        MemberMain.sc.nextLine();
+//        svo.setSno(sno);
 
         System.out.print("설문 제목 : ");
         String title = MemberMain.sc.nextLine();
@@ -220,15 +219,15 @@ public class SurveyMain {
         String endDate = MemberMain.sc.nextLine();
         svo.setEndDate(String.valueOf(endDate));
 
-        System.out.print("num1Cnt : ");
-        int num1Cnt = MemberMain.sc.nextInt();
-        MemberMain.sc.nextLine();
-        svo.setNum1Cnt(num1Cnt);
-
-        System.out.print("num2Cnt : ");
-        int num2Cnt = MemberMain.sc.nextInt();
-        MemberMain.sc.nextLine();
-        svo.setNum2Cnt(num2Cnt);
+//        System.out.print("num1Cnt : ");
+//        int num1Cnt = MemberMain.sc.nextInt();
+//        MemberMain.sc.nextLine();
+//        svo.setNum1Cnt(num1Cnt);
+//
+//        System.out.print("num2Cnt : ");
+//        int num2Cnt = MemberMain.sc.nextInt();
+//        MemberMain.sc.nextLine();
+//        svo.setNum2Cnt(num2Cnt);
 
         boolean result = sdao.insertSurvey(svo);
         if (result) {

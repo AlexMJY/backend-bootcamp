@@ -75,17 +75,16 @@ public class SurveyDAO {
 
     // 설문 만들기
     public boolean insertSurvey(SurveyVO svo) {
-        query = "INSERT INTO t_survey VALUES (?, ?, ?, ?, TO_DATE(?, 'yy-MM-dd'), TO_DATE(?, 'yy-MM-dd'), ?, ?)";
+//        query = "INSERT INTO t_survey VALUES (?, ?, ?, ?, TO_DATE(?, 'yy-MM-dd'), TO_DATE(?, 'yy-MM-dd'), ?, ?)";
+        query = "INSERT INTO t_survey VALUES (T_SURVEY_ATTEND_SEQ.NEXTVAL, ?, ?, ?, TO_DATE(?, 'yy-MM-dd'), TO_DATE(?, 'yy-MM-dd'), 0, 0)";
         try {
             pstmt = DBConn.getConnection().prepareStatement(query);
-            pstmt.setInt(1, svo.getSno());
-            pstmt.setString(2, svo.getTitle());
-            pstmt.setString(3, svo.getNum1());
-            pstmt.setString(4, svo.getNum2());
-            pstmt.setString(5, svo.getStartDate());
-            pstmt.setString(6, svo.getEndDate());
-            pstmt.setInt(7, svo.getNum1Cnt());
-            pstmt.setInt(8, svo.getNum2Cnt());
+//            pstmt.setInt(1, svo.getSno());
+            pstmt.setString(1, svo.getTitle());
+            pstmt.setString(2, svo.getNum1());
+            pstmt.setString(3, svo.getNum2());
+            pstmt.setString(4, svo.getStartDate());
+            pstmt.setString(5, svo.getEndDate());
 
             result = pstmt.executeUpdate() == 1;
             DBConn.close(pstmt);

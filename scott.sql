@@ -1975,3 +1975,274 @@ SELECT JOB, AVG(SAL)
 FROM EMP
 WHERE JOB = (SELECT JOB FROM EMP WHERE SAL = (SELECT MIN(SAL) FROM EMP))
 GROUP BY JOB;
+
+-- 가장 적은 평균 sal를 받는 job과 해당 job의 평균 sal 조회
+SELECT JOB, AVG(SAL)
+FROM EMP
+WHERE JOB = (SELECT JOB FROM EMP WHERE SAL = (SELECT MIN(SAL) FROM EMP))
+GROUP BY JOB;
+
+SELECT JOB, AVG(SAL)
+FROM EMP
+GROUP BY JOB
+HAVING  AVG(SAL) = (SELECT MIN(AVG(SAL)) 
+                    FROM EMP GROUP BY JOB);
+                    
+                    
+                    
+-- 다중 행 서브 쿼리
+--  - 쿼리 실행 결과가 하나 이상의 행일 때 사용
+--  - WHERE 절에서 여러 개의 컬럼을 동시 비교
+--  - IN, ANY, ALL, EXISTS 사용
+
+
+-- DEPTNO가 10 또는 30인 레코드 조회
+SELECT * FROM EMP WHERE DEPTNO IN(10, 30);  -- SUB QUERY 안씀
+
+SELECT * FROM EMP WHERE DEPTNO = ANY (10, 30);  -- SUB QUERY 씀
+
+-- SAL이 3000 이상인 사람들과 같은 부서에서 근무하는 사람들 조회 - 서브쿼리 O
+SELECT * FROM EMP WHERE DEPTNO = ANY (
+SELECT DISTINCT DEPTNO FROM EMP WHERE SAL >= ANY(3000))
+ORDER BY DEPTNO;
+
+SELECT * FROM EMP WHERE SAL > ANY(SELECT SAL FROM EMP WHERE JOB = 'MANAGER') ORDER BY SAL;
+
+-- MANAGER의 최대 급여보다 적게 받는 사람들
+SELECT * FROM EMP WHERE SAL < ANY(SELECT SAL FROM EMP WHERE JOB = 'MANAGER') ORDER BY SAL;
+
+-- MANAGER의 최대 급여보다 많이 받는 사람들
+SELECT * FROM EMP WHERE SAL > ALL(SELECT SAL FROM EMP WHERE JOB = 'MANAGER') ORDER BY SAL;
+
+-- MANAGER의 최소 급여보다 적게 받는 사람들
+SELECT * FROM EMP WHERE SAL < ALL(SELECT SAL FROM EMP WHERE JOB = 'MANAGER') ORDER BY SAL;
+
+
+SELECT * FROM DEPT WHERE LOC IN (SELECT LOC FROM DEPT WHERE LOC = 'CHICAGO');
+
+SELECT * FROM DEPT WHERE EXISTS (SELECT LOC FROM DEPT WHERE LOC = 'CHICAGO');
+SELECT * FROM DEPT WHERE EXISTS (SELECT LOC FROM DEPT WHERE LOC = 'SEOUL');
+
+
+-- 다중 컬럼 서브쿼리 MULTI COLUMN SUB QUERY
+--  - 서브 쿼리에서 반환되는 결과가 둘 이상의 컬럼
+
+
+-- 각 부서별로 최소 SAL을 받는 사람들의 DEPTNO, ENAME, SAL 조회
+SELECT DEPTNO, ENAME, SAL
+FROM EMP
+WHERE (DEPTNO, SAL) IN (SELECT DEPTNO, MIN(SAL) 
+                        FROM EMP 
+                        GROUP BY DEPTNO)
+ORDER BY 1;           
+
+
+-- 상호 연관 서브 쿼리
+--  - 메인에서 넘긴 데이터를 서브 쿼리가 저장 후 돌려주는 방식
+--  - 메인 쿼리와 서브 쿼리 사이에 조인
+--  - 메인 쿼리 >> 서브 쿼리 >> 메인 쿼리
+--  - 성능이 매우 나쁜 유형
+
+
+-- 소속 부서의 평균 SAL보다 많은 SAL을 받는 사원 조회
+SELECT * FROM EMP MAIN
+WHERE SAL > ( SELECT AVG(SAL)
+              FROM EMP SUB
+              WHERE MAIN.DEPTNO = SUB.DEPTNO
+              GROUP BY DEPTNO);
+              
+         
+              
+-- 스칼라 서브 쿼리
+--  - SELECT 절에 사용되는 쿼리문
+--  - 1행만 반환
+--  - 함수처럼 사용
+
+
+-- DEPTNO, DNAME, ENAME, JOB, SAL, GRADE 조회
+SELECT D.DEPTNO, D.DNAME, E.ENAME, E.JOB, E.SAL, S.GRADE
+FROM DEPT D, EMP E, SALGRADE S
+WHERE D.DEPTNO = E.DEPTNO 
+AND   E.SAL BETWEEN S.LOSAL AND S.HISAL;
+
+
+SELECT DEPTNO,
+        -- DNAME
+       (SELECT DNAME FROM DEPT WHERE EMP.DEPTNO = DEPT.DEPTNO) AS DNAME, 
+       ENAME, JOB, SAL, 
+       --GRADE
+       (SELECT GRADE FROM SALGRADE WHERE SAL BETWEEN LOSAL AND HISAL) AS GRADE
+FROM EMP
+ORDER BY 1, SAL;
+
+
+
+-- WITH를 사용한 서브 쿼리
+--  - FROM절에 사용되는 서브 쿼리
+--  - 특정 테이블의 전체 데이터가 아닌 일부 데이터를 추출한 후 별칭으로 사용
+
+
+-- DEPTNO가 10인 데이터의 DEPTNO, DNAME, ENAME 조회 - INLINE VIEW
+SELECT E.DEPTNO, DNAME, ENAME
+FROM (SELECT * FROM EMP WHERE DEPTNO = 10) E, DEPT D
+WHERE E.DEPTNO = D.DEPTNO;
+
+
+-- DEPTNO가 10인 데이터의 DEPTNO, DNAME, ENAME 조회 - WITH
+WITH E AS (SELECT * FROM EMP WHERE DEPTNO = 10),
+     D AS (SELECT * FROM DEPT) 
+SELECT E.DEPTNO, DNAME, ENAME
+FROM E, D
+WHERE E.DEPTNO = D.DEPTNO;     
+
+
+------------------------------------------------------------------------------
+-- 시퀀스 SEQUENCE
+--  - 연속적으로 자동 생성되는 숫자
+--  - DML을 ROLLBACK할 때 같이 ROLLBACK 안됨
+--  - 기본: 1부터 시작하여 1씩 증가
+
+-- 시퀀스 사용
+--  - 시퀀스의 현재 값 : 시퀀스이름.CURRVAL
+--  - 시퀀스의 다음 값 : 시퀀스이름.NEXTVAL
+
+
+-- 기본 시퀀스 생성 
+CREATE SEQUENCE T_QNA_SEQ;
+
+SELECT * FROM USER_SEQUENCES;  -- 시퀀스 조회
+
+SELECT T_QNA_SEQ.CURRVAL FROM DUAL;  -- x
+SELECT T_QNA_SEQ.NEXTVAL FROM DUAL;  -- 시퀀스 증가
+SELECT T_QNA_SEQ.CURRVAL FROM DUAL;  -- O
+
+-- 시퀀스 수정
+--  - 최대/최소, 증감값, 사이클, 캐시 사용 여부 변경 가능
+--  - 현재 값 변경 불가능
+ALTER SEQUENCE T_QNA_SEQ NOCACHE;  -- 캐시 사용 X
+
+-- 시퀀스 삭제
+DROP SEQUENCE T_QNA_SEQ;
+
+-- 시퀀스 생성
+-- 이름 T_QNA_SEQ, 시작은 1부터, 증가는 1씩 커지게,
+-- 최대값은 999999999999999999, 최소값은 0,
+-- 반복 X, 캐쉬사용 X
+CREATE SEQUENCE T_QNA_SEQ
+START WITH 1
+INCREMENT BY 1
+MAXVALUE 99999999999999
+MINVALUE 0
+NOCYCLE
+NOCACHE;
+
+-- 시퀀스를 사용하여 T_QNA 테이블에 레코드 추가
+-- 제목은 SEQUENCE??, 작성자는 FK 제약조건에 위배되지 않도록 지정
+INSERT INTO T_QNA (QNO, QUESTION, QID)
+VALUES (T_QNA_SEQ.NEXTVAL, 'SEQUENCE??', 'aaaa'); -- 만약 들어가지 않아도 NEXTVAL이 실행됨
+
+
+-- T_SURVEY_SEQ 시퀀스 생성 (캐시 사용 x)
+CREATE SEQUENCE T_SURVEY_SEQ NOCACHE;
+
+-- T_SURVEY_ATTEND_SEQ 시퀀스 생성 (캐시 사용 x)
+CREATE SEQUENCE T_SURVEY_ATTEND_SEQ NOCACHE;
+
+
+
+
+
+-------------------------------- SYS ------------------------------------------
+GRANT CREATE SYNONYM TO SCOTT;  -- 권한 부여
+GRANT CREATE PUBLIC SYNONYM TO SCOTT;
+
+
+-------------------------------------------------------------------------------
+
+-- SYNONYM 동의어
+--  - 테이블 이름 대신 사용하는 별명
+CREATE SYNONYM T_SA FOR T_SURVEY_ATTEND;
+
+SELECT * FROM T_SA;
+
+-- T_SURVEY_ATTEND 테이블에 데이터 추가
+-- 설문응답 번호는 시퀀스를 사용
+-- 테이블, 이름은 별명 사용
+-- 나머지는 임의의 값으로 지정 
+INSERT INTO T_SA (ANO, SNO, ID, NUM)
+VALUES (T_SURVEY_ATTEND_SEQ.NEXTVAL, 1001, 'aaaa', 1);
+
+
+-- 동의어 삭제
+DROP SYNONYM T_SA;
+
+
+---------------------------------------------------------------------------
+-- 계층형 쿼리
+--  - 계층 관계가 보이도록 출력하는 쿼리
+--  - 레벨 의사 컬럼 LEVEL PSEUDO COLUMN
+--      - ROWNUM이나 ROWID같이 실제 테이블에 저장되어 있지 않지만
+--        실제하는 것처럼 사용 가능
+--      - 계층형 정보를 표시할 때 레벨 표시
+--      - LEVEL 1 : 루트 노드
+--        LEVEL 2 : 루트 노드의 자식 노드
+--        LEVEL 3 : 루트 노드의 자식 노드의 자식 노드
+SELECT LEVEL
+FROM dual
+CONNECT BY LEVEL <= 10;
+
+CREATE SEQUENCE T_MEMO_SEQ  NOCACHE;
+
+DROP SEQUENCE T_MEMO_SEQ;
+
+ALTER TABLE t_memo ADD CONSTRAINT t_memo_fk FOREIGN KEY(ID) REFERENCES t_member(id);
+
+INSERT INTO t_memo(mno, pno, id, memo)
+VALUES(t_memo_seq.NEXTVAL, 0, 'admin', 'FIRST MEMO');
+
+INSERT INTO t_memo(mno, pno, id, memo)
+VALUES(t_memo_seq.NEXTVAL, 1, 'aaaa', 'THE NEXT ONE');
+
+INSERT INTO t_memo(mno, pno, id, memo)
+VALUES(t_memo_seq.NEXTVAL, 1, 'bbbb', 'memo memo');
+
+INSERT INTO t_memo(mno, pno, id, memo)
+VALUES(t_memo_seq.NEXTVAL, 0, 'aaaa', 'i am a memo');
+
+INSERT INTO t_memo(mno, pno, id, memo)
+VALUES(t_memo_seq.NEXTVAL, 0, 'admin', 'U r a memo');
+
+INSERT INTO t_memo(mno, pno, id, memo)
+VALUES(t_memo_seq.NEXTVAL, 4, 'admin', 'i am not a memo');
+
+INSERT INTO t_memo(mno, pno, id, memo)
+VALUES(t_memo_seq.NEXTVAL, 4, 'bbbb', 'bee');
+
+INSERT INTO t_memo(mno, pno, id, memo)
+VALUES(t_memo_seq.NEXTVAL, 2, 'bbbb', 'football is fun');
+
+INSERT INTO t_memo(mno, pno, id, memo)
+VALUES(t_memo_seq.NEXTVAL, 6, 'bbbb', 'football is fun');
+
+INSERT INTO t_memo(mno, pno, id, memo)
+VALUES(t_memo_seq.NEXTVAL, 8, 'bbbb', 'last memo');
+
+COMMIT;
+
+SELECT MNO, PNO, LEVEL,
+        DECODE(LEVEL, 1, MEMO, LPAD(' ', (LEVEL * 2) - 2) || 'RE:' || MEMO) AS INDENTED_MEMO, 
+       ID, REGDATE 
+FROM T_MEMO
+START WITH PNO = 0
+CONNECT BY PRIOR MNO = PNO
+ORDER SIBLINGS BY PNO ASC;
+
+
+
+
+
+
+SELECT * FROM EMP;
+SELECT * FROM T_EMP;
+SELECT * FROM DEPT;
+SELECT * FROM T_SA;
