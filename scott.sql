@@ -2229,15 +2229,177 @@ VALUES(t_memo_seq.NEXTVAL, 8, 'bbbb', 'last memo');
 
 COMMIT;
 
-SELECT MNO, PNO, LEVEL,
-        DECODE(LEVEL, 1, MEMO, LPAD(' ', (LEVEL * 2) - 2) || 'RE:' || MEMO) AS INDENTED_MEMO, 
-       ID, REGDATE 
+SELECT MNO, PNO, LEVEL, ID, REGDATE ,
+        DECODE(LEVEL, 1, MEMO, LPAD(' ', (LEVEL * 2) - 2) || 'RE:' || MEMO) AS INDENTED_MEMO
 FROM T_MEMO
 START WITH PNO = 0
 CONNECT BY PRIOR MNO = PNO
 ORDER SIBLINGS BY PNO ASC;
 
 
+------------------------------------------------------------------------
+-- 계정 관리
+--
+-- 권한 PREVILEGES
+--  - 접속 사용자에 따라 접근 가능한 데이터 영역과 권한이 구분됨
+
+--  - 시스템 권한 SYSTEM PREVILEGES
+--      - 사용자 생성, 정보 수정, 삭제, DB접근 권한
+--      - 시스템 리소스와 객체 생성 및 관리 권한
+
+--  - 객체 권한 OBJECT PREVILEGES
+--      - 특정 사용자가 생성한 객체 관련 권한
+--      - 테이블, 뷰, 인덱스, 시퀀스, 동의어 등의 접근
+
+-- 권한 부여 GRANT, 권한 회수 REVOKE
+-- GRANT CREATE TABLE, CREATE SESSION TO SCOTT;
+-- GRANT CREATE VIEW TO SCOTT WITH ADMIN OPTION;
+-- REVOKE CREATE TABLE FROM SCOTTL;
+
+
+-- sys 계정 접속 후 user1 계정 생성
+CREATE USER user1 IDENTIFIED BY 1111;
+
+-- 계정 조회
+SELECT * FROM ALL_USERS;
+SELECT * FROM ALL_USERS WHERE USERNAME='USER1';
+
+-- user1에게 DB접속 권한 부여
+GRANT CREATE SESSION TO user1;
+
+-- user1에게 테이블 생성 권한 부여
+GRANT CREATE TABLE TO user1;
+
+-- user1의 테이블 스페이스를 USERS로 변경
+ALTER USER user1 DEFAULT TABLESPACE USERS;
+
+-- 테이블 스페이스 공간을 크기 제한 없이 할당
+ALTER USER user1 QUOTA UNLIMITED ON USERS;
+
+-- user1의 비밀번호 변경
+ALTER USER user1 IDENTIFIED BY 1234;
+
+-- user1 계정 삭제
+DROP USER user1;
+DROP USER user1 CASCADE;  -- 생성한 객체들도 함께 삭제
+
+
+
+-- USERS 테이블 스페이스에 user2 계정 생성
+-- DB 접속 권한과 RESOURCE를 부여
+CREATE USER user2 IDENTIFIED BY 1111
+DEFAULT TABLESPACE USERS;
+
+GRANT CREATE SESSION, RESOURCE TO user2;
+
+
+-- user2의 CREATE SESSION 권한 회수
+REVOKE CREATE SESSION FROM user2;
+
+-- 다시 권한 주고 접속
+GRANT CREATE SESSION, RESOURCE TO user2;
+
+-- user2에게 SCOTT의 t_emp 테이블 SELECT, DELETE 권한 부여
+GRANT SELECT ON t_emp TO user2; -- X
+GRANT SELECT ON scott.t_emp TO user2; -- O
+GRANT DELETE ON scott.t_emp TO user2; -- O
+
+-- user2에게 SCOTT의 t_emp 테이블 SELECT 권한 회수
+REVOKE SELECT ON scott.t_emp FROM user2;
+
+
+
+
+----------------------------------------------------------
+-- ROLE
+--  - 여러 종류의 권한을 묶어 놓은 그룹
+--      - 사전 정의 롤 : CONNECT, RESOURCE, DBA
+--      - 사용자 정의 롤
+--  - 다수의 사용자에게 공통적으로 필요한 권한들을
+--    하나의 그룹으로 묶어서 롤에 대한 권한을 부여
+
+-- 사용자가 가진 롤 조회
+SELECT * FROM DBA_ROLE_PRIVS;
+
+SELECT * FROM DBA_ROLE_PRIVS WHERE GRANTEE = 'SCOTT'
+UNION ALL
+SELECT * FROM DBA_ROLE_PRIVS WHERE GRANTEE = 'USER2';
+
+-- 롤의 권한 조회
+SELECT * FROM DBA_SYS_PRIVS WHERE GRANTEE = 'CONNECT'
+UNION ALL
+SELECT * FROM DBA_SYS_PRIVS WHERE GRANTEE = 'RESOURCE';
+
+
+----------------------------------------------------------------
+
+-- DEV 계정 비밀번호 1111로 지정하여 생성
+-- USERS를 기본 테이블스페이스로 생성
+-- USERS 테이블 스페이스를 기본으로 사용할 수 있게 하여 생성
+-- DB접속 및 RESOURCE 롤을 가지도록 처리
+-- T_TEST 테이블 생성 및 테스트 레코드 하나 추가
+
+CREATE USER DEV IDENTIFIED BY 1111 DEFAULT TABLESPACE USERS;
+GRANT CREATE SESSION, RESOURCE TO DEV;
+--ALTER USER DEV DEFAULT TABLESPACE USERS;
+
+---------------------------------------SYS END-------------------------------------
+
+
+-----------------------------------------------------------------------------------
+-- PL / SQL
+-- Oracle's Procedural Language extenstion to SQL
+--  - 오라클 자체에 내장되어 있는 절차적 프로그래밍 언어
+--  - DB 내의 데이터 조작을 위해서 제공
+--  - SQL 문장에서 변수 선언, 비교, 반복 처리 가능
+
+
+-- 변수 선언 구문
+-- identifier [CONSTANT] datatype(datasize) [NOT NULL] [:= | DEFAULT exp];
+
+SET SERVEROUTPUT ON;
+
+BEGIN 
+    DBMS_OUTPUT.PUT_LINE('Hello World!~');
+END;
+/
+
+-- 변수 및 상수 선언과 사용
+DECLARE
+    v_ename     VARCHAR2(20);   -- 변수 선언
+    v_dpetno    NUMBER := 10;   -- 변수 선언 및 초기화(값 대입)
+    v_company   CONSTANT VARCHAR2(20) := 'A co.,';  -- 상수
+    v_hiredate  DATE DEFAULT SYSDATE;   -- 기본값 사용
+    v_empno     NUMBER NOT NULL := &empno;  -- 필수항목 설정 / &는 유저한테 입력받기 기능
+    v_sal       emp.sal%TYPE := 2000;   -- emp테이블의 sal컬럼 타입으로
+BEGIN
+--    v_company := 'B co.,';  -- 상수에 값 변경 불가능. 에러
+    DBMS_OUTPUT.PUT_LINE('급여 : ' || v_sal);
+    DBMS_OUTPUT.PUT_LINE('사원 번호 : ' || v_empno);
+    DBMS_OUTPUT.PUT_LINE('입사 일자 : ' || TO_CHAR(v_hiredate, 'YYYY.MM.DD'));
+    DBMS_OUTPUT.PUT_LINE('입사 일자 : ' || v_hiredate);
+    DBMS_OUTPUT.PUT_LINE('회사 이름 : ' || v_company);
+    DBMS_OUTPUT.PUT_LINE('부서 번호 : ' || v_dpetno);
+    
+    DBMS_OUTPUT.PUT_LINE('사원 이름 : ' || v_ename);
+    v_ename := 'Han';  -- 변수에 값 저장
+    DBMS_OUTPUT.PUT_LINE('사원 이름 : ' || v_ename);
+END;
+/
+
+
+-- 파일에 저장된 프로시저 실행
+@ c:\dev\exercise.sql
+
+
+-- SELECT 결과를 저장
+DECLARE
+    EMPNO
+    ENAME
+BEGIN
+
+END;
+/
 
 
 
