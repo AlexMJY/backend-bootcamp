@@ -2394,12 +2394,643 @@ END;
 
 -- SELECT 결과를 저장
 DECLARE
-    EMPNO
-    ENAME
+    v_ename emp.ename%TYPE;
+    v_sal   emp.sal%TYPE;
 BEGIN
-
+    SELECT ENAME, SAL 
+    INTO v_ename, v_sal
+    FROM EMP 
+    WHERE EMPNO = 9998;
+    
+    DBMS_OUTPUT.PUT_LINE('사원 이름 : ' || v_ename);
+    DBMS_OUTPUT.PUT_LINE('급여 : ' || v_sal);
 END;
 /
+
+-- DML 실행    
+BEGIN
+    INSERT INTO t_emp 
+    VALUES (8000,'Pal', 88, 800, SYSDATE);
+END;
+/
+
+-- DDL 실행
+BEGIN
+    CREATE TABLE t_test (
+    no  NUMBER,
+    timeinfo DATE
+);
+END;
+/
+
+DECLARE
+    stmt   VARCHAR2(1000);
+BEGIN
+    stmt := 'CREATE TABLE t_test(no NUMBER, timeinfo DATE)';
+    EXECUTE IMMEDIATE stmt; -- O
+    DBMS_OUTPUT.PUT_LINE('CREATE TABLE OK');
+END;
+/
+
+
+-- RECORD 타입 변수
+DECLARE
+    TYPE emp_record IS RECORD ( 
+        empno   t_emp.empno%TYPE,
+        ename   t_emp.ename%TYPE,
+        sal     t_emp.sal%TYPE 
+    );
+    v_emp_rec emp_record;       --emp_record 타입의 변수 선언
+BEGIN
+    v_emp_rec.empno := 8001;    --emp_record 타입의 변수에 값 저장
+    v_emp_rec.ename := 'Paa';
+    v_emp_rec.sal := 880;
+    
+    DBMS_OUTPUT.PUT_LINE('empno : ' || v_emp_rec.empno);
+    DBMS_OUTPUT.PUT_LINE('ename : ' || v_emp_rec.ename);
+    DBMS_OUTPUT.PUT_LINE('sal   : ' || v_emp_rec.sal);
+END;
+/
+
+DECLARE
+    TYPE emp_record IS RECORD ( 
+        empno   t_emp.empno%TYPE,
+        ename   t_emp.ename%TYPE,
+        sal     t_emp.sal%TYPE 
+    );
+    v_emp_rec emp_record;       --emp_record 타입의 변수 선언
+BEGIN
+    v_emp_rec.empno := 8001;    --emp_record 타입의 변수에 값 저장
+    v_emp_rec.ename := 'Paa';
+    v_emp_rec.sal := 880;
+    
+    INSERT INTO t_emp(empno, ename, sal) 
+    VALUES(v_emp_rec.empno, v_emp_rec.ename, v_emp_rec.sal);
+    
+    SELECT empno, ename, sal INTO  v_emp_rec
+    FROM   t_emp
+    WHERE  empno = 8001;
+    
+    DBMS_OUTPUT.PUT_LINE('empno : ' || v_emp_rec.empno);
+    DBMS_OUTPUT.PUT_LINE('ename : ' || v_emp_rec.ename);
+    DBMS_OUTPUT.PUT_LINE('sal   : ' || v_emp_rec.sal);
+END;
+/
+
+
+DECLARE
+    TYPE emp_record IS RECORD ( 
+        empno    t_emp.empno%TYPE,
+        ename    t_emp.ename%TYPE,
+        deptno   t_emp.deptno%TYPE,
+        sal      t_emp.sal%TYPE, 
+        hiredate t_emp.hiredate%TYPE 
+    );
+    v_emp_rec emp_record;       --emp_record 타입의 변수 선언
+BEGIN
+    v_emp_rec.empno := 8003;    --emp_record 타입의 변수에 값 저장
+    v_emp_rec.ename := 'Pam';
+    v_emp_rec.deptno := 88;
+    v_emp_rec.sal := 882;
+    v_emp_rec.hiredate := SYSDATE;
+    
+    --v_emp_rec 변수에 저장된 값을 테이블에 추가
+    INSERT INTO t_emp VALUES v_emp_rec; 
+                        
+    --DB 쿼리 결과를 v_emp_rec 변수로 받기
+    SELECT *     INTO  v_emp_rec
+    FROM   t_emp WHERE  empno = 8003;
+
+    v_emp_rec.deptno := 99;  --부서 번호 변경
+    UPDATE t_emp SET ROW = v_emp_rec WHERE empno = 8003;
+    
+    DBMS_OUTPUT.PUT_LINE('empno : ' || v_emp_rec.empno);
+    DBMS_OUTPUT.PUT_LINE('ename : ' || v_emp_rec.ename);
+    DBMS_OUTPUT.PUT_LINE('sal   : ' || v_emp_rec.sal);
+END;
+/
+
+-- TABLE OF 타입 변수
+-- 연관 배열 형태
+DECLARE
+    TYPE rainbow_arr 
+    IS   TABLE OF VARCHAR2(20)  --저장할 값
+         INDEX BY PLS_INTEGER;  --인덱스
+    v_rainbow rainbow_arr;      --rainbow_arr 타입의 배열 변수 선언
+BEGIN
+    v_rainbow(1) := 'RED';
+    v_rainbow(2) := 'ORANGE'; 
+    v_rainbow(3) := 'YELLOW';
+    v_rainbow(4) := 'GREEN';
+    
+    DBMS_OUTPUT.PUT_LINE('v_rainbow.COUNT : ' || v_rainbow.COUNT );
+    DBMS_OUTPUT.PUT_LINE('v_rainbow.FIRST : ' || v_rainbow.FIRST );
+    DBMS_OUTPUT.PUT_LINE('v_rainbow.LAST : ' || v_rainbow.LAST );
+    DBMS_OUTPUT.PUT_LINE('v_rainbow.PRIOR(4) : ' || v_rainbow.PRIOR(4) );
+    DBMS_OUTPUT.PUT_LINE('');
+    DBMS_OUTPUT.PUT_LINE(v_rainbow(1));
+    DBMS_OUTPUT.PUT_LINE(v_rainbow(2));
+    DBMS_OUTPUT.PUT_LINE(v_rainbow(3));
+    DBMS_OUTPUT.PUT_LINE(v_rainbow(4));
+END;
+/
+
+
+-- BIND 변수
+-- - 호스트 변수라고도 함
+-- - VARIABLE 키워드 사용
+-- - SQL문과 PL/SQL 블록에서 사용됨
+-- - PL/SQL 블록이 실행된 후에도 액세스 가능
+
+VARIABLE v_bind NUMBER;
+BEGIN
+    SELECT COUNT(*)     INTO :v_bind
+    FROM   t_emp
+    WHERE  deptno = 99;
+END;
+/
+
+PRINT v_bind
+
+
+--------------------------------------------
+-- PL/SQL 제어문
+-- - 조건문 : IF, CASE
+-- - 반복문 : BASIC LOOP, WHILE, FOR
+
+-- IF ~ THEN
+DECLARE
+    v_deptno    t_emp.deptno%TYPE;  --t_emp 테이블의 deptno 타입의 변수 v_deptno 선언
+    v_dept_zone VARCHAR2(20);       --문자열 20자를 저장할 변수 v_dept_zone 선언
+BEGIN
+    SELECT deptno   INTO v_deptno   --t_emp 테이블의 empno가 2222인 레코드의 deptno를
+    FROM   t_emp                    --위에서 선언한 변수에 담기
+    WHERE  empno = 2222;
+    
+    --v_deptno가 
+    --50을 초과하면 v_dept_zone을 국외로 저장
+    --90 이상이면 발령대기 저장
+    --그 외는 국내로 저장
+    IF v_deptno > 50 AND v_deptno < 90 THEN
+        v_dept_zone := '국외';
+    ELSIF v_deptno >= 90 THEN
+        v_dept_zone := '발령대기';
+    ELSE
+        v_dept_zone := '국내';
+    END IF;
+    
+    DBMS_OUTPUT.PUT_LINE('부서 번호 : ' || v_deptno );
+    DBMS_OUTPUT.PUT_LINE('근무 지역 : ' || v_dept_zone );
+END;
+/
+
+
+-- CASE -  정확히 일치하는 값
+DECLARE
+    v_deptno    t_emp.deptno%TYPE;   
+    v_dept_zone VARCHAR2(20);      
+BEGIN
+    SELECT deptno   INTO v_deptno   
+    FROM   t_emp                    
+    WHERE  empno = 2222;
+    
+    --v_deptno가 77면 v_dept_zone을 '근무 중'
+    --           88이면    "        '교대 중'
+    --그렇지 않으면 '발령대기'
+    CASE v_deptno
+        WHEN 77 THEN v_dept_zone := '근무 중';
+        WHEN 88 THEN v_dept_zone := '교대 중';
+        ELSE         v_dept_zone := '발령대기';
+    END CASE;
+        
+    DBMS_OUTPUT.PUT_LINE('부서 번호 : ' || v_deptno );
+    DBMS_OUTPUT.PUT_LINE('근무 지역 : ' || v_dept_zone );
+END;
+/
+
+
+-- 반복문 LOOP
+DECLARE
+    i   NUMBER := 1;
+BEGIN
+    LOOP
+        DBMS_OUTPUT.PUT_LINE(i);
+        i := i + 1;
+        EXIT WHEN i > 5;    --반복문 중단 조건
+    END LOOP;
+END;
+/
+
+DECLARE
+    i   NUMBER := 1;
+BEGIN
+    LOOP
+        DBMS_OUTPUT.PUT_LINE(i);
+        i := i + 1;
+        
+        IF i > 5 THEN   --반복문 중단 조건
+            EXIT;
+        END IF;
+    END LOOP;
+END;
+/
+
+--반복문 WHILE
+DECLARE
+    i   NUMBER := 6;
+BEGIN
+    WHILE i <= 10   LOOP  --반복 조건
+        DBMS_OUTPUT.PUT_LINE(i);
+        i := i + 1;
+    END LOOP;
+END;
+/
+
+--반복문 FOR
+BEGIN
+    FOR i IN 11..25 LOOP
+ /*     IF MOD(i, 3) != 0 THEN
+            CONTINUE;  --이하 수행 x
+        END IF;   */
+        CONTINUE WHEN MOD(i, 3) != 0;
+        DBMS_OUTPUT.PUT_LINE(i);
+    END LOOP;
+END;
+/
+
+--반복문 FOR - REVERSE
+BEGIN
+    FOR i IN REVERSE 16..20 LOOP
+        DBMS_OUTPUT.PUT_LINE(i);
+    END LOOP;
+END;
+/
+
+
+SET SERVEROUTPUT ON;
+
+
+-- RECORD 및 TABLE 변수 이용하여 SELECT 결과 받기
+DECLARE
+    TYPE dept_record IS RECORD ( 
+        deptno    dept.deptno%TYPE,
+        dname     dept.dname%TYPE
+    );
+    TYPE dept_arr
+    IS  TABLE OF dept_record
+        INDEX BY PLS_INTEGER;
+        
+    v_dept_list dept_arr;
+    i   PLS_INTEGER := 0; -- 인덱스 변수
+BEGIN
+    -- dept 테이블에서 SELECT한 결과를 v_dept_list에 저장
+    FOR j IN ( SELECT deptno, dname FROM dept ) LOOP
+        i := i + 1;
+        v_dept_list(i).deptno := j.deptno;
+        v_dept_list(i).dname  := j.dname;
+    END LOOP;    
+    
+    -- v_dept_list에 저장된 값을 화면에 표시
+    FOR k IN 1 .. i LOOP
+        DBMS_OUTPUT.PUT_LINE(v_dept_list(k).deptno || ' : ' || v_dept_list(k).dname);
+    END LOOP;
+    
+    DBMS_OUTPUT.PUT_LINE('--------------------------------------------------------');
+    
+    -- SELCT 결과를 바로 출력
+    FOR j IN ( SELECT deptno, dname FROM dept ) LOOP
+        DBMS_OUTPUT.PUT_LINE(j.deptno || ' : ' || j.dname);
+    END LOOP;  
+END;
+/
+
+
+-- %ROWTYPE 변수 이용하여 SELECT 결과 받기
+DECLARE
+    TYPE dept_arr
+    IS  TABLE OF dept%ROWTYPE  -- 저장할 값
+        INDEX BY PLS_INTEGER;  -- 인덱스
+        
+    v_dept_list dept_arr;
+    i   PLS_INTEGER := 0; -- 인덱스 변수
+BEGIN
+    FOR j IN ( SELECT deptno, dname FROM dept ) LOOP
+        i := i + 1;
+        v_dept_list(i).deptno := j.deptno;
+        v_dept_list(i).dname  := j.dname;
+    END LOOP;  
+    
+    FOR k IN 1 .. i LOOP
+        DBMS_OUTPUT.PUT_LINE(v_dept_list(k).deptno || ' : ' || v_dept_list(k).dname);
+    END LOOP;
+END;
+/
+
+
+--------------------------------------------------------------------------------
+-- CURSOR
+--  - SELECT 또는 DML 같은 SQL문을 실행했을 때
+--      해당 SQL문의 처리 정보를 저장한 메모리 공간
+--  - SQL문의 실행 결과값 사용 가능
+
+-- 묵시적 커서 IMPLICIT CURSOR
+--  - SQL 사용시 자동 선언
+--  - 단일 행 결과에 사용
+--  - OPEN, FETCH, CLOSE 불필요
+--  - SQL%ROWCOUNT
+--    SQL%FOUND
+--    SQL%NOTFOUND
+--    SQL%ISOPEN
+
+-- 명시적 커서 EXPLICIT CURSOR
+--  - 사용자가 선언하여 생성한 후 사용
+--  - 다중 행 결과에 사용 가능
+--  - OPEN, FETCH, CLOSE 필요
+--  - 커서이름%ROWCOUNT
+--    커서이름%FOUND
+--    커서이름%NOTFOUND
+--    커서이름%ISOPEN
+
+
+-- 명시적 커서 사용 단계
+-- CURSOR 선언 > 오픈 > 추출 > 종료
+
+
+-- 묵시적 커서 이용 - 현재 커서 정보 확인
+BEGIN
+    IF (SQL%ISOPEN) THEN
+        DBMS_OUTPUT.PUT_LINE('CURSOR OPEN O');
+    ELSE
+        DBMS_OUTPUT.PUT_LINE('CURSOR OPEN x');
+    END IF;
+    
+    -- DML 실행
+    UPDATE t_emp SET deptno = 80 WHERE empno = 8000;
+    
+    IF (SQL%FOUND) THEN
+        DBMS_OUTPUT.PUT_LINE('변경된 행 O');
+        DBMS_OUTPUT.PUT_LINE('변경된 행의 수 : ' || SQL%ROWCOUNT );
+    END IF;
+    
+    IF (SQL%NOTFOUND) THEN
+        DBMS_OUTPUT.PUT_LINE('변경된 행 X');
+    END IF;
+END;
+/
+
+
+-- 명시적 커서 - 단일 행 반환
+DECLARE
+    v_dept_row  dept%ROWTYPE;
+    
+    CURSOR  crs     -- 명시적 커서 선언
+    IS      SELECT * FROM dept WHERE deptno = 30;
+BEGIN
+    OPEN crs;   -- 커서 오픈
+    FETCH crs INTO v_dept_row;  -- 데이터 추출하여 선언한 변수에 저장
+        DBMS_OUTPUT.PUT_LINE('부서 번호 : ' || v_dept_row.deptno);
+        DBMS_OUTPUT.PUT_LINE('부서 이름 : ' || v_dept_row.dname);
+        DBMS_OUTPUT.PUT_LINE('부서 위치 : ' || v_dept_row.loc);
+    CLOSE crs;  -- 커서 종료
+END;
+/
+
+-- 명시적 커서 - 복수 행 반환
+-- FOR를 사용할 경우 OPEN, FETCH, CLOSE 불필요
+DECLARE
+    CURSOR  crs     -- 명시적 커서 선언
+    IS      SELECT * FROM dept;
+BEGIN
+--    OPEN crs;   -- 커서 오픈
+--    FETCH crs INTO v_dept_row;  -- 데이터 추출하여 선언한 변수에 저장
+    DBMS_OUTPUT.PUT_LINE('부서 번호 | 부서 이름 | 부서 위치');
+    FOR i IN crs LOOP    
+        DBMS_OUTPUT.PUT_LINE(i.deptno || ' | ' || 
+                             i.dname  || ' | ' || 
+                             i.loc
+        );
+    
+    END LOOP;
+--    CLOSE crs;  -- 커서 종료
+END;
+/
+
+
+-- 명시적 커서 - 매개변수 전달
+DECLARE
+    CURSOR  crs ( p_deptno dept.deptno%TYPE ) -- 매개변수(parameter) 명시
+    IS      SELECT * FROM dept WHERE deptno = p_deptno;
+BEGIN
+--    OPEN crs;   -- 커서 오픈
+--    FETCH crs INTO v_dept_row;  -- 데이터 추출하여 선언한 변수에 저장
+
+    DBMS_OUTPUT.PUT_LINE('부서 번호 | 부서 이름 | 부서 위치');
+    FOR i IN crs (&input_deptno) LOOP    -- 매개변수 입력받기
+        DBMS_OUTPUT.PUT_LINE(i.deptno || ' | ' || 
+                             i.dname  || ' | ' || 
+                             i.loc
+        );
+    
+    END LOOP;
+--    CLOSE crs;  -- 커서 종료
+END;
+/
+
+
+
+
+-----------------------------------------------------
+-- 예외
+
+-- 예외명: ZERO_DIVIDE
+-- 예외번호: ORA-01476
+-- 설명: 0으로 나누려 했을 때 발생하는 예외
+
+DECLARE
+    i NUMBER := 5;
+BEGIN
+    i := i / 0;  -- 예외 발생
+    DBMS_OUTPUT.PUT_LINE('exception ???');
+EXCEPTION
+    WHEN ZERO_DIVIDE THEN
+        DBMS_OUTPUT.PUT_LINE('0으로 나누기 예외 발생!');
+END;
+/
+
+
+-- 사전 정의 예외 처리
+DECLARE
+    v_num   NUMBER;
+BEGIN
+    SELECT dname INTO v_num  -- 예외 1
+    FROM dept 
+    WHERE deptno = 20;
+EXCEPTION 
+    WHEN VALUE_ERROR THEN   
+        DBMS_OUTPUT.PUT_LINE('예외 발생 1 : 수치 또는 값 오류 발생');
+END;
+/
+
+
+------------------------------------------------------------------
+-- 저장 서브 프로그램
+--  - 이름을 지정하여 저장해두는 PL/SQL 블럭
+--  - STORED PRECEDURE : 특정 처리 작업 수행, SQL문에서 사용 불가능
+--  - STORED FUNCTION : 특정 연산의 결과 반한, SQL문에서 사용 가능
+--  - PACKAGE : 저장된 서브프로그램의 그룹화에 사용
+--  - TRIGGER : 특정 상황 발생 시에 자동으로 수행되는 기능 구현에 사용
+
+-- PRECEDURE
+CREATE OR REPLACE PROCEDURE DEL_ALL
+IS -- v_rows NUMBER := 0;
+BEGIN
+    DELETE FROM t_emp;
+    
+    IF (SQL%FOUND) THEN
+        DBMS_OUTPUT.PUT_LINE('삭제된 행의 수 : ' || SQL%ROWCOUNT);
+    ELSE
+        DBMS_OUTPUT.PUT_LINE('삭제된 행이 없습니다.');
+    END IF;
+END;
+/
+
+SELECT * FROM t_emp;
+
+EXECUTE DEL_ALL;  -- 저장된 프로시저 실행
+
+ROLLBACK;
+
+BEGIN
+    DEL_ALL;
+END;
+/
+
+-- 프로시저 내용 확인
+SELECT * FROM USER_SOURCE WHERE NAME = 'DEL_ALL';
+
+
+-- 파라미터를 받는 프로시저
+CREATE OR REPLACE PROCEDURE PARAM_IN (
+    param1  IN NUMBER,
+    param2  NUMBER := 2,
+    param3  NUMBER,
+    param4  NUMBER DEFAULT 4
+
+)
+IS 
+BEGIN
+    DBMS_OUTPUT.PUT_LINE(param1);
+    DBMS_OUTPUT.PUT_LINE(param2);
+    DBMS_OUTPUT.PUT_LINE(param3);
+    DBMS_OUTPUT.PUT_LINE(param4);
+END;
+/
+
+EXECUTE PARAM_IN(param1 => 15, param3 => 17);
+EXECUTE PARAM_IN(9, 11, 13);
+EXECUTE PARAM_IN(1, 3, 5, 7);
+
+
+
+-- 테이블 이름을 입력 받아서
+-- 해당 테이블에 레코드가 있는 경우에는
+--  > 모든 데이터 삭제 후 삭제된 행의 수를 출력
+-- 그렇지 않은 경우에는 
+--  > '삭제된 행이 없습니다' 출력하는 DEL_ALL 프로시저 작성
+CREATE OR REPLACE PROCEDURE DEL_ALL (
+    TABLE_NAME IN VARCHAR2
+)
+IS
+    query VARCHAR2(50) := 'DELETE FROM ' || TABLE_NAME;
+
+BEGIN
+    DBMS_OUTPUT.PUT_LINE('테이블 이름 : ' || TABLE_NAME);
+    EXECUTE IMMEDIATE query;
+    
+    IF (SQL%FOUND) THEN
+        DBMS_OUTPUT.PUT_LINE('삭제된 행의 수 : ' || SQL%ROWCOUNT);
+    ELSE
+        DBMS_OUTPUT.PUT_LINE('삭제된 행이 없습니다.');
+    END IF;
+END;
+/
+
+
+-- 결과를 반환하는 프로시져
+-- t_survey_attend 테이블의 시퀀스를 1증가 시킨 값을 반환
+CREATE OR REPLACE PROCEDURE GET_SEQ (
+    v_seq_no OUT NUMBER
+)
+IS
+BEGIN
+    SELECT t_qna_seq.NEXTVAL INTO v_seq_no FROM dual;
+END;
+/
+
+
+EXECUTE DEL_ALL('t_emp');
+
+ROLLBACK;
+
+-- GET_SEQ 프로시저에서 반환하는 시퀀스를 이용하여
+-- t_servey_attend 테이블에 설문을 추가하고
+-- t_servey 테이블에 해당 설문의 응답 카운트를 1 증가
+-- DO_SERVEY 프로시저 작성
+CREATE OR REPLACE PROCEDURE DO_SURVEY IS
+v_no NUMBER;
+
+BEGIN
+    GET_SEQ(v_no); -- GET_SEQ 프로시저의 반환값 넘겨받기
+    DBMS_OUTPUT.PUT_LINE('t_survey_attend 테이블의 시퀀스 : ' || v_no);
+    
+    -- insert query
+    INSERT INTO t_servey_attend (ano, sno, id, num, attenddate)
+    VALUES (v_no, 100, , SYSDATE);
+    
+    
+    -- update query
+END;
+/
+
+EXECUTE DO_SURVEY;
+
+
+-- 파라미터를 넘겨받고 반환하는 프로시저
+CREATE OR REPLACE PROCEDURE PARAM_IN_OUT (
+        v_no IN OUT NUMBER
+) IS
+BEGIN
+    DBMS_OUTPUT.PUT_LINE(' NO IN : ' || v_no);
+    v_no := v_no * 2;  -- 넘겨받은 값을 2배하여 저장
+END;
+/
+
+-- 익명의 PL/SQL 블럭으로 파라미터 5를 지정하여 반환되는 값을 화면에 표시
+DECLARE 
+    v_no NUMBER := 5;
+BEGIN
+    PARAM_IN_OUT(v_no);
+    DBMS_OUTPUT.PUT_LINE('NO OUT : ' || v_no);
+END;
+/
+
+
+------------------------------------------------------------
+-- 프로시저 오류 정보 조회
+CREATE OR REPLACE PROCEDURE SOME_ERR
+IS
+BEGIN
+    DELETE FROM some_table;
+END;
+/
+
+SHOW ERROERS;
+SHOW ERR PRECEDURE SOME_ERR;
+SELECT * FROM USER_ERRORS WHERE NAME = 'SOME_ERR';
+
+-- 프로시저 삭제
+DROP PROCEDURE SOME_ERR;
+
 
 
 
