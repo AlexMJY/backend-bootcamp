@@ -1,7 +1,12 @@
 package rental.common;
 
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 public class DBConn {
     //1. 공유 Connection 객체 con을 클래스 외부에서 접근할 수 없도록 선언
@@ -20,8 +25,8 @@ public class DBConn {
         if (con == null) {
             String driver = "oracle.jdbc.OracleDriver";
             String url = "jdbc:oracle:thin:@localhost:1521:xe";
-            String username = "scott";
-            String password = "tiger";
+            String username = "rental";
+            String password = "1111";
 
             try {
                 Class.forName(driver);

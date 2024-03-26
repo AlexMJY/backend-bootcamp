@@ -9,6 +9,8 @@ public class UserVO {
 	private String id;
 	private String pw;
 	private String name;
+
+
 	private String email;
 	private Boolean  admin;
 	private String phone;
@@ -37,12 +39,23 @@ public class UserVO {
 	public String getName() {
 		return name;
 	}
-	public void setName(String name) {
-		this.name = name;
+	public String getEmail() {
+		return email;
 	}
 	public Boolean getAdmin() {
 		return admin;
 	}
+	
+	
+	
+	public void setName(String name) {
+		this.name = name;
+	}
+	
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
 	public void setAdmin(Boolean admin) {
 		this.admin = admin;
 	}
@@ -58,4 +71,5 @@ public class UserVO {
 	public void setJoinDate(Date joinDate) {
 		this.joinDate = joinDate;
 	}
+
 }

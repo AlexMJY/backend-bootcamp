@@ -4,9 +4,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.Objects;
 
 import memberz.common.DBConn;
 import memberz.vo.MemberVO;
@@ -107,7 +105,6 @@ public class MemberDAO {
 
         // 쿼리 실행 및 실행 결과 받기
         return evoList;
-
     }
 
     public boolean insertMember(MemberVO mvo) {		//회원가입
