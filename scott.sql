@@ -460,8 +460,7 @@ FROM emp;
 -- sal의 0.3333을 보너스로 계산하여
 -- 소수점 둘째 자리까지 반올림하여 출력, 단 보너스가 1000에서 10000미만의 값을 대상으로 하고
 -- 부족한 자리는 0으로 표시
-SELECT 
-RPAD(ROUND(sal * 0.3333, 2), 7, '0') BONUS
+SELECT RPAD(ROUND(sal * 0.3333, 2), 7, '0') AS BONUS
 FROM emp
 WHERE ROUND((sal * 0.3333), 2) BETWEEN 1000 AND 9999.99;
 
@@ -3032,6 +3031,247 @@ SELECT * FROM USER_ERRORS WHERE NAME = 'SOME_ERR';
 DROP PROCEDURE SOME_ERR;
 
 
+SELECT ename, sal FROM emp WHERE sal >= 2000; -- 5% 보너스
+SELECT ename, sal FROM emp WHERE sal < 2000;  -- 10% 보너스
+
+
+--DECLARE
+--    TYPE emp_arr
+--    IS  TABLE OF emp%ROWTYPE  -- 저장할 값
+--        INDEX BY PLS_INTEGER;  -- 인덱스
+--        
+--    v_empt_list emp_arr;
+--    i   PLS_INTEGER := 0; -- 인덱스 변수
+--BEGIN
+--    
+--    FOR j IN ( SELECT ename, sal FROM dept ) LOOP
+--        i := i + 1;
+--        v_dept_list(i).deptno := j.deptno;
+--        v_dept_list(i).dname  := j.dname;
+--    END LOOP;  
+--    
+--    FOR k IN 1 .. i LOOP
+--        DBMS_OUTPUT.PUT_LINE(v_dept_list(k).deptno || ' : ' || v_dept_list(k).dname);
+--    END LOOP;
+--END;
+--/
+
+--CREATE OR REPLACE PROCEDURE emp_bonus 
+--IS  -- emp_row EMP%ROWTYPE,
+--    bonus_10 NUMBER,
+--    bonus_5 NUMBER
+--BEGIN
+CREATE OR REPLACE PROCEDURE emp_bonus2 (
+    p_bonus_5 OUT NUMBER,
+    p_bonus_10 OUT NUMBER,
+    p_bonus_sum OUT NUMBER
+) AS
+    CURSOR c_emp IS SELECT sal FROM emp;
+    v_total_bonus_5 NUMBER := 0;
+    v_total_bonus_10 NUMBER := 0;
+BEGIN
+    FOR emp IN c_emp LOOP
+        
+        IF emp.sal > 2000 THEN
+            v_total_bonus_5 := v_total_bonus_5 + (emp.sal * 0.05);
+        ELSE
+            v_total_bonus_10 := v_total_bonus_10 + (emp.sal * 0.1);
+        END IF;
+    END LOOP;
+    
+    p_bonus_5 := v_total_bonus_5;
+    p_bonus_10 := v_total_bonus_10;
+    p_bonus_sum := p_bonus_5 + p_bonus_10;
+END;
+/
+
+
+DECLARE
+    v_bonus_5 NUMBER;
+    v_bonus_10 NUMBER;
+    v_bonus_sum NUMBER;
+BEGIN
+    emp_bonus2(v_bonus_5, v_bonus_10, v_bonus_sum);
+    DBMS_OUTPUT.PUT_LINE('Total amount with 5% bonus: ' || v_bonus_5);
+    DBMS_OUTPUT.PUT_LINE('Total amount with 10% bonus: ' || v_bonus_10);
+    DBMS_OUTPUT.PUT_LINE('Total amount bonus: ' || v_bonus_sum);
+END;
+/
+
+
+CREATE OR REPLACE PROCEDURE emp_bonus (
+    p_bonus_sum OUT NUMBER
+) IS 
+    CURSOR c_emp IS 
+    SELECT sal FROM emp;
+    
+    v_total_bonus NUMBER := 0;
+BEGIN
+    FOR emp IN c_emp LOOP
+        
+        IF emp.sal > 2000 THEN
+            v_total_bonus := v_total_bonus + (emp.sal * 0.05);
+        ELSE
+            v_total_bonus := v_total_bonus + (emp.sal * 0.1);
+        END IF;
+    END LOOP;
+    
+    p_bonus_sum := v_total_bonus;
+END;
+/
+
+DECLARE
+    v_bonus_sum NUMBER;
+BEGIN
+    emp_bonus(v_bonus_sum);
+    DBMS_OUTPUT.PUT_LINE('Total amount bonus: ' || v_bonus_sum);
+END;
+/
+
+----------------------------------------------------------------------
+-- FUNCTION 함수
+
+-- 전화번호 포맷 변경 후 반환 함수
+CREATE OR REPLACE FUNCTION
+    PHONE_FMT(NO IN VARCHAR2)  -- 전달받을 매개변수 타입 명시
+RETURN VARCHAR2  -- 반환타입 명시
+IS
+    v_no    VARCHAR2(13);
+BEGIN
+    -- 매개변수로 전달받은 NO(ex: 11112222)를
+    -- 010-1111-2222의 형태로 v_no에 저장
+    v_no := '010-' || SUBSTR(NO, 1, 4) || '-' || SUBSTR(NO, 5);
+    DBMS_OUTPUT.PUT_LINE('input: ' || NO);
+    DBMS_OUTPUT.PUT_LINE('output: ' || v_no);
+    RETURN v_no;
+END;
+/
+
+DECLARE
+    v_no VARCHAR2(20);
+BEGIN
+    v_no := PHONE_FMT('11112222');
+END;
+/
+
+SELECT PHONE_FMT('11112222') FROM dual;
+
+
+-- 함수 삭제
+DROP FUNCTION PHONE_FMT;
+
+------------------------------------------------------------
+-- TRIGGER 트리거
+--  - 관련된 특정 사건(evnet)이 발생될 때마다 묵시적(자동)으로 실행되는 PL/SQL블럭
+--  - 트리거 동작 대상
+--      - DML : INSERT, DELETE, UPDATE
+--      - DDL : CREATE, ALTER, DROP
+--      - DB : SERVERERROR, LOGIN, LOGOFF, STARTUP, SHUTDOWN
+--  - 트리거 구분
+--      - DML 트리거
+--      - DDL 트리거
+--      - INSTEAD OF 트리거 : 뷰에 사용되는 DML 동작시
+--      - SYSTEM 트리거 : DB나 스키마 이벤트 동작 시
+--      - 단순 트리거 : 트리거 동작 문장이 실행되기 전, 후 / 행에 영향을 미치기 전, 후
+--      - 복합 트리거 : 단순 트리거의 여러 시점에 동작
+
+
+-- t_emp 테이블에 주말에는 DML 수행 불가
+CREATE OR REPLACE TRIGGER TRG_DML_WEEKEND
+BEFORE 
+    INSERT OR DELETE OR UPDATE ON t_emp
+BEGIN
+    IF TO_CHAR(SYSDATE, 'DY') IN ('토', '일') THEN -- 오늘이 주말인지 확인
+        IF INSERTING THEN
+            RAISE_APPLICATION_ERROR(-20001, '주말 - 사원정보 추가 불가');
+        ELSIF UPDATING THEN
+            RAISE_APPLICATION_ERROR(-20001, '주말 - 사원정보 변경 불가');
+        ELSIF DELETING THEN
+            RAISE_APPLICATION_ERROR(-20001, '주말 - 사원정보 삭제 불가');
+        ELSE
+            RAISE_APPLICATION_ERROR(-20001, '주말 - 사원정보 테이블 사용 불가');
+        END IF;
+    END IF;
+END;
+/
+
+
+-- t_emp 테이블의 DML 수행 기록 저장 테이블
+CREATE TABLE t_dml_log (
+    tablenm     VARCHAR(20),    -- 테이블 이름
+    type        VARCHAR(20),    -- DML 종류 
+    empno       NUMBER,         -- 대상 사원 번호
+    usernm      VARCHAR(30),    -- DML 수행 계정
+    datetime    DATE            -- 수행 일시
+);
+
+-- t_emp 테이블의 DML 수행 기록 트리거
+CREATE OR REPLACE TRIGGER TRG_DML_LOG
+AFTER 
+    INSERT OR DELETE OR UPDATE ON t_emp
+    FOR EACH ROW
+BEGIN
+    IF INSERTING THEN
+        INSERT INTO t_dml_log
+        VALUES('t_emp', 'INSERT', :new.empno, 
+                SYS_CONTEXT('USERENV', 'SESSION_USER'),
+                SYSDATE);
+    ELSIF UPDATING THEN
+        INSERT INTO t_dml_log
+        VALUES('t_emp', 'UPDATE', :old.empno, 
+                SYS_CONTEXT('USERENV', 'SESSION_USER'),
+                SYSDATE);
+    ELSIF DELETING THEN
+        INSERT INTO t_dml_log
+        VALUES('t_emp', 'DELTE', :old.empno, 
+                SYS_CONTEXT('USERENV', 'SESSION_USER'),
+                SYSDATE);
+    END IF;
+END;
+/
+
+INSERT INTO t_emp (empno, ename, deptno, sal, hiredate)
+VALUES (1000, 'MOON', 40, 1000, '2024/03/07'); 
+
+
+UPDATE t_emp SET deptno = 99 WHERE empno = 2222;
+
+
+
+SELECT * FROM USER_TRIGGERS;        -- 트리거 조회
+ALTER TRIGGER TRG_DML_LOG DISABLE;  -- 특정 트리거 비활성화
+ALTER TRIGGER TRG_DML_LOG ENABLE;   -- 특정 트리거 활성화
+DROP TRIGGER TRG_DML_LOG;           -- 트리거 삭제
+
+
+
+-----------------------------------------------------------------
+-- 백업 및 복원
+--  - expdp, impdp
+--
+-- 백업 디렉토리 지정 c:\dev\dbBackup
+ 
+---- sys --------------------------------------------------------
+CREATE OR REPLACE DIRECTORY dbBackup
+AS 'c:\dev\dbBackup';
+
+GRANT READ, WRITE ON DIRECTORY dbBackup TO scott;
+
+-- CMD에서
+-- expdp scott/tiger@localhost:1521/XE DIRECTORY=dbBackup DUMPFILE=scott_20240325.dmp
+---- scott ------------------------------------------------------
+DROP TABLE t_member3;
+
+SELECT * FROM t_member3;
+
+-- impdp scott/tiger@localhost:1521/XE DIRECTORY=dbBackup DUMPFILE=scott_20240325.dmp
+
+DELETE FROM t_emp WHERE empno = 1111;
+COMMIT;
+SELECT * FROM t_emp WHERE empno = 1111;
+-- impdp scott/tiger@localhost:1521/XE DIRECTORY=dbBackup 
+-- DUMPFILE=scott_20240325.dmp TABLES=t_emp TABLE_EXISTS_ACTION=APPEND
+
 
 
 
@@ -3039,3 +3279,15 @@ SELECT * FROM EMP;
 SELECT * FROM T_EMP;
 SELECT * FROM DEPT;
 SELECT * FROM T_SA;
+
+
+
+create user rental identified by 1111;
+
+grant connect, resource, dba to rental;
+
+GRANT CREATE VIEW TO rental;
+GRANT CREATE SYNONYM TO rental;
+GRANT CREATE PUBLIC SYNONYM TO rental;
+
+COMMIT;

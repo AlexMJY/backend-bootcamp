@@ -8,9 +8,10 @@ import memberz.vo.MemberVO;
 
 public class MemberMain {
     public static Scanner sc;
+    public static String loginId;	//로그인 아이디 저장
     private MemberVO mvo;
     private MemberDAO mdao;
-    public static String loginId;	//로그인 아이디 저장
+    
     private SurveyMain sm;
 
 
