@@ -27,7 +27,15 @@ public class UserMain {
         while(true) {
             System.out.println();
             System.out.println();
-            System.out.println("                         < 메인메뉴 >                            ");
+            System.out.println("___  ___        _         ___  ___                    \r\n"
+            		+ "|  \\/  |       (_)        |  \\/  |                    \r\n"
+            		+ "| .  . |  __ _  _  _ __   | .  . |  ___  _ __   _   _ \r\n"
+            		+ "| |\\/| | / _` || || '_ \\  | |\\/| | / _ \\| '_ \\ | | | |\r\n"
+            		+ "| |  | || (_| || || | | | | |  | ||  __/| | | || |_| |\r\n"
+            		+ "\\_|  |_/ \\__,_||_||_| |_| \\_|  |_/ \\___||_| |_| \\__,_|");
+            System.out.println();
+            System.out.println();
+
             System.out.println("   1.회원가입   2.로그인   3.ID찾기   4.PW찾기   5.시스템 종료");
             System.out.print(">> 선택 : ");
             String input = sc.nextLine();
@@ -49,8 +57,8 @@ public class UserMain {
     // 관리자 메인메뉴
     public void adminMenu(){
         while(true) {
-            System.out.println();
-            System.out.println("                <관리자 메뉴>");
+            System.out.println();   
+            System.out.println("                    <관리자 메뉴>");
             System.out.println("   1.회원관리     2.시설관리    3.로그아웃     ");
             System.out.print(">> 선택 : ");
             String input = sc.nextLine();
@@ -180,7 +188,7 @@ public class UserMain {
         while(true) {
             System.out.println();
             System.out.println("                       <시설 관리 메뉴>");
-            System.out.println("   1.시설조회     2.시설리스트    3.시설등록     4.로그아웃     ");
+            System.out.println("   1.시설조회     2.시설리스트    3.시설등록     4.관리자 메뉴     ");
             System.out.print(">> 선택 : ");
             String input = sc.nextLine();
             switch (input) {     
@@ -232,7 +240,7 @@ public class UserMain {
 	        case "1": changePw(); break;
 	        case "2": changeEmail(); break;
 	        case "3": changePhone(); break;
-	        case "4": userMenu(); break;
+	        case "4": return;
 	        default:
         }
     }
@@ -408,5 +416,4 @@ public class UserMain {
       new UserMain().menu();
 
    }
-
 }

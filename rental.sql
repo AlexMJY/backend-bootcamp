@@ -118,3 +118,20 @@ ALTER USER rental IDENTIFIED BY 1111;
 
 
 ALTER PROFILE DEFAULT LIMIT PASSWORD_LIFE_TIME UNLIMITED;
+
+
+
+CREATE OR REPLACE TRIGGER TRG_DELETE_USER
+BEFORE
+    DELETE ON r_user
+    FOR EACH ROW
+    
+BEGIN
+    UPDATE r_review SET userId = '(Å»ÅðÇÑÈ¸¿ø)' WHERE userId = :OLD.userId;
+    DELETE FROM r_res WHERE userId = :OLD.userId;
+END;
+/
+
+
+
+rollback;

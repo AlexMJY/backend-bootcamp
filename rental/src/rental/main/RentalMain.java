@@ -28,7 +28,7 @@ public class RentalMain {
     public void adminFacSearch() {
     	
     	System.out.println();
-    	System.out.println("   < 시설 정보 조회 >");
+    	System.out.println("              < 시설 정보 조회 >");
     	System.out.print(">>  시설 아이디 입력 : ");	
 
     	String id = UserMain.sc.nextLine();
@@ -62,21 +62,20 @@ public class RentalMain {
         if (userList == null || userList.size() < 1) {
         	System.out.println("  !! 등록된 시설이 없습니다. !!");
         } else {
-        	System.out.println("시설번호 | 시설이름 | 시설주소 | 시설등록일");
-        	System.out.println("--------------------------------------------");
+        	System.out.println("----------------------------------------------------------------------------------------");
+        	System.out.println("시설번호 |     시설이름     |                  시설주소                  | 시설등록일");
+        	System.out.println("----------------------------------------------------------------------------------------");
         	for (FacVO fvo : userList) {
         		try {
         			Date crtDate = sdf.parse(fvo.getCreateAt());
-            		System.out.println(
-            				fvo.getFacNo() + " | " +
-            						fvo.getFacName() + " | " +
-            						fvo.getFacAddr() + " | " +
-            				sdf.format(crtDate)
-            				);
+
+            		System.out.printf("%5d     %10s\t%25s %11s\n", fvo.getFacNo(), fvo.getFacName(), fvo.getFacAddr(), sdf.format(crtDate));
+            		
         		} catch (Exception e) {
         			e.printStackTrace();
         		}	
         	}
+        	System.out.println("----------------------------------------------------------------------------------------");
         }
         return userList;
     }
@@ -85,7 +84,7 @@ public class RentalMain {
     public void adminFacRegist() {
     	fvo = new FacVO();
         System.out.println();
-        System.out.println("   <시설 등록>");
+        System.out.println("              <시설 등록>");
         
         System.out.print(">>  시설 이름 : ");
         String name = UserMain.sc.nextLine();
@@ -111,7 +110,7 @@ public class RentalMain {
     public void facInfo() {
     	while(true) {
             System.out.println();
-            System.out.println(">> MEMBER only SYSTEM 사용자 모드 -----");
+            System.out.println("                               <유저 모드>");
             System.out.println("   1.시설 리스트   2.시설 예약정보   3.시설 이용내역   4.돌아가기");
             System.out.print(">> 선택 : ");
             String input = UserMain.sc.nextLine();
@@ -130,7 +129,7 @@ public class RentalMain {
     	
     	while(true) {
             System.out.println();
-            System.out.println(">> MEMBER only SYSTEM 사용자 모드 -----");
+            System.out.println("                   <유저 모드>");
             System.out.println("   1.시설 예약   2.시설 후기 보기   3.돌아가기");
             System.out.print(">> 선택 : ");
             String input = UserMain.sc.nextLine();
@@ -145,57 +144,70 @@ public class RentalMain {
 
     }
     
-    // 시설 리뷰 보기
-    public void facReview(List<FacVO> facList) {
-    	
-    	System.out.print("   리뷰를 볼 시설의 번호를 입력하세요. (취소 0)\n>> 입력 : ");
-    	int facNo = Integer.valueOf(UserMain.sc.nextLine());
-    	
-    	if(facNo == 0) {
-    		System.out.println("  !! 취소하셧습니다. 시설메뉴로 돌아갑니다. !!");
-    		return;
-    	} else if (facList.size() < facNo) {
-    		System.out.println("  !! 초과값입력. 시설메뉴로 돌아갑니다. !!");
-    		return;
-    	}
-    	
-    	int page = 1;
-    	int lastPage;
-    	FacVO fvo = facList.get(facNo -1);
-    	
-    	while (true) {
-	    	List<ReviewVO> reviewList = fdao.selectFacReview(fvo.getFacName(), page);
-	    	
-	    	if(reviewList == null || reviewList.size() < 1) {
-	    		System.out.println("  !! 등록된 리뷰가 없습니다. !!");
-	    		return;
-	    	}
-	    	System.out.println("\n" + fvo.getFacName() + "리뷰-------------------------------------");
-	    	lastPage = reviewList.get(0).getCount();
-	    	for (int i = 0; i < reviewList.size(); i++) {
-	    		try {
-	    			ReviewVO reviewVo = reviewList.get(i);
-	    			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-	    			Date crtDate = sdf.parse(reviewVo.getCreateAt());
-		
-	    			System.out.println("작성자 : " + reviewVo.getUserId() + " 작성일 : " + sdf.format(crtDate));
-	    			System.out.println("내용 : " + reviewVo.getContent());
-	    			System.out.println("-----------------------------------------------------------------------");
-		
-	    		} catch (Exception e) {
-					e.printStackTrace();
-				}
-	    	}
-	    	System.out.println("< " + page + " / " + lastPage + " >");
-	    	
-	    	System.out.print("   이동하고 싶은 페이지 입력 (종료 : 0)\n>>  입력: ");
-	    	page = Integer.valueOf(UserMain.sc.nextLine());
-	    	
-	    	if (page == 0) {
-	    		return;
-	    	}
-    	
-    	}
+ // 시설 리뷰 보기
+public void facReview(List<FacVO> facList) {
+        
+        System.out.print("   리뷰를 볼 시설의 번호를 입력하세요. (취소 0)\n>> 입력 : ");
+        int facNo = Integer.valueOf(UserMain.sc.nextLine());
+        
+        if(facNo == 0) {
+            System.out.println("  !! 취소하셧습니다. 시설메뉴로 돌아갑니다. !!");
+            return;
+        } else if (facList.size() < facNo) {
+            System.out.println("  !! 초과값입력. 시설메뉴로 돌아갑니다. !!");
+            return;
+        }
+        
+        int page = 1;
+        int lastPage = 1;
+        FacVO fvo = facList.get(facNo -1);
+        
+        while (true) {
+            List<ReviewVO> reviewList = fdao.selectFacReview(fvo.getFacName(), page);
+
+            if (page > lastPage) {
+                System.out.println(">> 없는 페이지 입니다.");
+                System.out.println("< ? / " + lastPage + " >\n");
+                
+                System.out.print("   이동하고 싶은 페이지 입력 (종료 : 0)\n>>  입력: ");
+                page = Integer.valueOf(UserMain.sc.nextLine());
+                
+                if (page == 0) {
+                    return;
+                }
+                continue;
+                
+            } else if(reviewList == null || reviewList.size() < 1) {
+                System.out.println("  !! 등록된 리뷰가 없습니다. !!");
+                return;
+            
+            }
+            System.out.println("\n" + fvo.getFacName() + "리뷰-------------------------------------");
+            lastPage = reviewList.get(0).getCount();
+            for (int i = 0; i < reviewList.size(); i++) {
+                try {
+                    ReviewVO reviewVo = reviewList.get(i);
+                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                    Date crtDate = sdf.parse(reviewVo.getCreateAt());
+        
+                    System.out.println("작성자 : " + reviewVo.getUserId() + " 작성일 : " + sdf.format(crtDate));
+                    System.out.println("내용 : " + reviewVo.getContent());
+                    System.out.println("-----------------------------------------------------------------------");
+        
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+            System.out.println("< " + page + " / " + lastPage + " >");
+            
+            System.out.print("   이동하고 싶은 페이지 입력 (종료 : 0)\n>>  입력: ");
+            page = Integer.valueOf(UserMain.sc.nextLine());
+            
+            if (page == 0) {
+                return;
+            }
+        
+        }
     }
     
     
@@ -322,48 +334,24 @@ public class RentalMain {
     	if (resList == null || resList.size() < 1) {
     		System.out.println("  !! 예약한 시설이 없습니다. !!");
     	} else {
-    		System.out.println("번호 | 예약번호 | 시설이름 | 예약일 | 신청시간");
+    		System.out.println("---------------------------------------------------------------------");
+    		System.out.println("번호 | 예약번호 |   시설이름   |    예약일    |      신청시간");
+    		System.out.println("---------------------------------------------------------------------");
     		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
     		for (int i = 0; i < resList.size(); i++) {
     			try {
 					ResVO rvo = resList.get(i);
 					Date crtDate = sdf.parse(rvo.getResDate());
-					System.out.println((i + 1) + " | " + rvo.getResNo() + " | " + rvo.getFacName() + " | "
-								  + sdf.format(crtDate) + " | " + rvo.getApplicationDate());
+					
+					System.out.printf("%3d     %4d %10s    %11s    %20s\n", (i + 1), rvo.getResNo(), rvo.getFacName(), 
+							sdf.format(crtDate), rvo.getApplicationDate());
 					
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
     		}
+    		System.out.println("---------------------------------------------------------------------");
     	}
-    	
-    	
-    	while(true) {
-            System.out.println();
-            System.out.println("     < 유저 모드 >");
-            System.out.println("   1.예약취소   2.돌아가기");
-            System.out.print(">> 선택 : ");
-            String input = UserMain.sc.nextLine();
-            switch (input) {
-            case "1":
-            	System.out.print("   예약 취소할 번호를 입력해주세요. (취소 0)\n>> 입력 : ");
-            	int num = Integer.valueOf(UserMain.sc.nextLine());
-            	if (num == 0) {
-            		System.out.println("  !! 취소하셧습니다. 시설메뉴로 돌아갑니다. !!");
-            		return;
-            	}
-            	
-            	try {
-            		resCancel(resList.get(num-1));
-            	} catch (Exception e) {
-					System.out.println("  !! 존재하지 않는 번호입니다.  !!");
-				}
-            	break;
-            	
-            case "2":    return;    
-            default: 
-            }
-        }
     }
     
     // 예약 취소
@@ -386,7 +374,7 @@ public class RentalMain {
 
 	        if (sdf.format(dataDate).equals(sdf.format(currentDate)) ||
 	           sdf.format(dataDate).equals(sdf.format(tomorrowDate))) {
-	            System.out.println("  !! 예약취소는 이틀 전까지만 가능합니다. !!");
+	            System.out.println("  !! 예약취소는 하루 전까지만 가능합니다. !!");
 	        } else {
 	        	if (fdao.deleteRental(rvo.getResNo())) {
 	        		System.out.println(sdf.format(crtDate) + " | " + rvo.getFacName() + "의 예약이 취소되었습니다.");
@@ -407,19 +395,22 @@ public class RentalMain {
         if (useList == null || useList.size() < 1) {
            System.out.println(" !! 이용한 시설이 없습니다. !!");
         } else {
-           System.out.println("시설번호   |   시설이름   |   예약일");
-           System.out.println("--------------------------------------");
+        	System.out.println("--------------------------------------------");
+           System.out.println("번호 | 시설번호 |   시설이름   |  예약일");
+           System.out.println("--------------------------------------------");
 
            for (int i = 0; i < useList.size(); i++) {
               try {
                  ResVO rvo = useList.get(i);
                  Date crtDate = sdf.parse(rvo.getResDate());
-                 System.out.println(
-                       (i + 1) + " | " + rvo.getResNo() + " | " + rvo.getFacName() + " | " + sdf.format(crtDate));
+                 
+                 System.out.printf("%3d      %3d  %10s  %11s\n", (i + 1), rvo.getResNo(), rvo.getFacName(), sdf.format(crtDate));
+                 
               } catch (Exception e) {
                  e.printStackTrace();
               }
            }
+           System.out.println("--------------------------------------------");
         }
 
         System.out.println("   리뷰를 작성하시겠습니까?");
@@ -430,7 +421,8 @@ public class RentalMain {
            System.out.println("   리뷰를 남길 시설 번호를 입력해주세요 : ");
            int input = Integer.valueOf(UserMain.sc.nextLine());
            
-           if (useList.get(input - 1).getContent() != null) {
+           
+           if (fdao.checkReview(UserMain.loginId, useList.get(input - 1).getResNo())) {
                System.out.println();
                System.out.println("   이미 리뷰가 존재합니다.");
                System.out.println("   이전 메뉴로 돌아갑니다.");
@@ -476,19 +468,24 @@ public class RentalMain {
           System.out.println("  !! 등록된 리뷰가 없습니다. !!");
        } else {
           SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-          System.out.println("인덱스  |  리뷰번호  | 시설이름  | 등록일   |   리뷰");
+          System.out.println("---------------------------------------------------------------------");
+          System.out.println("번호 |  리뷰번호  | 시설이름  |    등록일    |   리뷰");
+          System.out.println("---------------------------------------------------------------------");
 
           for (int i = 0; i < reviewList.size(); i++) {
              try {
                 ReviewVO reviewVo = reviewList.get(i);
                 Date crtDate = sdf.parse(reviewVo.getCreateAt());
 
-                System.out.println((i + 1) + " | " + reviewVo.getReviewNo() + " | " + reviewVo.getFacName() + " | "
-                      + sdf.format(crtDate) + " | " + reviewVo.getContent());
+            
+                System.out.printf("%3d    %6d  %10s    %11s     %20s\n", (i + 1), reviewVo.getReviewNo(), 
+                		reviewVo.getFacName(), sdf.format(crtDate), reviewVo.getContent());
+                
              } catch (Exception e) {
                 e.printStackTrace();
              }
           }
+          System.out.println("---------------------------------------------------------------------");
        }
 
 
@@ -498,7 +495,7 @@ public class RentalMain {
        
        switch (reviewEditYesNo) {
        case "1":
-          System.out.println(">>  수정할 리뷰 번호를 입력해주세요 : ");
+          System.out.println(">>  수정할 번호를 입력해주세요 : ");
           int input = Integer.valueOf(UserMain.sc.nextLine());
           reviewEdit(reviewList.get((input) - 1));
           break;

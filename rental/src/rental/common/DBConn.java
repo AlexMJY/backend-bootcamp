@@ -29,7 +29,7 @@ public class DBConn {
 
             try {
                 Class.forName(driver);
-                System.out.println("드라이버 로딩 ok");
+//                System.out.println("드라이버 로딩 ok");
                 con = DriverManager.getConnection(url, username, password);
                 
                 
@@ -38,7 +38,7 @@ public class DBConn {
                 // con.rollback();                // DB에 " " 되돌리기
                 // con.setAutoCommit(true);        // 자동커밋 o
                 
-                System.out.println("con ok!");
+//                System.out.println("con ok!");
 
             } catch (ClassNotFoundException e) {
                 System.out.println(">> 드라이버를 찾을 수 없습니다.");

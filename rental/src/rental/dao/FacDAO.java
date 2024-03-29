@@ -20,30 +20,30 @@ public class FacDAO {
     private FacVO fvo;
     
     
-    // 시설 리스트
+ // 시설 리스트
     public List<FacVO> selectFac() {
-    	query = "SELECT * FROM R_FAC";
-    	List<FacVO> facArray = new ArrayList<FacVO>();
-    	
-    	try {
-    		pstmt = DBConn.getConnection().prepareStatement(query);
-    		rs = pstmt.executeQuery();
-    		
-    		while (rs.next()) {
-    			fvo = new FacVO();
-    			fvo.setFacNo(rs.getInt("facNo"));
-    			fvo.setFacName(rs.getString("facName"));
-    			fvo.setFacAddr(rs.getString("facAddr"));
-    			fvo.setCreateAt(rs.getString("create_at"));
-    			facArray.add(fvo);
-    		}
-    		
-    	} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			DBConn.close(pstmt, rs);
-		}
-    	return facArray;
+        query = "SELECT facNo, facName, RPAD(facAddr, 40, ' ') facAddr, create_at FROM r_fac";
+        List<FacVO> facArray = new ArrayList<FacVO>();
+        
+        try {
+            pstmt = DBConn.getConnection().prepareStatement(query);
+            rs = pstmt.executeQuery();
+            
+            while (rs.next()) {
+                fvo = new FacVO();
+                fvo.setFacNo(rs.getInt("facNo"));
+                fvo.setFacName(rs.getString("facName"));
+                fvo.setFacAddr(rs.getString("facAddr"));
+                fvo.setCreateAt(rs.getString("create_at"));
+                facArray.add(fvo);
+            }
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            DBConn.close(pstmt, rs);
+        }
+        return facArray;
     }
     
     
@@ -190,6 +190,8 @@ public class FacDAO {
     	return result;
     }
     
+    
+    
     // fac리뷰 가져오기
     public List<ReviewVO> selectFacReview(String facName, int page) {
 		List<ReviewVO> reviewList = new ArrayList<>();
@@ -235,16 +237,13 @@ public class FacDAO {
 		return reviewList;
 	}
     
-    
+    // 시설 이용내역
     public List<ResVO> facUseList(String id) {
 //		query = "SELECT resno, facname, res_date FROM r_res WHERE avl = 1";
     	
 		List<ResVO> usedList = new ArrayList<>();
 		try {
-			query = "SELECT resNo, rs.userId, rs.facName, content, res_date "
-					+ "FROM r_res rs, r_review rv "
-					+ "WHERE rs.userId = rv.userId(+) "
-					+ "AND avl = 1 AND rs.userId = ?";
+			query = "SELECT * FROM r_res WHERE avl = 1 AND userId = ?";
 			pstmt = DBConn.getConnection().prepareStatement(query);
 			pstmt.setString(1, id);
 			rs = pstmt.executeQuery();
@@ -255,7 +254,6 @@ public class FacDAO {
 				rvo.setUserId(rs.getString("userId"));
 				rvo.setFacName(rs.getString("facName"));
 				rvo.setResDate(rs.getString("res_Date"));
-				rvo.setContent(rs.getString("content"));
 				usedList.add(rvo);
 			}
 		} catch (Exception e) {
@@ -266,6 +264,31 @@ public class FacDAO {
 		return usedList;
     	
     }
+    
+    
+    // 조회
+    public Boolean checkReview(String id, int num) {
+    	query = "SELECT content FROM r_review WHERE userId= ? AND reviewNo = ?";
+    	
+    	try {
+            pstmt = DBConn.getConnection().prepareStatement(query);
+            pstmt.setString(1, id);
+            pstmt.setInt(2, num);
+            rs = pstmt.executeQuery();
+            
+            if (rs.next()) {
+                result = true;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+        	DBConn.close(pstmt, rs);
+        }
+    	return result;
+    }
+    
+    
+    
     
    public boolean insertReview(ReviewVO reviewVo) {
 	   try {
@@ -294,7 +317,8 @@ public class FacDAO {
 	   List<ReviewVO> reviewList = new ArrayList<>();
 	   
 	   try {
-		   query = "SELECT * FROM r_review WHERE userId = ?";
+		   query = "SELECT reviewNo, userId, facName, RPAD(content, 30, ' ') content, "
+		   		+ "create_at, edit_at FROM r_review WHERE userId = ?";
 		   pstmt = DBConn.getConnection().prepareStatement(query);
 		   pstmt.setString(1, id);
 		   
