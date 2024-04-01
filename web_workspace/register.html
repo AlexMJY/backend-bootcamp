@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+
+</head>
+<body>
+    <h1><center>가입신청서</center></h1>
+    <form action="next.html">
+        이름 : <input type="text" name="name" id="name"> <br><br>
+        주민등록번호 : <input type="text" name="joomin1"> - <input type="text" name="joomin2"> <br><br>
+        비밀번호 : <input type="password" name="pwd"> <br><br>
+        전화번호 : <input type="text" name="call1"> - <input type="text" name="call2"> - <input type="text" name="call3"> <br><br>
+        주소 : <input type="text" name="addr"> <br><br>
+        E-mail : <input type="text" name="mail1"> @ <input type="text" name="mail2">
+        <select name="menu">
+            <option value="self">직접 입력</option>
+            <option value="naver">naver.com</option>
+            <option value="daum">daum.net</option>
+            <option value="google">google.com</option>
+        </select> <br><br>
+        성별 : <input type="radio" name="gender" value="남"> 남
+        <input type="radio" name="gender" value="여"> 여 <br><br>
+    
+        취미 : <input type="checkbox" name="quest1" value="음악감상"> 음악감상
+        <input type="checkbox" name="quest2" value="독서"> 독서
+        <input type="checkbox" name="quest3" value="운동"> 운동 <br><br>
+    
+        <center>
+            <input type="submit" value="가입합니다">
+            <input type="reset" value="취소합니다">
+        </center>
+    </form>
+</body>
+</html>
