@@ -144,8 +144,8 @@ public class RentalMain {
 
     }
     
- // 시설 리뷰 보기
-public void facReview(List<FacVO> facList) {
+    // 시설 리뷰 보기
+    public void facReview(List<FacVO> facList) {
         
         System.out.print("   리뷰를 볼 시설의 번호를 입력하세요. (취소 0)\n>> 입력 : ");
         int facNo = Integer.valueOf(UserMain.sc.nextLine());
