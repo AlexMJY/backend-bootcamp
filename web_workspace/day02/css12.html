@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>css12.html</title>
+    <style>
+        body {
+            font-family: "고딕";
+        }
+        h1 {
+            background: blue;
+            color: white;
+        }
+        p {
+            background: yellow;
+            padding: 10px;
+        }
+        .rel {
+            position: relative;
+            top: 10px;
+            left: 10px;
+            width: 300px;
+            height: 300px;
+            background: blue;
+        }
+    </style>
+</head>
+<body>
+    <h1>Relative Position</h1>
+
+    <!-- p.rel{박스의 위치를 지정할 때 사용할 수 있는 속성 top, left, bottom이 있다.} -->
+    <p class="rel">
+        박스의 위치를 지정할 때 사용할 수 있는 속성 top, left, bottom이 있다.
+        박스는 본래 위치를 기준으로 배치된다.
+    </p>
+    <p>상대 위치 지정방식으로 박스가 배치될 경우 다른 블록 요소 배치에 영향을 주지 않고 배치된다.</p>
+
+</body>
+</html>

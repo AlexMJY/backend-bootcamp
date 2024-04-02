@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="src" path="javaz_teacher/src"/>
+	<classpathentry kind="src" path="memberz/src"/>
+	<classpathentry kind="src" path="rental/src"/>
+	<classpathentry kind="src" path="sample1/src"/>
+	<classpathentry kind="src" path="sample2/src"/>
+	<classpathentry kind="output" path="javaz_teacher/bin"/>
+</classpath>
