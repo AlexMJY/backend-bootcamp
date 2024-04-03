@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>css17</title>
+    <style>
+        /* div 너비 100px 높이 100px */
+        /* box1의 배경 red */
+        /* box2의 배경 blue */
+        /* 
+           span의 배경 yellow, 너비 150px, 높이 150px 
+           span에 마우스 올려놓으면 배경 초록색
+           span을 클릭하면 배경을 blue
+        */
+        div {
+            width: 100px;
+            height: 100px;
+        }
+        div#box1 {
+            background: red;
+        }
+        div#box2 {
+            background: blue;
+        }
+        span {
+            background: yellow;
+            width: 150px;
+            height: 150px;
+            /* display: inline-block; */
+            display: block;
+        }
+        span:hover {
+            background: green;
+        }
+        span:active {
+            background: blue;
+            display: none;
+        }
+
+        
+    </style>
+</head>
+<body>
+    <!-- div>div#box1{푸른하늘} -->
+    <div>
+        <div id="box1">푸른하늘</div>
+    </div>
+
+    <div>
+        <div id="box2">은하수</div>
+    </div>
+    <span>span은 inline 요소</span>
+    
+    <img src="../images/movie_image01.jpg" alt="">
+</body>
+</html>
