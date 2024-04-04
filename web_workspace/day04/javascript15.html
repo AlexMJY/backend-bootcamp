@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>javascript15.html</title>
+    <script>
+        function operation() {
+            let txt1 = document.getElementById("txt1");
+            let txt2 = document.getElementById("txt2");
+            let oper = document.getElementById("oper");
+            let result = document.getElementById("result");
+
+            txt1 = parseInt(txt1.value);
+            txt2 = parseInt(txt2.value);
+
+            result.value = eval(txt1 + oper.value + txt2);
+        }
+    </script>
+</head>
+<body>
+    <input type="text" name="" id="txt1">
+    <input type="text" name="" id="oper" size="3">
+    <input type="text" name="" id="txt2">
+    <input type="button" value="=" onclick="operation()">
+    <input type="text" name="" id="result">
+</body>
+</html>

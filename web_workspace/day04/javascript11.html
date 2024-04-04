@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>javascript11.html</title>
+    <script>
+        // 버튼을 클릭하면 입력부분에 Hello World 메시지를 출력하세요
+        function prt() {
+            let txt = document.getElementById("txt");
+            console.dir(txt);
+            txt.value = "Hello World";
+            
+        }
+    </script>
+</head>
+<body>
+    <input type="text" name="" id="txt">
+    <input type="button" value="출력" onclick="prt();">
+</body>
+</html>

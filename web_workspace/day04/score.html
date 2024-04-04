@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>score.html</title>
+    <script>
+        function cal() {
+            let score = parseInt(document.getElementById("score").value);
+            let grade = document.getElementById("grade");
+            if (score >= 90) {
+                grade.value = "합격";
+            } else {
+                grade.value = "불합격";
+            }    
+        }
+        
+        
+    </script>
+</head>
+<body>
+    <input type="text" name="score" id="score">
+    <input type="button" value="확인" onclick="cal();"> <br><br>
+    <input type="text" name="grade" id="grade">
+</body>
+</html>

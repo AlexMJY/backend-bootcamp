@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Q09.html</title>
+    <script>
+        // 쥐소호토용뱀말양원닭개돼
+        let oj = {
+            4 : '쥐', 5 : '소', 6 : '호랑이',
+            7 : '토끼', 8 : '용', 9 : '뱀',
+            10 : '말', 11 : '양', 1 : '원숭이',
+            2 : '닭', 3 : '개', 0 : '돼지'
+        }
+        function yearChk() {
+            let year = parseInt(document.getElementById('year').value);
+            yearDiv = year % 12;
+
+            let result = document.getElementById('result');
+            result.value = year + "년은" + oj[yearDiv] + "띠 입니다.";
+
+        }
+    </script>
+</head>
+<body>
+    <input type="text" name="year" id="year">
+    <input type="button" value="check" onclick="yearChk();"> <br>
+    <input type="text" name="result" id="result">
+</body>
+</html>

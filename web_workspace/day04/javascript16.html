@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>javascript16.html</title>
+    <style>
+        table, td {
+            border: 1px solid red;
+            border-collapse: collapse;
+            text-align: center;
+        }
+        table {
+            margin: 0 auto;
+            width: 300px;
+            height: 400px;
+        }
+        input[type=button] {
+            margin: 20px 50px;
+            width: 120px;
+            height: 40px;
+            font-size: 20px;
+        }
+        input[type=text] {
+            margin: 20px 50px;
+            width: 90%;
+            height: 40px;
+            font-size: 20px;
+            font-weight: bold;
+            text-align: right;
+        }
+    </style>
+
+    <script>
+        let result = '';
+
+        function addElement(value) {
+            result += value;
+            let display = document.getElementById("display");
+            display.value = result;
+        }
+
+        function clearElement() {
+            result = '';
+            display.value = '';
+        }
+
+        function calculate() {
+            result = eval(display.value);
+            display.value = eval(display.value);
+        }
+    </script>
+</head>
+<body>
+    <table>
+        <tr>
+            <td colspan="4"><input type="text" name="" id="display"></td>
+        </tr>
+        <tr>
+            <td><input type="button" value="7" onclick="addElement('7')"></td>
+            <td><input type="button" value="8" onclick="addElement('8')"></td>
+            <td><input type="button" value="9" onclick="addElement('9')"></td>
+            <td><input type="button" value="+" onclick="addElement('+')"></td>
+        </tr>
+        <tr>
+            <td><input type="button" value="4" onclick="addElement('4')"></td>
+            <td><input type="button" value="5" onclick="addElement('5')"></td>
+            <td><input type="button" value="6" onclick="addElement('6')"></td>
+            <td><input type="button" value="-" onclick="addElement('-')"></td>
+        </tr>
+        <tr>
+            <td><input type="button" value="1" onclick="addElement('1')"></td>
+            <td><input type="button" value="2" onclick="addElement('2')"></td>
+            <td><input type="button" value="3" onclick="addElement('3')"></td>
+            <td><input type="button" value="*" onclick="addElement('*')"></td>
+        </tr>
+        <tr>
+            <td><input type="button" value="0" onclick="addElement('0')"></td>
+            <!-- <td><input type="button" value="00" onclick="addElement('00')"></td> -->
+            <td><input type="button" value="C" onclick="clearElement()"></td>
+            <td><input type="button" value="=" onclick="calculate()"></td>
+            <td><input type="button" value="/" onclick="addElement('/')"></td>
+        </tr>
+    </table>
+</body>
+</html>

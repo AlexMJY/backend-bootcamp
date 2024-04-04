@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>javascript06.html</title>
+    <script>
+        console.log("test1");
+        var cnt = 0;  // 전역 변수
+        function run() {
+            cnt++
+            // console.log("test2");
+            console.log("cnt : " + cnt);
+        }
+    </script>
+</head>
+<body>
+    <input type="button" value="클릭" onclick="run();">
+</body>
+</html>
