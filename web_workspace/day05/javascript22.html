@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>javascript22.html</title>
+    <style>
+        img {
+            width: 400px;
+            height: 300px;
+        }
+    </style>
+    
+</head>
+<body>
+    <img src="" alt="" id="poster">
+
+    <script>
+        let poster = document.getElementById("poster");
+        console.dir(poster);
+        // let no = parseInt(Math.random() * 10);
+
+        // Math.floor() : 그 값을 넘지 않는 가장 가까운 정수
+        let no = (Math.floor(Math.random() * 10) + 1);
+        poster.src = "../images/movie_image0"+no+".jpg";
+
+        
+        console.log("랜덤값 : " + (Math.floor(Math.random() * 10) + 1));
+        
+    </script>
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>javascript20</title>
+    <script>
+        // 문자열 객체
+        // String str = new String("ABCDEFGH");
+        let str = "ABCDEFGH";
+        console.log(str.substring(2, 3)); // 2번째 인덱스의 엘리먼트만
+
+        // 특정문자의 위치?
+        // indexOf('E')
+        console.log(str.indexOf('E'));
+
+        // 중첩가능
+        let email = "dagda@hanafos.com";
+
+        // id만 추출
+        console.log(email.substring(0, email.indexOf('@')));
+        console.log(email.split('@')[0]);
+
+        console.log("----------------------------------------");
+
+        let friendList = "aaa,bbb,ccc,ddd,eee,fff";
+        let fList = friendList.split(",");
+        
+        fList.forEach(friend => console.log(friend));
+
+        for (let i = 0; i <= fList.length; i++) {
+            console.log(fList[i]);
+        }
+        
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

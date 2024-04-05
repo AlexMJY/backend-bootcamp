@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>javascript25.html</title>
+    <script>
+        function printWhere() {
+            // console.log("hello");
+            let whereId = document.getElementById("sel");     
+            console.log(whereId.value);
+
+            // 이름으로 select 객체 출력하기
+            console.log(document.frm.where);
+            console.dir(document.frm.where);
+
+            // 몇번을 선택했는지 인덱스 구하기
+            console.log(document.frm.where.selectedIndex);
+
+            // 선택한 메뉴에 따라 페이지를 이동
+            let idx = document.frm.where.selectedIndex;
+            // if (idx == 1) {
+            //     location.href = "https://www.burgerking.co.kr/";
+            // } else if (idx == 2) {
+            //     location.href = "https://www.mcdonalds.co.kr/";
+            // } else if (idx == 3) {
+            //     location.href = "https://www.subway.co.kr/";
+            // } else if (idx == 4) {
+            //     location.href = "https://momstouch.co.kr/";
+            // }
+
+            let whereArr = ["http://127.0.0.1:5500/day05/javascript25.html",
+                            "https://www.burgerking.co.kr/", 
+                            "https://www.mcdonalds.co.kr/",
+                            "https://www.subway.co.kr/", 
+                            "https://momstouch.co.kr/"]
+
+            location.href = whereArr[idx];
+        }
+    </script>
+</head>
+<body>
+    <h1>당신이 좋아하는 패스트 푸드점은?</h1>
+    <form action="" name="frm">
+        <select name="where" id="sel" onchange="printWhere();">
+            <option value="">--------------</option>
+            <option value="버거킹">버거킹</option>
+            <option value="맥도날드">맥도날드</option>
+            <option value="서브웨이">서브웨이</option>
+            <option value="맘스터치">맘스터치</option>
+        </select>
+    </form>
+</body>
+</html>
