@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>javascript33.html</title>
+    <style>
+        li {
+            list-style-type: lower-roman;
+        }
+    </style>
+    <script>
+        function prt() {
+            let menu = document.getElementById("txt1").value;
+            
+            let ul = document.getElementById("ulEle"); 
+            
+            ul.innerHTML += "<li>" + menu + "</li>";
+            
+            document.getElementById("txt1").value = ""; 
+            // menu.focus();
+        }
+    </script>
+</head>
+<body>
+    <h1>점심메뉴</h1>
+    <input type="text" name="" id="txt1">
+    <input type="button" value="입력" onclick="prt();">
+
+    <!-- div>ul#ulele>li{메뉴} -->
+    <div>
+        <ul id="ulEle">
+            <li><h2>메뉴</h2></li>
+        </ul>
+    </div>
+</body>
+</html>

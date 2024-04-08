@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Q02.html</title>
+    <style>
+        img { width: 100px; height: 100px;}
+    </style>
+    <script>
+        function lotto(){
+            // console.log("print message")
+            // 1. 랜덤하게 1부터 45 사이의 정수
+            // 0 * 45 + 1< Math.floor(Math.random() * 45) + 1  < 1 * 45 + 1
+            // console.log(Math.floor(Math.random() * 45) + 1);
+            
+            // 6칸짜리 배열을 선언
+            // rnd에 값을 배열에 넣고
+            // 랜덤값이 배열에 들어있다면 다시 뽑기
+            let arr = [];
+
+            while (arr.length <= 5) {
+                let rnd = Math.floor(Math.random() * 45) + 1;
+
+                if (!arr.includes(rnd)) {
+                    arr.push(rnd)
+                } 
+            }
+            
+            arr.sort((a, b) => a - b)
+            console.log(arr);
+
+            
+            for (let i = 0; i <= 5; i++) {
+                let path = "../images/ball/ball" + arr[i] + ".png"; 
+                let img1 = document.getElementById("img" + (i + 1));
+                img1.src = path;
+            }
+
+        }
+    </script>
+</head>
+<body>
+    <img src="../images/ball/q.jpg" alt="" srcset="" id="img1">
+    <img src="../images/ball/q.jpg" alt="" srcset="" id="img2">
+    <img src="../images/ball/q.jpg" alt="" srcset="" id="img3">
+    <img src="../images/ball/q.jpg" alt="" srcset="" id="img4">
+    <img src="../images/ball/q.jpg" alt="" srcset="" id="img5">
+    <img src="../images/ball/q.jpg" alt="" srcset="" id="img6">
+    <input type="button" value="대박" onclick="lotto();">
+</body>
+</html>

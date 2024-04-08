@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Q01.html</title>
+    <style>
+        table{
+            position: relative;
+            top: -445px;
+            left: 1500px;
+            background: white;
+            border: 0px solid;
+            border-spacing: 0px;
+        }
+        td{
+            border: 3px solid white;
+        }
+        td:hover{
+            border: 3px solid rgb(66, 146, 250);
+            border-radius: 2px;
+        }
+    </style>
+</head>
+<body>
+    <img src="https://static.coupangcdn.com/qa/cmg_paperboy/image/1711611397616/1920_450.jpg" alt="" id="photo">
+     <script>
+        let imgArr = [
+            "https://static.coupangcdn.com/qa/cmg_paperboy/image/1711611397616/1920_450.jpg",
+            "https://image10.coupangcdn.com/image/ccm/banner/a650040402330ba80e56b87ff8df3977.jpg", 
+            "https://thumbnail6.coupangcdn.com/thumbnails/remote/x/image/bannerunit/bannerunit_a6441061-3fd0-4c51-b7ca-27bcdd758827.jpg",
+            "https://static.coupangcdn.com/aa/cmg_paperboy/image/1712135584094/C1-PC1.jpg",
+            "https://image10.coupangcdn.com/image/ccm/banner/370f788cff99991b469fbd518c9c01eb.jpg",
+            "https://image8.coupangcdn.com/image/ccm/banner/a246e76f341ab5336b762bae2aadbb29.jpg"
+        ];
+        // 랜덤으로 슬라이드
+    //     function chgImg() {
+    //         console.log(imgArr);
+    //         let no = Math.ceil(Math.random()*6)-1;
+    //         console.log(imgArr[no]);
+    //         document.getElementById("photo").src = imgArr[no];
+    //         let nowTime = new Date();
+    //         window.setTimeout(chgImg, 3000);
+    //     }
+    //    chgImg();
+
+        // 한칸씩 슬라이드
+        let idx = 0;
+        function chgImg2() {
+            let photo = document.getElementById("photo");
+            photo.src = imgArr[idx];
+            idx++;
+            if (idx > imgArr.length) {
+                idx = 0;
+            }
+            window.setTimeout(chgImg2, 2000);
+
+        }
+    </script>
+    <table>
+        <tr id="id1">
+            <td><img src="https://static.coupangcdn.com/xa/cmg_paperboy/image/1711611399183/180x60.jpg" alt=""></td>
+        </tr>
+        <tr id="id2">
+            <td><img src="https://image10.coupangcdn.com/image/ccm/banner/2323b91468e8b4e3d209f2214c4e388c.jpg" alt=""></td>
+        </tr>
+        <tr id="id2">
+            <td><img src="https://image9.coupangcdn.com/image/bannerunit/bannerunit_eaafacf8-1e45-4dfe-9c2c-35f464337cd3.jpg" alt=""></td>
+        </tr>
+        <tr id="id3">
+            <td><img src="https://static.coupangcdn.com/qa/cmg_paperboy/image/1712135586268/C1-PC2.jpg" alt=""></td>
+        </tr>
+        <tr id="id4">
+            <td><img src="https://image10.coupangcdn.com/image/ccm/banner/ea34d0375c80b1e040460af5da636a86.jpg" alt=""></td>
+        </tr>
+        <tr id="id5">
+            <td><img src="https://image7.coupangcdn.com/image/ccm/banner/a52f41ec63082fb8916436b292ed31d5.jpg" alt=""></td>
+        </tr>
+    </table>
+    <script>
+        chgImg2();
+    </script>
+</body>
+</html>

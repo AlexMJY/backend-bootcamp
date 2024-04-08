@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Q03.html</title>
+    <script>
+        function gugudan() {
+            let box1 = document.getElementById("box1");
+            let tableStr = "<table>";
+            
+            for(i = 2 ; i <=999 ; i++) {
+                tableStr += "<tr>";
+                for(j = 1 ; j <=9 ; j++){
+                    tableStr += "<td>" + i + "X" + j + "=" + i*j + "</td>";
+                }
+                tableStr += "</tr>";
+            }
+            tableStr += "</table>";
+            box1.innerHTML = tableStr;
+        }
+    </script>
+    <style>
+        table, td{
+            border : 1px solid black;
+        }
+    </style>
+</head>
+<body>
+    <input type="button" value="출력" onclick="gugudan();">
+    <div id="box1">
+
+    </div>
+    
+</body>
+</html>

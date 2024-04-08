@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>javascript30.html</title>
+    <script>
+        function nowTime() {
+            let today = new Date();   
+            let hours = today.getHours(); 
+            let minutes = today.getMinutes();  
+            let seconds = today.getSeconds();
+
+            let box1 = document.getElementById("box1");
+            let time = hours + " : " + minutes + " : " + seconds;
+            box1.innerHTML = time;
+
+            // window.setTimeout(함수명, 시간);
+            window.setTimeout(nowTime, 1000);
+        }
+    </script>
+</head>
+<body>
+    <input type="button" value="현재시간" onclick="nowTime();">
+
+    <div id="box1"></div>
+</body>
+</html>

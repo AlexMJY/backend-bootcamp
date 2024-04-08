@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>javascript29.html</title>
+    <script>
+        // 버튼을 클릭하면 id가 div1인 엘리먼트에 뽀로로 이미지가 출력
+        function showImg() {
+            // console.log("hello world");
+            let div1 = document.getElementById("div1");
+            div1.innerHTML = "<img src='../images/before.png'>";
+
+        }
+    </script>
+</head>
+<body>
+    <input type="button" value="나와라 뿅" onclick="showImg();">
+    <div id="div1"></div>
+
+    
+</body>
+</html>
