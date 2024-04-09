@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>javascript37.html</title>
+    <style>
+        #myCanvas {
+            background: #aaaaaa;
+        }
+    </style>
+    <script>
+        function test() {
+            // id : myCanvas인 element를 JS 객체로 가져오기
+            let canvas = document.getElementById("myCanvas");
+            console.log(canvas);
+
+            // 2d 컨텍스트 객체 가져오기
+            let ctx = canvas.getContext("2d");
+
+            // ctx : 붓
+            ctx.beginPath(); // 그림 그리기 시작
+            
+            ctx.moveTo(50, 50); // 시작 지점으로 붓을 이동
+            
+            ctx.lineTo(150, 50); // 선긋기
+            ctx.lineTo(50, 150);
+
+            ctx.closePath(); // 경로 닫기
+
+            ctx.fillStyle="lightyellow";
+            ctx.fillRect(100, 100, 300, 300);  // x좌표, y좌표, 너비, 높이 : 화면 채우기
+
+            ctx.strokeStyle = "white";  // 선 색상 변경
+
+            ctx.stroke(); // ctx 실행
+        }
+        window.onload=test; // 현재 윈도우가 모두 로딩되면 함수를 실행. test는 함수 이름
+    </script>
+</head>
+<body>
+    <canvas id="myCanvas" width="500px" height="500px"></canvas>
+</body>
+</html>

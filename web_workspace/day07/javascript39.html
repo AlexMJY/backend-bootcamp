@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>javascript39.html</title>
+    <style>
+        #myCanvas { background: #aaaaaa; }
+    </style>
+    <script>
+        let bgImg = new Image(); // 배경 이미지 객체
+        bgImg.src = "../images/rabbit/bg.jpg";  // 이미지 소스 위치
+
+        let rabbit1 = new Image();
+        rabbit1.src = "../images/rabbit/rabbit1.png";
+
+        let rabbit2 = new Image();
+        rabbit2.src = "../images/rabbit/rabbit2.png";
+
+
+        
+        let ctx; // ctx를 전역변수로
+        let counter = 0;  // 카운터 변수
+        window.onload = function() {
+            let canvas = document.getElementById("myCanvas"); // myCanvas 엘리먼트 객체 가져오기
+            ctx = canvas.getContext("2d"); // ctx 객체 가져오기
+            drawScreen();
+            // window.setTimeout(drawScreen, 1000);  // 1회성
+            window.setInterval(drawScreen, 2000);
+        }
+
+        function drawScreen() {
+            counter++;
+            console.log(counter);
+            // 배경 그리기
+            ctx.drawImage(bgImg, 0, 0, 800, 600); // (이미지, x, y, 너비, 높이)
+
+            if (counter % 2 == 0) {
+                ctx.drawImage(rabbit1, 100, 100, 100, 100); 
+            } else {
+                ctx.drawImage(rabbit2, 100, 100, 100, 100); 
+            }
+        }
+
+        
+    </script>
+</head>
+<body>
+    <canvas id="myCanvas" width="800px" height="600px"></canvas>
+</body>
+</html>

@@ -5,14 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Q05.html</title>
     <style>
-        .header {
-            width: 200px;
-            margin: 50px auto;
-            border: 1px solid black;
-        }
         .container {
             text-align: center;
             margin-top: 50px;
+        }
+        .title {
+            margin: 50px auto;
+            font-size: 40px;
+            font-weight: bold;
+            text-align: center;
         }
         .options {
             display: flex;
@@ -23,6 +24,7 @@
             margin: 0 10px;
             width: 200px;
             height: 200px;
+            display: inline-block;
         }
         img {
             width: 200px;
@@ -37,36 +39,36 @@
         }
     </style>
     <script>
-        let arr = ["서브웨이", "떡볶이", "자장면", "햄버거"]
-        function menuResult(num) {
+        // let arr = ["서브웨이", "떡볶이", "짜장면", "햄버거"]
+        function menuResult(x) {
             let result = document.getElementById("result");
-            result.value = "선택하신 메뉴는 " + arr[num - 1] + "입니다."
+            result.value = "선택하신 메뉴는 " + x.value + "입니다."
             
         }
     </script>
 </head>
 <body>
     <div class="container">
-        <div class="header" >오늘의 점심메뉴</div>
+        <div class="title" >오늘의 점심메뉴</div>
         <div class="options">
             <div class="option">
                 <img src="https://www.tradlinx.com/blog/wp-content/uploads/2022/09/220907_main.jpg" alt="">
-                <input type="radio" id="option1" name="lunch" value="option1" onclick="menuResult(1)">
+                <input type="radio" id="option1" name="lunch" value="서브웨이" onclick="menuResult(this)">
                 <label for="option1">서브웨이</label>
             </div>
             <div class="option">
                 <img src="https://recipe1.ezmember.co.kr/cache/data/goods/23/12/50/1000042281/1000042281_magnify_011.jpg" alt="">
-                <input type="radio" id="option2" name="lunch" value="option2" onclick="menuResult(2)">
+                <input type="radio" id="option2" name="lunch" value="떡볶이" onclick="menuResult(this)">
                 <label for="option2">떡볶이</label>
             </div>
             <div class="option">
                 <img src="https://recipe1.ezmember.co.kr/cache/recipe/2015/06/08/42a5a4b097245f7ddd6ea49b39e4185b.jpg" alt="">
-                <input type="radio" id="option3" name="lunch" value="option3" onclick="menuResult(3)">
-                <label for="option3">자장면</label>
+                <input type="radio" id="option3" name="lunch" value="짜장면" onclick="menuResult(this)">
+                <label for="option3">짜장면</label>
             </div>
             <div class="option">
                 <img src="https://health.chosun.com/site/data/img_dir/2023/06/12/2023061201327_0.jpg" alt="">
-                <input type="radio" id="option4" name="lunch" value="option4" onclick="menuResult(4)">
+                <input type="radio" id="option4" name="lunch" value="햄버거" onclick="menuResult(this)">
                 <label for="option4">햄버거</label>
             </div>
         </div>
