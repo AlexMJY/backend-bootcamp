@@ -34,26 +34,28 @@
         let player3 = new Image();
         player3.src = "../images/run/run3.png";
 
+
         // 동전이미지 객체
         let silver = new Image();
         silver.src = "../images/run/silver.png";
         let gold = new Image();
         gold.src = "../images/run/gold.png";
 
+        let score = 0;
+
 
 
         // 동전 좌표
-        let silverX = 700;
+        let silverX = 1000;
         let silverY = 0;
 
-        let goldX = 700;
+        let goldX = 1000;
         let goldY = 0;
 
         // 캐릭터 x,y좌표
-        let playerX = 30;
+        let playerX = 100;
         let playerY = 280;
 
-        let coinArray = [];
 
         let jumpOn = false; // 점핑 시도
         let jumping = false; // 점프중
@@ -70,25 +72,29 @@
             // 키 입력 시 a/d 입력시 좌/우 이동, 스페이스이면 점프하도록
             let body = document.body;
             body.onkeydown = move;
-            // body.onkeyup = jump;
             body.onmousedown = jump;
 
-            window.setInterval(drawScreen, 50)     
-            // window.setInterval(drawCoin, 10)       
+            window.setInterval(drawScreen, 50);       
         }
 
         function pythagoras(x1, y1, x2, y2) {
             return Math.sqrt(((x2 - x1) * (x2 - x1)) + ((y2 - y1) * (y2 - y1))) 
         }
 
+        function randomPositionCoin() {
+            coinX = 800;
+            coinY = Math.floor(Math.random() * 230) + 100;
+            
+        }
+
         function randomPositionSilver() {
-            silverX = 700;
-            silverY = Math.ceil(Math.random() * 230) + 100;
+            silverX = 800;
+            silverY = Math.floor(Math.random() * 230) + 100;
         }
 
         function randomPositionGold() {
-            goldX = 700;
-            goldY = Math.ceil(Math.random() * 230) + 100;
+            goldX = 800;
+            goldY = Math.floor(Math.random() * 230) + 100;
         }
 
         function drawScreen() {
@@ -96,21 +102,18 @@
             bg2x -= 10;
             counter++;
 
-            if (silverX <= 800) {
-                silverX -= 15;
-            }
-
-            if (goldX <= 800) {
-                goldX -= 15;
-            }
+            
 
             console.log(counter);
-            if (counter % 60 == 0) {
-                randomPositionSilver();
+
+            if (silverX <= 1200) { silverX -= 15; }
+            if (silverX <= -50) { 
+                randomPositionSilver(); 
             }
 
-            if (counter % 50 == 0) {
-                randomPositionGold();
+            if (goldX <= 1200) { goldX -= 15; }
+            if (goldX <= -50) { 
+                randomPositionGold(); 
             }
 
             if (jumpOn == true) {
@@ -146,30 +149,45 @@
             ctx.drawImage(bg1, bg1x, 0, 800, 500);
             ctx.drawImage(bg2, bg2x, 0, 800, 500);
 
+            // 점수판 그리기
+            ctx.fillStyle = "red";
+            ctx.font="35px 고딕";
+            ctx.fillText("SCORE : " +  score, 300, 50);
+
             // 캐릭터 그리기(달리는 것처럼)
             if (counter % 3 == 1) {
-                ctx.drawImage(player1, playerX, playerY, 100, 100);
+                ctx.drawImage(player1, playerX - 50, playerY, 100, 100);
             } else if (counter % 3 == 2) {
-                ctx.drawImage(player2, playerX, playerY, 100, 100);
+                ctx.drawImage(player2, playerX - 50, playerY, 100, 100);
             } else {
-                ctx.drawImage(player3, playerX, playerY, 100, 100);
+                ctx.drawImage(player3, playerX - 50, playerY, 100, 100);
             }
 
             // 동전 그리기
+        
             ctx.drawImage(gold, goldX, goldY, 50, 50);
             ctx.drawImage(silver, silverX, silverY, 50, 50);
 
             let disSilver = pythagoras(playerX, playerY, silverX, silverY);
             let disGold = pythagoras(playerX, playerY, goldX, goldY);
+
+            if (disSilver < 40) {
+                silverX = -100;
+                silverY = -100;
+                score += 100;
+            }
+
+            if (disGold < 40) {
+                goldX = -100;
+                goldY = -100;
+                score += 300;
+            }
+
+            
             
         }
 
-        // function drawCoin() {
-        //     silver -= 50;
 
-        //     // 동전 그리기
-        //     ctx.drawImage(silver, 780, 280, 5, 5);
-        // }
 
         function move(e) {
             console.dir(e);

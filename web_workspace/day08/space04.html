@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>space04.html</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+        #myCanvas { background: #aaaaaa;}
+    </style>
+    <script>
+        // 배경이미지 객체
+        let bgImg1 = new Image();
+        bgImg1.src = "../images/space/space.jpg";
+        let bgImg2 = new Image();
+        bgImg2.src = "../images/space/space.jpg";
+
+        // 배경이미지 y 좌표
+        let bgY1 = 0;
+        let bgY2 = -800;
+
+        // 내 우주선 좌표 
+        let shipX = 250;
+        let shipY = 600;
+
+        // 적 우주선 좌표
+        let enemy1X = 250;
+        let enemy1Y = 150;
+
+        // 미사일
+        let missile1 = new Image();
+        missile1.src = "../images/space/missile1.png";
+        let missile2 = new Image();
+        missile2.src = "../images/space/missile1.png";
+        let missile3 = new Image();
+        missile3.src = "../images/space/missile1.png";
+
+        // 미사일 좌표
+        let missile1X;
+        let missile1Y;
+        let missile2X;
+        let missile2Y;
+        let missile3X;
+        let missile3Y;
+
+        // 미사일 발사 사운드
+        let fireSound = new Audio("../sounds/fire2.wav");
+
+        // 미사일 객체
+        let fireArray = [];
+        // 적 객체
+        let enemyArray = [];
+
+
+
+        let shipImg1 = new Image();
+        let shipImg2 = new Image();
+        let shipImg3= new Image();
+        let shipImg4 = new Image();
+        shipImg1.src = "../images/space/gunship4.png";
+        shipImg2.src = "../images/space/gunship5.png";
+        shipImg3.src = "../images/space/gunship6.png";
+        shipImg4.src = "../images/space/gunship7.png";
+
+        let enemyShip1 = new Image();
+        let enemyShip2 = new Image();
+        let enemyShip3 = new Image();
+        let enemyShip4 = new Image();
+        enemyShip1.src = "../images/space/gunship0.png";
+        enemyShip2.src = "../images/space/gunship1.png";
+        enemyShip3.src = "../images/space/gunship2.png";
+        enemyShip4.src = "../images/space/gunship3.png";
+
+        let enemyYellow1 = new Image();
+        let enemyYellow2 = new Image();
+        let enemyYellow3 = new Image();
+        let enemyYellow4 = new Image();
+        enemyYellow1.src = "../images/space/gunship11.png";
+        enemyYellow2.src = "../images/space/gunship12.png";
+        enemyYellow3.src = "../images/space/gunship13.png";
+        enemyYellow4.src = "../images/space/gunship14.png";
+        
+        let enemyPurple1 = new Image();
+        let enemyPurple2 = new Image();
+        let enemyPurple3 = new Image();
+        let enemyPurple4 = new Image();
+        enemyPurple1.src = "../images/space/gunship21.png";
+        enemyPurple2.src = "../images/space/gunship22.png";
+        enemyPurple3.src = "../images/space/gunship23.png";
+        enemyPurple4.src = "../images/space/gunship24.png";
+
+
+        // 전역변수 ctx
+        let ctx;
+        // 카운터 변수
+        let counter = 0
+
+
+
+        // 윈도우창이 로딩되면 익명함수 실행
+        window.onload = function() {
+            // console.log("로딩하자마자 자동으로 실행");
+            let canvas = document.getElementById("myCanvas");
+            ctx = canvas.getContext("2d");
+            canvas.onmousemove = moveShip;
+
+            canvas.onmousedown = fireMissile;
+
+            window.setInterval(drawScreen, 50);
+        }
+
+        function makeEnemy() {
+            // x는 랜덤 y는 50정도에 counter가 5로 나눈 나머지가 0일때 생성
+            // enemyX = Math.ceil(Math.random() * 550) + 30;   
+            // enemyY = 50;
+            let ex = Math.floor(Math.random() * 650);
+            let ey = -100;
+            let e = {
+                x : ex,
+                y : ey
+            }
+            enemyArray.push(e);
+            console.log("적우주선 만들기(배열상태) : "  + enemyArray);
+        }
+
+        function fireMissile(e) {
+            fireSound.currentTime=0;
+            fireSound.play();
+
+            missile1X = e.pageX - 25;
+            missile1Y = e.pageY;
+
+            missile2X = e.pageX + 25;
+            missile2Y = e.pageY;
+            
+            missile3X = e.pageX;
+            missile3Y = e.pageY;
+
+            
+
+            f = {
+                x1 : missile1X,
+                y1 : missile1Y,
+                x2 : missile2X,
+                y2 : missile2Y,
+                x3 : missile3X,
+                y3 : missile3Y,
+            }
+
+            fireArray.push(f);
+        }
+
+        function moveShip(e) {
+            if (e.pageX > 30 && e.pageX < 570 && e.pageY > 30 && e.pageY < 770) {
+                shipX = e.pageX;
+                shipY = e.pageY;
+            }
+        }
+
+
+        function drawScreen() {
+            bgY1 += 10;
+            bgY2 += 10;
+
+            for (let i = 0; i < enemyArray.length; i++) {
+                let e = enemyArray[i];
+                e.y += 3;
+            }
+
+
+            if (bgY1 >= 800) {
+                bgY1 = -800;
+                bgY2 = 0;
+            }
+            if (bgY2 >= 800) {
+                bgY2 = -800;
+                bgY1 = 0;
+            }
+ 
+            counter++;
+            // console.log("counter : " + counter);
+
+            if (counter % 25 == 0) {
+                makeEnemy();   
+            } 
+
+            
+            // 배경그리기
+            ctx.drawImage(bgImg1, 0, bgY1, 600, 800); 
+            ctx.drawImage(bgImg2, 0, bgY2, 600, 800); 
+
+            // 미사일 그리기
+            let fireSwitch = 0;
+            for (let i = 0; i < fireArray.length; i++) {
+                let f = fireArray[i];
+                if ( fireSwitch % 2 == 0) {
+                    ctx.drawImage(missile1, f.x1, f.y1, 5, 20);
+                    ctx.drawImage(missile1, f.x3, f.y3, 5, 20);
+                } else {
+                    ctx.drawImage(missile1, f.x2, f.y2, 5, 20);
+                    ctx.drawImage(missile1, f.x3, f.y3, 5, 20);  
+                }
+                fireSwitch += 1;
+                f.y1 -= 15;
+                f.y2 -= 15;
+                f.y3 -= 15;
+            }
+            
+
+
+            // 내 우주선과 적 우주선 그리기
+            if (counter % 4 == 0) {
+                ctx.drawImage(shipImg1, shipX-25, shipY-25, 50, 50);
+          
+                // ctx.drawImage(enemyYellow1, enemy2X, enemy2Y, 50, 50);
+                // ctx.drawImage(enemyPurple1, enemy3X, enemy3Y, 50, 50);
+            } else if (counter % 4 == 1) {
+                ctx.drawImage(shipImg2, shipX-25, shipY-25, 50, 50);
+                
+                // ctx.drawImage(enemyYellow2, enemy2X, enemy2Y, 50, 50);
+                // ctx.drawImage(enemyPurple2, enemy3X, enemy3Y, 50, 50);
+            } else if (counter % 4 == 2) {
+                ctx.drawImage(shipImg3, shipX-25, shipY-25, 50, 50);
+                
+                // ctx.drawImage(enemyYellow3, enemy2X, enemy2Y, 50, 50);
+                // ctx.drawImage(enemyPurple3, enemy3X, enemy3Y, 50, 50);
+            } else if (counter % 4 == 3) {
+                ctx.drawImage(shipImg4, shipX-25, shipY-25, 50, 50);
+               
+                // ctx.drawImage(enemyYellow4, enemy2X, enemy2Y, 50, 50);
+                // ctx.drawImage(enemyPurple4, enemy3X, enemy3Y, 50, 50);
+            }
+
+            for (let i = 0; i < enemyArray.length; i++) {
+                let enemy = enemyArray[i];
+                if (counter % 4 == 0) ctx.drawImage(enemyShip1, enemy1X, enemy1Y, 50, 50);
+                else if (counter % 4 == 1) ctx.drawImage(enemyShip2, enemy1X, enemy1Y, 50, 50);
+                else if (counter % 4 == 2) ctx.drawImage(enemyShip3, enemy1X, enemy1Y, 50, 50);
+                else if (counter % 4 == 3) ctx.drawImage(enemyShip4, enemy1X, enemy1Y, 50, 50);
+            }
+
+            
+        }
+    </script>
+</head>
+<body>
+    <canvas id="myCanvas" width="600" height="800"></canvas>
+</body>
+</html>

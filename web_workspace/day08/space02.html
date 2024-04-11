@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>space02.html</title>
+    <style>
+        #myCanvas { background: #aaaaaa;}
+    </style>
+    <script>
+        // 배경이미지 객체
+        let bgImg1 = new Image();
+        bgImg1.src = "../images/space/space.jpg";
+        let bgImg2 = new Image();
+        bgImg2.src = "../images/space/space.jpg";
+
+        // 배경이미지 y 좌표
+        let bgY1 = 0;
+        let bgY2 = -800;
+
+
+        let shipImg1 = new Image();
+        let shipImg2 = new Image();
+        let shipImg3= new Image();
+        let shipImg4 = new Image();
+        shipImg1.src = "../images/space/gunship4.png";
+        shipImg2.src = "../images/space/gunship5.png";
+        shipImg3.src = "../images/space/gunship6.png";
+        shipImg4.src = "../images/space/gunship7.png";
+
+        let enemyShip1 = new Image();
+        let enemyShip2 = new Image();
+        let enemyShip3 = new Image();
+        let enemyShip4 = new Image();
+        enemyShip1.src = "../images/space/gunship0.png";
+        enemyShip2.src = "../images/space/gunship1.png";
+        enemyShip3.src = "../images/space/gunship2.png";
+        enemyShip4.src = "../images/space/gunship3.png";
+
+
+        // 전역변수 ctx
+        let ctx;
+        // 카운터 변수
+        let counter = 0
+
+        // 윈도우창이 로딩되면 익명함수 실행
+        window.onload = function() {
+            // console.log("로딩하자마자 자동으로 실행");
+            let canvas = document.getElementById("myCanvas");
+            ctx = canvas.getContext("2d");
+
+            window.setInterval(drawScreen, 50);
+        }
+
+        function drawScreen() {
+            bgY1 += 10;
+            bgY2 += 10;
+
+            if (bgY1 >= 800) {
+                bgY1 = -800;
+                bgY2 = 0;
+            }
+            if (bgY2 >= 800) {
+                bgY2 = -800;
+                bgY1 = 0;
+            }
+ 
+            counter++;
+            // console.log("counter : " + counter);
+            // 배경그리기
+            ctx.drawImage(bgImg1, 0, bgY1, 600, 800); 
+            ctx.drawImage(bgImg2, 0, bgY2, 600, 800); 
+            // 내 우주선과 적 우주선 그리기
+            if (counter % 4 == 0) {
+                ctx.drawImage(shipImg1, 250, 650, 50, 50);
+                ctx.drawImage(enemyShip1, 250, 150, 50, 50);
+            } else if (counter % 4 == 1) {
+                ctx.drawImage(shipImg2, 250, 650, 50, 50);
+                ctx.drawImage(enemyShip2, 250, 150, 50, 50);
+            } else if (counter % 4 == 2) {
+                ctx.drawImage(shipImg3, 250, 650, 50, 50);
+                ctx.drawImage(enemyShip3, 250, 150, 50, 50);
+            } else if (counter % 4 == 3) {
+                ctx.drawImage(shipImg4, 250, 650, 50, 50);
+                ctx.drawImage(enemyShip4, 250, 150, 50, 50);
+            }
+        }
+    </script>
+</head>
+<body>
+    <canvas id="myCanvas" width="600" height="800"></canvas>
+</body>
+</html>
