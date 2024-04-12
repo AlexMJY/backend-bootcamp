@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        
+        #myCanvas {
+            background: grey;
+        }
+
+    </style>
+
+    <script>
+
+        // 이미지 객체 선언
+        let bgImg1 = new Image();
+        let bgImg2 = new Image();
+        let run1 = new Image();
+        let run2 = new Image();
+        let run3 = new Image();
+        let goldCoin = new Image();
+        let silverCoin = new Image();
+
+        // 이미지 설정
+        bgImg1.src = '../images/run/bg1.jpg';
+        bgImg2.src = '../images/run/bg2.jpg';
+        run1.src = '../images/run/run1.png';
+        run2.src = '../images/run/run2.png';
+        run3.src = '../images/run/run3.png';
+        goldCoin.src = '../images/run/gold.png';
+        silverCoin.src = '../images/run/silver.png';
+ 
+        // 전역변수 ctx
+        let ctx;
+
+        // 카운트
+        let cnt = 0;
+
+        // 캐릭터 x, y 좌표
+        let catX = 100;
+        let catY = 350;
+
+        // 배경 좌표
+        let backgroundX1 = 0;
+        let backgroundX2 = 800;
+
+        // 금코인, 은코인 x, y 좌표
+        let coinsX = [1000, 1000];
+        let coinsY = 360
+
+        // 처음 나오는 코인 랜덤
+        let coinNum = Math.floor(Math.random() * 2);
+        
+        let jump = false;
+        let jumping = false;
+
+        // 점수 좌표
+        let score = 0;
+        let scoreX1 = 270;
+        let scoreX2 = 1075;
+
+        window.onload = function () {
+            let canvas = document.getElementById('myCanvas');
+            ctx = canvas.getContext('2d');
+            let body = document.body;
+            body.onkeydown=moveCat;
+            body.onmousedown=moveCat;
+            window.setInterval(drawScreen, 5);
+        }
+function drawScreen() {
+            cnt++;
+
+            // 배경 이동
+            backgroundX1 -= 3;
+            backgroundX2 -= 3;
+
+            // 코인 이동
+            coinsX[coinNum] -= 3;
+
+            // 점수 이동
+            scoreX1 -=3;
+            scoreX2 -=3;
+
+            // 피타고라스
+            let dis = pythagoras (coinsX[coinNum], catX, coinsY, catY);
+
+            if (backgroundX1 <= -800) {
+                backgroundX1 = 800;
+                backgroundX2 = 0;
+            }
+
+            if (backgroundX2 <= -800) {
+                backgroundX1 = 0;
+                backgroundX2 = 800;
+            }
+
+            if (scoreX1 <= -800) {
+                scoreX1 = 800;
+                scoreX2 = 0;
+            }
+
+            if (scoreX2 <= -800) {
+                scoreX1 = 0;
+                scoreX2 = 800;
+            }
+
+            //  코인이 캐릭터 범위 30 이거나, 코인이 맵 밖으로 넘어간다면
+            if (dis <= 30 || coinsX[coinNum] <= -50) {
+                // 코인좌표 1000
+                coinsX[coinNum] = 1000;
+                // 코인Y 좌표 랜덤변경.
+                coinsY = Math.random() * 170 + 200;
+
+                if (dis <= 30) {
+                    // 0 = 금코인 점수 50
+                    // 1 = 은코인 점수 30
+                    score += coinNum == 0 ? 50:30;
+                }
+                // 다음 코인 랜덤으로 바꾸기
+                coinNum = Math.floor(Math.random() * 2);
+            }
+
+            ctx.drawImage(bgImg1, backgroundX1, 0, 800, 600);
+            ctx.drawImage(bgImg2, backgroundX2, 0, 800, 600);
+
+            // 코인 
+            ctx.drawImage(goldCoin, coinsX[0], coinsY, 80, 80);
+            ctx.drawImage(silverCoin, coinsX[1], coinsY, 80, 80);
+
+            if (jump) {
+                catY -= 7;
+                if (catY <= 200) {
+                    jump = false;
+                }
+            }
+
+            if (jump == false) {
+                if (catY < 350) {
+                    catY += 7;  
+                } else 
+                jumping = false;
+            }
+
+            switch (cnt % 3) {
+                case 0: ctx.drawImage(run1, catX, catY, 100, 100); break;
+                case 1: ctx.drawImage(run2, catX, catY, 100, 100); break;
+                case 2: ctx.drawImage(run3, catX, catY, 100, 100); break;
+            }
+
+            // 스코어 텍스트 1
+            ctx.fillStyle = 'white';
+            ctx.font = '25px 고딕';
+            ctx.fillText(score, scoreX1, 205);
+
+            // 스코어 텍스트 2
+            ctx.fillStyle = 'white';
+            ctx.font = '25px 고딕';
+            ctx.fillText(score, scoreX2, 205);
+        }
+
+
+        function moveCat(e) {
+            // 마우스 클릭 점프
+            if (e.type == 'mousedown') {
+                jumpCat();
+                return;
+            }
+
+            // 방향키로 움직이기
+            switch (e.key) {
+                case 'ArrowUp':     catY -= 45; break;
+                case 'ArrowDown':   catY += 45; break; 
+                case 'ArrowLeft':   catX -= 45; break;
+                case 'ArrowRight':  catX += 45; break;
+            }
+
+            // wasd + 점프
+            switch (e.key.toLowerCase()) {
+                case 'w':   catY -= 45; break;
+                case 's':   catY += 45; break; 
+                case 'a':   catX -= 45; break;
+                case 'd':   catX += 45; break;
+                case 'z':   jumpCat();  break;
+            }
+        }
+
+        // 캐릭터 점프
+        function jumpCat() {
+            if (jumping == false) {
+                jump = true;
+                jumping = true;
+            }
+        }
+
+        // 피타고라스
+        function pythagoras (x1, x2, y1, y2) {
+            return Math.sqrt((x2-x1) * (x2-x1) + (y2-y1) * (y2-y1));
+        }
+
+    </script>
+
+</head>
+<body>
+    <canvas id="myCanvas" width="800" height="600"></canvas>
+</body>
+</html>
