@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jquery04.html</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function() {
+        })
+
+        // 더 줄여서 사용 가능
+        $(function() {
+            // id가 box1인 엘리먼트 => 너비 300px,높이 300px, 배경 빨간색
+            // $("#box1").css("backgroundColor", "red")
+            //           .css("width", "300px")
+            //           .css("height", "300px");
+            let box1$ = $("#box1");  // 엘리먼트 설정을 한번만 해도 되기 때문에 성능 우수
+            box1$.css("backgroundColor", "red");
+            box1$.css("width", "300px");
+            box1$.css("height", "300px");
+        })
+    </script>
+</head>
+<body>
+    <div id="box1"></div>
+
+    
+</body>
+</html>

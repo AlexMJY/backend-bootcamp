@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Q03.html</title>
+    <style>
+        .container {
+            text-align: center;
+            margin-top: 50px;
+        }
+        .title {
+            margin: 50px auto;
+            font-size: 40px;
+            font-weight: bold;
+            text-align: center;
+        }
+        .options {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        .option {
+            margin: 0 10px;
+            width: 200px;
+            height: 200px;
+            display: inline-block;
+        }
+        img {
+            width: 200px;
+            height: 200px;
+        }
+        .result {
+            margin: 100px auto;
+        }
+        #result {
+            width: 400px;
+            text-align: center;
+        }
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script>
+
+        $(function() {
+            
+            $("input[value='서브웨이']").on("click", function() {
+                $("#result").val('선택하신 메뉴는 서브웨이입니다.');
+            })
+            $("input[value='떡볶이']").on("click", function() {
+                $("#result").val('선택하신 메뉴는 떡볶이입니다.');
+            })
+            $("input[value='짜장면']").on("click", function() {
+                $("#result").val('선택하신 메뉴는 짜장면입니다.');
+            })
+            $("input[value='햄버거']").on("click", function() {
+                $("#result").val('선택하신 메뉴는 햄버거입니다.');
+            })
+        })
+    </script>
+</head>
+<body>
+    <div class="container">
+        <div class="title" >오늘의 점심메뉴</div>
+        <div class="options">
+            <div class="option">
+                <img src="https://www.tradlinx.com/blog/wp-content/uploads/2022/09/220907_main.jpg" alt="">
+                <input type="radio" id="option1" name="lunch" value="서브웨이">
+                <label for="option1">서브웨이</label>
+            </div>
+            <div class="option">
+                <img src="https://recipe1.ezmember.co.kr/cache/data/goods/23/12/50/1000042281/1000042281_magnify_011.jpg" alt="">
+                <input type="radio" id="option2" name="lunch" value="떡볶이">
+                <label for="option2">떡볶이</label>
+            </div>
+            <div class="option">
+                <img src="https://recipe1.ezmember.co.kr/cache/recipe/2015/06/08/42a5a4b097245f7ddd6ea49b39e4185b.jpg" alt="">
+                <input type="radio" id="option3" name="lunch" value="짜장면">
+                <label for="option3">짜장면</label>
+            </div>
+            <div class="option">
+                <img src="https://health.chosun.com/site/data/img_dir/2023/06/12/2023061201327_0.jpg" alt="">
+                <input type="radio" id="option4" name="lunch" value="햄버거">
+                <label for="option4">햄버거</label>
+            </div>
+        </div>
+        <div class="result"><input type="text" name="result" id="result"></div>
+    </div>
+
+
+    
+</body>
+</html>

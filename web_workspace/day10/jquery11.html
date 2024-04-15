@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jquery11.html</title>
+    <style>
+        table {
+            table-layout: auto;
+            width: 75%;
+        }
+        td {
+            color: blue;
+            font-weight: bold;
+        }
+        .selectStyle {
+            color: red;
+            font-size: 50px;
+            background: green;
+        }
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script>
+        $(function() {
+            // 1번째 tr 태그에 selectStyle이라는 클래스 부여
+            $("#btn1").on("click", () => {
+                $("tr:first").addClass("selectStyle");
+            })
+
+            $("#btn2").on("click", () => {
+                $("tr:first").removeClass("selectStyle");
+            })
+
+            $("#btn3").on("click", () => {
+                $("tr:first").toggleClass("selectStyle");
+            })
+
+            $("#btn4").on("click", () => {
+                console.log($("tr:odd"));
+                $("tr:odd").css("background", "pink");
+            })
+
+            $("#btn5").on("click", () => {
+                console.log($("tr:even"));
+                $("tr:even").css("background", "darkgrey");
+            })
+
+            $("#btn6").on("click", () => {
+                $("tr:first>td").css("color", "red");
+            })
+
+
+        })
+    </script>
+</head>
+<body>
+    <input type="button" value="버튼1" id="btn1">
+    <input type="button" value="버튼2" id="btn2">
+    <input type="button" value="버튼3" id="btn3">
+    <input type="button" value="버튼4" id="btn4">
+    <input type="button" value="버튼5" id="btn5">
+    <input type="button" value="버튼6" id="btn6">
+
+    <table>
+        <tr class="testclass">
+            <td>One</td>
+        </tr>
+        <tr>
+            <td>Two</td>
+        </tr>
+        <tr>
+            <td>Three</td>
+        </tr>
+        <tr>
+            <td>Four</td>
+        </tr>
+        <tr>
+            <td>Five</td>
+        </tr>
+    </table>
+</body>
+</html>

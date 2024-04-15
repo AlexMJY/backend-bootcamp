@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jquery01.html</title>
+    <style>
+        #box2 { background-color: skyblue; }
+    </style>
+    <script src="../js/jquery-3.7.1.js"></script>
+    <script>
+        // 현재 페이지가 로딩된 후에 함수를 호출
+        // window.onload=test(); // test()를 실행하고 리턴되는 값 할당
+        // window.onload=test;
+
+        // function test() {
+        //     let box1 = document.getElementById("box1");
+        //     console.log(box1);
+        // }
+        $(document).ready(function(){  // window.onload=test와 같은 기능 그러나 속도가 더 빠름
+            // id가 box1인 엘리먼트 가져오기
+            // console.log($("#box1"));
+            
+            let box3 = document.getElementById("box3");
+            box3.style.backgroundColor = "green";
+            
+            $("#box4").css("backgroundColor", "pink");
+
+            // id가 box5인 엘리먼트의 배경은 노란색, 글자는 초록색 : jQuery
+            // $("#box5").css("backgroundColor", "yellow");
+            // $("#box5").css("color", "green");
+            $("#box5").css("backgroundColor", "yellow").css("color", "green");  // function chainings
+
+            // id가 box6인 엘리먼트의 배경은 노란색, 글자는 초록색 : javascript
+            let box6 = document.getElementById("box6");
+            box6.style.background = "yellow";
+            box6.style.color = "green";
+        })
+        </script>
+</head>
+<body>
+    <p>Hello JQuery</p>
+
+    <div id="box1" style="background-color: red;">이 부분은 id가 box1입니다</div>
+    <div id="box2">이 부분은 id가 box2입니다</div>
+    <div id="box3">이 부분은 id가 box3입니다</div>
+    <div id="box4">이 부분은 id가 box4입니다</div>
+    <div id="box5">이 부분은 id가 box5입니다</div>
+    <div id="box6">이 부분은 id가 box6입니다</div>
+</body>
+</html>

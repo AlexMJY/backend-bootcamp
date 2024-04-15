@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jquery10.html</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script>
+        $(function() {
+            $("input[value='숨어']").on("click", function() {
+                $("img").hide(2000, function() {
+                    alert("숨어따")
+                });
+            })
+            $("input[value='나와']").on("click", function() {
+                $("img").show(2000);
+            })
+        })
+    </script>
+</head>
+<body>
+    <input type="button" value="숨어">
+    <input type="button" value="나와">
+
+    <br><br><br>
+    <img src="https://i.namu.wiki/i/jk1EMhlkAq0LdoiqpNeDZqyYc_66KxYvdL7stKBXRDyYcZ04uAHxvdWXWPDrQ5nT7x9RSjW1mm7fDJYket2R5g.webp" style="display: none; width: 400px; height: 400px;">
+</body>
+</html>

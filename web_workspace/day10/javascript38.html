@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>javascript38</title>
+    <script>
+        // var : function scope
+        // let : block scope
+        // const block scope
+
+
+        function prt() {
+            // 1부터 100까지 숫자를 콘솔에 출력 (let 대신 var 사용)
+            for (var i = 1; i <= 100; i++) {
+                console.log(i);
+            }
+            console.log(i); // for문을 벗어나도 i변수가 쓰이고 있다. (scope(생존 범위)가 함수 단위 / 자바는 괄호 단위, 자바스크립트보다 좁다)
+        }
+        // prt();
+
+        function prt2() {
+            for (var i = 0; i < 5; i++) {
+                window.setTimeout(function () {  // 1초 지연되기 전에 이미 i 증가 마침
+                    console.log(i);
+                }, 1000);
+            }
+        }
+        // prt2();
+        
+        function prt3() {
+            for (let i = 0; i < 5; i++) {
+                window.setTimeout(function () {  // 1초 지연되기 전에 이미 i 증가 마침
+                    console.log(i);
+                }, 1000);
+            }
+        }
+        // prt3();
+
+        function prt4() {
+            // 1부터 100까지 숫자를 콘솔에 출력 (let 대신 var 사용)
+            for (let i = 1; i <= 100; i++) {
+                console.log(i);
+            }
+            console.log(i); // for문을 벗어나도 i변수가 쓰이고 있다. (scope(생존 범위)가 함수 단위 / 자바는 괄호 단위, 자바스크립트보다 좁다)
+        }
+        // prt4();
+
+
+
+
+
+        console.log("===================")
+        var name = "KS";  // var는 변수명 중복 선언 가능
+        console.log(name);
+        
+        var name = "둘리";
+        console.log(name);
+
+        // let name2 = "KS";
+        // console.log(name2);
+        
+        // let name2 = "둘리";
+        // console.log(name2);
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jquery06.html</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script>
+        $(function() {
+            function css() {
+                // 1. chaining
+                // $("#img").css("height", "300px")
+                //          .css("width", "300px");
+
+                // 2. JSON
+                $("#img").css({
+                    "width" : "500px",
+                    "height" : "500px"
+                })
+            }
+            css();
+        })
+    </script>
+</head>
+<body>
+    <img src="../images/rabbit/rabbit1.png" id="img" alt="">
+</body>
+</html>

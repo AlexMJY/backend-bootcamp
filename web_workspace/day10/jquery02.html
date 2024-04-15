@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jquery02.html</title>
+    <script src="../js/jquery-3.7.1.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#div2").css("backgroundColor", "blue")
+                      .css("height", "150px")
+                      .css("width", "150px");
+            $("#container").css({"backgroundColor" : "pink",
+                                "height" : "300px",
+                                "width" : "300px"});
+
+            $("#div3").css("backgroundColor", "red")
+                      .css("width", "150px")
+                      .css("height", "150px")
+                    //   .text($("#div3").css("width"))
+                      .html("<h2>" + $("#div3").css("width") + "</h2>");
+            
+            
+
+
+        })
+
+
+        $(document).ready(function () { // window.onload는 한번밖에 못쓰지만 $(document).ready()는 여러번 쓸 수 있다
+            console.log("hello");
+        })
+        
+    </script>
+</head>
+<body>
+    <!-- 배경은 블루, 너비 150, 높이 150 -->
+    <div id="div2"></div>
+
+    <!-- 배경은 핑크, 너비 300, 높이 300 -->
+    <div id="container"></div>
+
+    <!-- 배경은 red, 너비 150px, 높이 150px, id는 div3
+    div 안쪽에는 높이값 출력 -->
+    <div id="div3"></div>
+</body>
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>q01.html</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script>
+        $(function() {
+            $("#btn").on("click", function() {
+                let num = $("#txt").val()
+                
+                let result = "";
+                for (let i = 1; i <= 9; i++) {
+                    result += "<h2>" + num + " * " + i + " = " + i * num + "</h2>";
+                }
+                
+                $("#div1").html(result)
+            })
+        })
+    </script>
+</head>
+<body>
+   <input type="text" name="" id="txt">
+  <input type="button" value="단출력" id="btn" >
+   <div id="div1"></div>
+</body>
