@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jquery14</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script>
+        $(function() {
+            // 1번 버튼 클릭 => 0번째 행 배경 pink
+            $("#btn1").on("click", () => {
+                console.log($("tr"));
+                $("tr:eq(0)").css("background", "pink");
+            })
+            // 2번 버튼 클릭 => 0, 1, 2번 행 배경 red
+            $("#btn2").on("click", () => {
+                $("tr:lt(3)").css("background", "red");
+            })
+            $("#btn3").on("click", () => {
+                $("tr:gt(2)").css("background", "yellow");
+            })
+        })
+    </script>
+</head>
+<body>
+    <input type="button" value="버튼1" id="btn1">
+    <input type="button" value="버튼2" id="btn2">
+    <input type="button" value="버튼3" id="btn3">
+    <input type="button" value="버튼4" id="btn4">
+    <input type="button" value="버튼5" id="btn5">
+    <input type="button" value="버튼6" id="btn6">
+
+    <table>
+        <tr class="testclass">
+            <td>One</td>
+        </tr>
+        <tr class="testclass">
+            <td>Two</td>
+        </tr>
+        <tr class="testclass">
+            <td>Three</td>
+        </tr>
+        <tr class="testclass">
+            <td>Four</td>
+        </tr>
+        <tr class="testclass">
+            <td>Five</td>
+        </tr>
+    </table>
+</body>
+</html>

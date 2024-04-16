@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jquery13.html</title>
+    <style>
+        /* :nth-child() : n번째 자손 : 특정 순서에 있는 요소를 선택할 때 사용하는 선택자. 앞에서부터 카운트 */
+        /* :nth-last-child() : 뒤에서부터 카운트 */
+        .test:nth-child(3) {
+            color: blue;
+            font-weight: bold;
+        }
+        
+        td:nth-child(2) {
+            background: red;
+        }
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script>
+        $(function() {
+            // 버튼 클릭하면 간단한 메시지 콘솔 출력
+            $("input").on("click", () => {
+                console.log("test");
+                // 테이블 태그에 test 클래스 부여
+                $("table").addClass("test");
+                console.log($("td"));
+                $("tr").addClass("test");
+            })
+        })
+    </script>
+</head>
+<body>
+    <input type="button" value="2번째행에 test클래스 부여하기">
+    
+    <!-- table>(tr>td{$}*5)*3 -->
+    <table>
+        <tr>
+            <td>1</td>
+            <td>2</td>
+            <td>3</td>
+            <td>4</td>
+            <td>5</td>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>2</td>
+            <td>3</td>
+            <td>4</td>
+            <td>5</td>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>2</td>
+            <td>3</td>
+            <td>4</td>
+            <td>5</td>
+        </tr>
+    </table>
+</body>
+</html>

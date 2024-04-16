@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jquery17</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script>
+        let timer = "";
+        let index = 0;
+
+        let movies = [
+            "../images/movie_image01.jpg,01. 파묘",
+            "../images/movie_image02.jpg,02. 댓글부대",
+            "../images/movie_image03.jpg,03. 듄:파트2",
+            "../images/movie_image05.jpg,04. 고질라",
+            "../images/movie_image04.jpg,05. 스카이패밀리",
+            "../images/movie_image06.jpg,06. 악은 존재하지 않는다",
+            "../images/movie_image07.jpg,07. 이승윤 콘서트",
+            "../images/movie_image08.jpg,08. 1980",
+            "../images/movie_image09.jpg,09. 가여운 것들",
+            "../images/movie_image10.jpg,10. 웡카",
+        ]
+        
+        $(() => {
+            $("input[value='상영영화보기']").on("click", startMovie);
+            $("input[value='상영영화중지']").on("click", stopMovie);
+        })
+
+        
+
+        function startMovie() {
+            timer = window.setInterval(showMovie, 1000);
+        }
+
+        function showMovie() {
+            $("#topNews")[0].innerHTML='<h2><img src="' + movies[index].split(',')[0] + '"</h2>';
+            $("#poster")[0].innerHTML="<h2>"+ movies[index].split(',')[1] +"</h2>";
+            
+            index++;
+            if (index == movies.length) {
+                index = 0;
+            }
+        }
+
+        function stopMovie() {
+            window.clearInterval(timer);
+        }
+    </script>
+</head>
+<body>
+    <div id="topNews"></div>
+    <div id="poster"><h2><img src="../images/after.png" alt=""></h2></div>
+
+    <input type="button" value="상영영화보기">
+    <input type="button" value="상영영화중지">
+    
+    
+</body>
+</html>

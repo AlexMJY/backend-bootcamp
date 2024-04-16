@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jquery18</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script>
+        let num = 0;
+        $(function() {
+            $("#btn1").on("click", () => {
+                num += 15;
+                $("img").attr("src", "../images/rabbit/rabbit" + (num % 2 == 0 ? 1 : 2) + ".png");
+                $("img").css("margin-left", num);
+            })
+            $("#btn2").on("click", () => {
+                num -= 15;
+                $("img").attr("src", "../images/rabbit/rabbit" + (num % 2 == 0 ? 1 : 2) + ".png");
+                $("img").css("margin-left", num);
+            })
+            $("#btn3").on("click", () => {
+                num -= 15;
+                $("img").attr("src", "../images/rabbit/rabbit" + (num % 2 == 0 ? 1 : 2) + ".png");
+                $("img").css("margin-top", num);
+            })
+            $("#btn4").on("click", () => {
+                num += 15;
+                $("img").attr("src", "../images/rabbit/rabbit" + (num % 2 == 0 ? 1 : 2) + ".png");
+                $("img").css("margin-top", num);
+            })
+        })
+    </script>
+</head>
+<body>
+    <input type="button" value="오른쪽" id="btn1">
+    <input type="button" value="왼쪽" id="btn2">
+    <input type="button" value="위" id="btn3">
+    <input type="button" value="아래" id="btn4">
+
+    <div id="box1">토끼이미지</div>
+
+    <!-- 클릭할 때마다 이미지 왼쪽으로 이동 => margin left 증가 -->
+    <div><img src="../images/rabbit/rabbit1.png"></div>
+</body>
+</html>
