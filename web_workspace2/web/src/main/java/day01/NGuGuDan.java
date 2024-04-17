@@ -1,4 +1,4 @@
-package web;
+package day01;
 
 import java.io.IOException;
 import java.io.PrintWriter;
