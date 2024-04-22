@@ -61,11 +61,11 @@ public class MemberDAO {
 			e.printStackTrace();
 		}
 		return vo;	
-	}
+	} // searchUser End
 	
-	public void insertOne(MemberVO vo) {
+	public void addMember(MemberVO vo) {
 		sb.setLength(0);
-		sb.append("INSERT INTO member(no, id, pw, name, gender) VALUES (MEMBER_NO.nextval, ?, ?, ?, ?)");
+		sb.append("INSERT INTO member(no, id, pw, name, gender, motive) VALUES (MEMBER_NO_SEQ.nextval, ?, ?, ?, ?, ?)");
 		
 		try {
 			pstmt = conn.prepareStatement(sb.toString());
@@ -73,10 +73,24 @@ public class MemberDAO {
 			pstmt.setString(2, vo.getPw());
 			pstmt.setString(3, vo.getName());
 			pstmt.setString(4, vo.getGender());
+			pstmt.setString(5, vo.getMotive());
 			
 			pstmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	} // addMember End
+	
+	
+	public void close() {
+		try {
+			if (rs != null) { rs.close(); }
+			if (pstmt != null) { pstmt.close(); }
+			if (conn != null) { conn.close(); } 
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
+	
+	
 }
