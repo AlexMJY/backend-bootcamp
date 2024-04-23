@@ -12,91 +12,58 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 
-<script>
-	/* function search() {
-		let txt = document.getElementById("txt").value;
-		if (txt == '') {
-			console.log("nothing")			
-		} else {
-			console.log("exits")
-		}
-		
-	} */
 
-</script>
 </head>
 <body>
+	<div class="container">
 	<form action="">
 		<input type="text" name="deptno" id="txt" />
-		<input type="submit" value="검색" onclick="search();"/>
+		<input type="submit" value="검색"/>
 	</form>
 	
 	<%
 		String deptno = request.getParameter("deptno");
-	
-		if (deptno == null) {
-			DeptDAO dao = new DeptDAO();
-			ArrayList<DeptVO> list = dao.selectAll();
-			
-			
-			for (DeptVO vo : list) {
-				
-				
-			}
-		}
-	
-	
-	%>
-	
-	
-	<%-- <%
-		
-		String deptno = request.getParameter("deptno");
-		
-		if (deptno == null) {
-	%>
-			<div class="container">
-			<table class="table">
-				<tr>
-					<td>부서번호</td>
-					<td>부서명</td>
-					<td>부서위치</td>
-				</tr>
-				
-	<%
 		DeptDAO dao = new DeptDAO();
-		ArrayList<DeptVO> list = dao.selectAll();
-		for (DeptVO vo : list) {
-			
+		ArrayList<DeptVO> list = new ArrayList<DeptVO>();
 		
-	%>
-			<tr>
-				<td><%= vo.getDeptno() %></td>
-				<td class="dname"><%= vo.getDname() %></td>
-				<td class="loc"><%= vo.getLoc() %></td>
-			</tr>
-	<% 
-		} 
-	%>
-			</table>
-		</div> 
-	
-						
-	<%
+		if (deptno == null) {
+			return;
+		}
+		
+		if (deptno == "" || deptno.length() == 0) {
+			list = dao.selectAll();
 		} else {
+			list.add(dao.selectOne(Integer.parseInt(deptno)));
+		}
 			
-    %>			
+		System.out.println(list);
 		
-	
-	<%		
+		if (list == null) {
+			out.println("부서번호가 존재하지 않습니다.");
 		}
 	%>
-	 --%>
 	
-	
-	
-	
-	
-	
+	<div id="result">
+		<table class="table">
+			<%
+				if (list != null) {
+					out.println("<tr>");
+					out.println("<th> 부서번호 </th>");
+					out.println("<th> 부서명 </th>");
+					out.println("<th> 지역명 </th>");
+					out.println("</tr>");
+					
+					for (DeptVO vo : list) {
+						out.println("<tr>");
+						out.println("<td>" + vo.getDeptno() +"</td>");
+						out.println("<td>" + vo.getDname() +"</td>");
+						out.println("<td>" + vo.getLoc() + "</td>");
+						out.println("</tr>");
+					}
+				}
+			%>		
+		</table>
+	</div>
+</div>
 </body>
 </html>
