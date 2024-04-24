@@ -1,3 +1,5 @@
+<%-- <%@page import="com.oreilly.servlet.multipart.DefaultFileRenamePolicy"%>
+<%@page import="com.oreilly.servlet.MultipartRequest"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -13,6 +15,20 @@
 		String saveDir = application.getRealPath("/upload");
 		out.println(saveDir);
 		
+		// 첨부파일의 최대크기
+		// 30mb
+		int maxFileSize = 1024 * 1024 * 30;
+		
+		MultipartRequest mr = MultipartRequest(request, saveDir, maxFileSize, "UTF-8", new DefaultFileRenamePolicy());
+		
+		
+		String title = mr.getParameter("title");
+		String writer = mr.getParameter("writer");
+		String contents = mr.getParameter("contents");
+		String file = mr.getParameter("filename");
+		
+		String f = mr.getOriginalFileName("filename");
+		
 		/* String title = request.getParameter("title");
 		String writer = request.getParameter("writer");
 		String contents = request.getParameter("contents");
@@ -24,4 +40,4 @@
 		out.println("<h3> file : " + file + "</h3>"); */
 	%>
 </body>
-</html>
+</html> --%>
