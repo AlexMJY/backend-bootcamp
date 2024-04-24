@@ -18,16 +18,12 @@
 		
 		if (vo != null) {
 			session.setAttribute("vo", vo);
+			session.setAttribute("name", vo.getName());
 			response.sendRedirect("layout.jsp");
-			
 			
 		} else {
 			response.sendRedirect("layout.jsp");
 		}
-		
 	%>
-	
-	
-	
 </body>
 </html>

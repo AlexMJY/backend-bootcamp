@@ -19,17 +19,12 @@
 			fname = fno + ".jsp";
 		}
 	%>
-	<%
-	
-	%>
 	<div id="container">
 		<jsp:include page="header.jsp" /> <!-- 단독 태그 -->
 		<jsp:include page="nav.jsp" />
 		<jsp:include page="<%= fname %>" />
 		<jsp:include page="sidebar.jsp" />
 		<jsp:include page="footer.jsp" /> 
-		
-		
 	</div>
 </body>
 </html>

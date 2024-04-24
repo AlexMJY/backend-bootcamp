@@ -1,3 +1,4 @@
+<%@page import="vo.ProductVO"%>
 <%@page import="vo.MemberVO"%>
 <%@page import="dao.MemberDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -8,8 +9,10 @@
 	<div id="login">
 		<form action="loginOk.jsp">
 			<%
-				if (session.getAttribute("vo") == null) {
+				Object obj = session.getAttribute("vo");
+				if (obj == null) {
 			%>
+			
 			<table>
 				<tr>
 					<td>ID</td>
@@ -24,25 +27,29 @@
 					<input type="button" value="회원가입" /></td>
 				</tr>
 			</table>
+			</form>
+			
 			<%
 				} else {
+					MemberVO vo = (MemberVO) obj;
 			%>
-			<table>
-				<tr>
-					<td>환영합니다.</td>
-					<td><input type="text" name="id" id="" /></td>
-				</tr>
+			
+			 
 				
-				<tr>
-					<a href="logout.jsp">logout</a>
-				</tr>
-			</table>
+			<div><%= session.getAttribute("name") %>님 환영합니다.</div>
+			<a href="logout.jsp"><input type="button" value="로그아웃" /></a>
+			<div><strong>광고환영</strong></div>
+				
+					
+			<%-- <div><%= vo.getName() %>님 환영합니다.</div>
+			<td><a href="logout.jsp"><input type="button" value="로그아웃" /></a></td>
+			<div><strong>광고환영</strong></div> --%>
+			
+			
 			<%
 				}
 			%>
 			
-		</form>
+		
 	</div>
-	
-
 </div>

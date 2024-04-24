@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Set;
 
 import vo.ProductVO;
 
@@ -86,15 +87,8 @@ public class ProductDAO {
 	            int qty = rs.getInt("qty");
 	            String imgfile = rs.getString("imgfile");
 	            String bigfile = rs.getString("bigfile");
-	            vo = new ProductVO();
-	            vo.setPno(pno);
-	            vo.setPname(pname);
-	            vo.setPrice(price);
-	            vo.setDcratio(dcratio);
-	            vo.setProdesc(prodesc);
-	            vo.setQty(qty);
-	            vo.setImgfile(imgfile);
-	            vo.setBigfile(bigfile);
+	            vo = new ProductVO(pno, pname, price, dcratio, prodesc, qty, imgfile, bigfile);
+	
 	         }
 	      } catch (SQLException e) {
 	         e.printStackTrace();
@@ -130,5 +124,37 @@ public class ProductDAO {
 		return list;
 	} // findByName(String p) end
 	
+	public ArrayList<ProductVO> getData(Set<Integer> key) {
+		sb.setLength(0);
+		sb.append("SELECT pno, pname, price, dcratio, prodesc, qty, imgfile, bigfile FROM product WHERE pno = ?");
+		ArrayList<ProductVO> list = new ArrayList<ProductVO>();
+		try {
+			pstmt = conn.prepareStatement(sb.toString());
+			
+			for (Integer pno : key ) {
+				pstmt.setInt(1, pno);
+				rs = pstmt.executeQuery();
+				rs.next();
+				String pname = rs.getString("pname");
+				int price = rs.getInt("price");
+				int dcratio = rs.getInt("dcratio");
+				String prodesc = rs.getString("prodesc");
+				int qty = rs.getInt("qty");
+				String imgfile = rs.getString("imgfile");
+				String bigfile = rs.getString("bigfile");
+				
+				ProductVO vo = new ProductVO(pno, pname, price, dcratio, prodesc, qty, imgfile, bigfile);
+				list.add(vo);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return list;
+	} // getData() end
 	
+	public ArrayList<ProductVO> getData2(Set<Integer> key) {
+		ArrayList<ProductVO> list = new ArrayList<ProductVO>();
+		key.forEach(n -> list.add(getOne(n)));
+		return list;
+	} // getData2() end
 }
