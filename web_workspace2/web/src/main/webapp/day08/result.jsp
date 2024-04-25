@@ -1,3 +1,4 @@
+<%@page import="dao.FileDAO"%>
 <%@page import="java.io.File"%>
 <%@page import="java.util.Enumeration"%>
 <%@page import="com.oreilly.servlet.multipart.DefaultFileRenamePolicy"%>
@@ -46,7 +47,16 @@
 		out.println("<h2> 실제 파일명 : " + original + "</h2>");		
 		out.println("<h2> 콘텐츠 타입 : " + type+ "</h2>");		
 		
+		String title = mr.getParameter("title");
+		String writer = mr.getParameter("writer");
+		String contents = mr.getParameter("contents");
+		
+		FileDAO dao = new FileDAO();
+		// dao.addOne(fileNumber, title, writer, contents);
+		
+		
 	%>
+		<a href="view.jsp">이미지 보기</a>
 		<a href="dirView.jsp">저장디렉토리의 파일 목록보기</a>
 </body>
 </html>

@@ -15,4 +15,16 @@ public class MemberVO {
 	private String name;
 	private String gender;
 	private String motive;
+	private int zipcode;
+	private String address;
+	
+	public MemberVO(String id, String pw, String name, String gender, int zipcode,String address) {
+		this.id = id;
+		this.pw = pw;
+		this.name = name;
+		this.gender = gender;
+		this.zipcode = zipcode;
+		this.address = address;
+	}
+	
 }

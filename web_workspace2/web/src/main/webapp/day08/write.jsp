@@ -10,7 +10,7 @@
 </head>
 <body>
 	<div class="container">
-		<form action="result.jsp" method="post" enctype="multipart/form-data">
+		<form action="result2.jsp" method="post" enctype="multipart/form-data">
 			<table class="table table=hover">
 				<tr>
 					<th>제목</th>
@@ -29,7 +29,11 @@
 
 				<tr>
 					<th>첨부파일</th>
-					<td><input type="file" name="filename" id="" /></td>
+					<td>
+						<input type="file" name="filename1" id="" />
+						<input type="file" name="filename2" id="" />
+						<input type="file" name="filename3" id="" />
+					</td>
 				</tr>
 				
 				<tr>

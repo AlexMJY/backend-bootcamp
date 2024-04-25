@@ -30,7 +30,7 @@ public class MemberDAO {
 			System.out.println("DB 연결 실패");
 			e.printStackTrace();
 		}
-	}
+	} // MemberDAO() end
 	
 	public MemberVO searchUser(String id, String pw) {
 		sb.setLength(0);
@@ -61,11 +61,12 @@ public class MemberDAO {
 			e.printStackTrace();
 		}
 		return vo;	
-	}
+	} // searchUser(String id, String pw) end
 	
 	public void insertOne(MemberVO vo) {
 		sb.setLength(0);
-		sb.append("INSERT INTO member(no, id, pw, name, gender) VALUES (MEMBER_NO.nextval, ?, ?, ?, ?)");
+		sb.append("INSERT INTO member(no, id, pw, name, gender, zipcode, address) ");
+		sb.append("VALUES (MEMBER_NO.nextval, ?, ?, ?, ?, ?, ?)");
 		
 		try {
 			pstmt = conn.prepareStatement(sb.toString());
@@ -73,10 +74,14 @@ public class MemberDAO {
 			pstmt.setString(2, vo.getPw());
 			pstmt.setString(3, vo.getName());
 			pstmt.setString(4, vo.getGender());
+			pstmt.setInt(5, vo.getZipcode());
+			pstmt.setString(6, vo.getAddress());
 			
 			pstmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-	}
+	} // insertOne(MemberVO vo) end
+	
+
 }
