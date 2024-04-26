@@ -59,5 +59,36 @@ public class EmpDAO {
 		}
 		
 		return list;
-	}
+	}  // selectAll() End
+	
+		public EmpVO selectOne(int empno) {
+			sb.setLength(0);
+			sb.append("SELECT * FROM emp WHERE empno = ?");  
+			EmpVO vo = null;
+			
+			try {
+				// 5
+				pstmt = conn.prepareStatement(sb.toString());
+				
+				pstmt.setInt(1, empno);  // 첫번째 ?에 값 할당
+				
+				// 6
+				rs = pstmt.executeQuery();
+				while (rs.next()) {
+					// int eno = rs.getInt("empno");
+					String name = rs.getString("ename");
+					int sal = rs.getInt("sal");
+					String job = rs.getString("job");
+					
+					vo = new EmpVO();
+					vo.setEmpno(empno);
+					vo.setEname(name);
+					vo.setSal(sal);
+					vo.setJob(job);
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			return vo;
+		}
 }

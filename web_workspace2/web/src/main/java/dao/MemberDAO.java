@@ -81,6 +81,28 @@ public class MemberDAO {
 		}
 	} // addMember End
 	
+	public MemberVO getOne(String id) {
+		sb.setLength(0);
+		sb.append("SELECT id, pw, name FROM member WHERE id = ?");
+		MemberVO vo = null;
+		
+		try {
+			pstmt = conn.prepareStatement(sb.toString());
+			pstmt.setString(1, id);
+			rs = pstmt.executeQuery();
+			
+			if (rs.next()) {
+				String name = rs.getString("name");
+				vo = new MemberVO();
+				vo.setId(id);
+				vo.setName(name);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return vo;
+	}
+	
 	
 	public void close() {
 		try {
@@ -90,7 +112,7 @@ public class MemberDAO {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-	}
+	} // close() End
 	
 	
 }

@@ -157,4 +157,27 @@ public class ProductDAO {
 		key.forEach(n -> list.add(getOne(n)));
 		return list;
 	} // getData2() end
+	
+	public ProductVO getImg(String s) {
+		sb.setLength(0);
+		sb.append("SELECT pname, imgfile FROM PRODUCT WHERE pname = ?");
+		ProductVO vo = null;
+		
+		try {
+			pstmt = conn.prepareStatement(sb.toString());
+			pstmt.setString(1, s);
+			rs = pstmt.executeQuery();
+			
+			if (rs.next()) {
+				String name = rs.getString("pname");
+				String img = rs.getString("imgfile");
+				vo = new ProductVO();
+				vo.setPname(name);
+				vo.setImgfile(img);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return vo;
+	}
 }
