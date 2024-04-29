@@ -39,7 +39,7 @@ public class DeptDAO {
 		}
 	}  // constructor end
 	
-	// 1건 전체 데이터 가져오기 메서드 selectAll()
+	// 1건 조회 
 	public DeptVO selectOne(int deptno) {
 		// 4 ~ 7
 		// 4
