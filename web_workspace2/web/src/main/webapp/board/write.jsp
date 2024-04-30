@@ -4,12 +4,17 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 <title>write.jsp</title>
-<script>
-	
-</script>
+
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+<!-- include summernote css/js -->
+<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+
+
 </head>
 <body>
 	<div class="container">
@@ -27,7 +32,8 @@
 				
 				<tr>
 					<th>내용</th>
-					<td><textarea class="form-control" name="contents" id="" cols="30" rows="10"></textarea></td>
+					<td><textarea class="summernote" name="contents" id="" cols="30" rows="10"></textarea></td>
+					
 				</tr>
 				
 				<tr>
@@ -40,6 +46,43 @@
 			</table>
 		</form>
 	</div>
+	<script>
+		$(function() {
+
+			$('.summernote').summernote({ 
+				  // 에디터 높이 
+				  height: 150, 
+				  // 에디터 한글 설정 
+				  lang: "ko-KR", 
+				  focus : true, 
+				  toolbar: [ 
+					    // 글꼴 설정 
+					    ['fontname', ['fontname']], 
+					    // 글자 크기 설정 
+					    ['fontsize', ['fontsize']], 
+					    // 굵기, 기울임꼴, 밑줄,취소 선, 서식지우기 
+					    ['style', ['bold', 'italic', 'underline','strikethrough', 'clear']], 
+					    // 글자색 
+					    ['color', ['forecolor','color']], 
+					    // 표만들기 
+					    ['table', ['table']], 
+					    // 글머리 기호, 번호매기기, 문단정렬 
+					    ['para', ['ul', 'ol', 'paragraph']], 
+					    // 줄간격 
+					    ['height', ['height']], 
+					    // 그림첨부, 링크만들기, 동영상첨부 
+					    ['insert',['picture','link','video']], 
+					    // 코드보기, 확대해서보기, 도움말 
+					    ['view', ['codeview','fullscreen', 'help']] 
+					  ], 
+					  // 추가한 글꼴 
+					fontNames: ['Arial', 'Arial Black', 'Comic Sans MS', 'Courier New','맑은 고딕','궁서','굴림체','굴림','돋음체','바탕체'], 
+					 // 추가한 폰트사이즈 
+					fontSizes: ['8','9','10','11','12','14','16','18','20','22','24','28','30','36','50','72'] 
+				}); 
+
+		});
+	</script>
 	
 </body>
 </html>

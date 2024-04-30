@@ -29,9 +29,71 @@
 		
 		<%
 			BoardDAO dao = new BoardDAO();
-			ArrayList<BoardVO> list = dao.selectAll();
+		
+		
+			// 총 게시물 건수 출력
+			int totalCount = dao.getTotalCount();
 			
-			/* out.println("list: " + list); */
+			// 한 페이지당 게시물 수 : 20
+			int recordPerPage = 20;
+			
+			// 총 페이지 수
+			int totalPage = (totalCount % recordPerPage == 0) ? (totalCount / recordPerPage) : (totalCount / recordPerPage) + 1;
+			
+			// 현재 페이지 번호
+			String cp = request.getParameter("cp");
+			
+			int currentPage = 0;
+			
+			if (cp != null) {
+				currentPage = Integer.parseInt(cp);
+			} else {
+				currentPage = 1;
+			}
+			
+			// 1페이지 : 시작번호 1 ~ 끝번호 20
+			// 2페이지 : 시작번호 21 ~ 끝번호 40
+			// 3페이지 : 시작번호 41 ~ 끝번호 60
+			
+			// 시작번호
+			int startNo = (currentPage - 1) * recordPerPage + 1;
+			// 끝번호
+			int endNo = currentPage * recordPerPage;
+		
+
+			// 시작 페이지 번호
+			int startPage = 1;
+			// 끝 페이지 번호
+			int endPage = totalPage;
+			// 시작 페이지를 현재 페이지 기준으로 앞에 5개만
+			if (currentPage <= 5) {
+				startPage = 1;
+			} else if (currentPage >= 6) {
+				startPage = currentPage - 4;
+			}
+			// 끝 페이지는 현재 페이지 기준으로 다음 5개만
+			if (totalPage - currentPage <= 5) {
+				endPage = totalPage;
+			} else if (totalPage - currentPage > 5) {
+				if (currentPage <= 5) {
+					if (totalPage > 10) {
+						endPage = 10;
+					} else {
+						endPage = totalPage;
+					}
+				} else {
+					endPage = currentPage - 4;
+				}
+			}
+			
+			/* out.println("<h6> 총 게시물 수 : " + totalCount + "</h6>");
+			out.println("<h6> 한페이지당 게시물건수 : " + recordPerPage + "</h6>");
+			out.println("<h6> 총 페이지 수 : " + totalPage + "</h6>");
+			out.println("<h6> 현재 페이지 번호 : " + currentPage + "</h6>");
+			out.println("<h6> 시작번호 : " + startNo + "</h6>");
+			out.println("<h6> 끝번호 : " + endNo + "</h6>"); */
+			
+			ArrayList<BoardVO> list = dao.selectAll(startNo, endNo);
 			
 			for (BoardVO vo : list) {
 		%>
@@ -48,7 +110,38 @@
 		<%
 			}
 		%>
-	
+		<tr>
+			<td colspan="4">
+				<%
+					for (int i = startPage; i <= endPage; i++) {
+				%>
+						<a href="list.jsp?cp=<%= i %>">[<%= i %>]</a>
+				
+				<%		
+					}
+				%>
+			</td>
+		</tr>
+		
+		
+		<tr>
+			<td colspan="4">
+				<nav aria-label="Page navigation example">
+				  <ul class="pagination">
+				  <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+				<%
+					  for (int i = startPage; i <= endPage; i++) {
+				%>
+				    <li class="page-item"><a class="page-link" href="list.jsp?cp=<%= i %>"><%= i %></a></li>
+				<%
+						}
+				%>
+					<li class="page-item"><a class="page-link" href="#">Next</a></li>
+				  </ul>
+				</nav>
+			</td>
+		</tr>
+		
 	</table>
 </div>
 </body>

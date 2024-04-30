@@ -17,23 +17,17 @@ public class BoardDAO {
 	
 	public BoardDAO() {
 		conn = DBConnection.getInstance().getConnection();
-		
-	}  // BoardDAO() end
+	}
 	
-	// 전체 조회
 	public ArrayList<BoardVO> selectAll(int startNo, int endNo) {
 		sb.setLength(0);
-//		sb.append("SELECT bno, writer, title, contents, regdate, hits, ip, status ");
-//		sb.append("FROM board ");
-//		sb.append("ORDER BY bno desc ");
-		sb.append("SELECT rn, bno, writer, title, contents, regdate, hits, ip, status ");
-		sb.append("FROM (SELECT ROWNUM rn, bno, writer, title, contents, regdate, hits, ip, status ");
-		sb.append("FROM (SELECT bno, writer, title, contents, regdate, hits, ip, status ");
-		sb.append("FROM board ");
-		sb.append("ORDER BY bno desc ) ");
-		sb.append("WHERE ROWNUM <= ? ) ");
-		sb.append("WHERE RN >= ? ");
-		
+		sb.append("select rn, bno, writer, title, contents, regdate, hits, ip, status ");
+		sb.append("from (select rownum rn, bno, writer, title, contents, regdate, hits, ip, status ");
+		sb.append("from (select bno, writer, title, contents, regdate, hits, ip, status ");
+		sb.append("from board ");
+		sb.append("order by bno desc) ");
+		sb.append("where rownum <= ?) ");
+		sb.append("where rn >= ? ");
 		ArrayList<BoardVO> list = new ArrayList<BoardVO>();
 		
 		try {
@@ -170,7 +164,7 @@ public class BoardDAO {
 	
 	public int getTotalCount() {
 		sb.setLength(0);
-		sb.append("SELECT count(*) cnt FROM board");
+		sb.append("SELECT COUNT(*) cnt FROM board ");
 		int cnt = 0;
 		try {
 			pstmt = conn.prepareStatement(sb.toString());
@@ -178,11 +172,11 @@ public class BoardDAO {
 			if (rs.next()) {
 				cnt = rs.getInt("cnt");
 			}
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return cnt;
-	}
+	} // getTotalCount() End
 	
 	public void close() {
 		try {
@@ -193,5 +187,5 @@ public class BoardDAO {
 			e.printStackTrace();
 		}
 	} // close() End
-	
+
 }
