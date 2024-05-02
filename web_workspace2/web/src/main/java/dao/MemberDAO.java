@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import vo.MemberVO;
 
@@ -101,6 +102,32 @@ public class MemberDAO {
 			e.printStackTrace();
 		}
 		return vo;
+	}
+	
+	public ArrayList<MemberVO> selectAll() {
+		sb.setLength(0);  // 문자 길이 0으로 ( 있는 내용 삭제)
+		sb.append("SELECT no, id, pw, name, gender, motive  FROM member");
+		ArrayList<MemberVO> list = new ArrayList<MemberVO>();
+		
+		try {
+			pstmt = conn.prepareStatement(sb.toString());
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				int no = rs.getInt("no");
+				String id = rs.getString("id");
+				String pw = rs.getString("pw");
+				String name = rs.getString("name");
+				String gender = rs.getString("gender");
+				String motive = rs.getString("motive");
+				
+				MemberVO vo = new MemberVO(no, id, pw, name, gender, motive);
+				list.add(vo);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return list;
+		
 	}
 	
 	
