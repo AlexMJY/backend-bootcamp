@@ -1,3 +1,4 @@
+<%@page import="dao.EmpDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -10,6 +11,7 @@
 	<%
 		String empno = request.getParameter("empno");
 		out.println("empno : " + empno);
+		
 	
 	%>
 </body>

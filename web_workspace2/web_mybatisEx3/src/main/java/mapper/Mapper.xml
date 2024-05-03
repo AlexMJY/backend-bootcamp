@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+ 
+ <mapper namespace="kr.co.jhta">
+	
+	<select id="queryAllDept" resultType="kr.co.jhta.web.vo.DeptVO">
+		SELECT deptno, dname, loc
+		FROM dept
+	</select>
+	
+	<select id="queryDeptOne" resultType="kr.co.jhta.web.vo.DeptVO" parameterType="int">
+		SELECT deptno, dname, loc
+		FROM dept
+		WHERE deptno = #{deptno}
+	</select>
+	
+	<insert id="insertDeptOne" parameterType="kr.co.jhta.web.vo.DeptVO">
+		INSERT INTO dept
+		VALUES (DEPT_DEPTNO.nextval, #{dname}, #{loc})
+	</insert>
+	
+	<update id="updateDeptOne" parameterType="kr.co.jhta.web.vo.DeptVO">
+		UPDATE dept
+		SET dname = #{dname}, loc = #{loc}
+		WHERE deptno = #{deptno}
+	</update>
+	
+	<delete id="deleteDeptOne" parameterType="int">
+		DELETE FROM dept
+		WHERE deptno = #{deptno}
+	</delete>
+	
+</mapper>
