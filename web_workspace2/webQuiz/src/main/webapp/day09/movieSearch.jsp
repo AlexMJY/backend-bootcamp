@@ -13,7 +13,7 @@
 		MovieVO vo = dao.selectOne(name);
 				
 		if (vo != null) {
-			out.println(vo.getPoster());
+			// out.println(vo.getPoster());
 		}
 	}
 	
