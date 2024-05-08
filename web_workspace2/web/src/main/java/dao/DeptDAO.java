@@ -74,7 +74,7 @@ public class DeptDAO {
 		// 부서번호로 부서정보 가져오기
 		// 부서정보 : 부서번호, 부서명, 부서위치
 		
-	}
+	} // selectOne() end
 	
 	// 전체 조회
 	public ArrayList<DeptVO> selectAll() {
@@ -95,10 +95,8 @@ public class DeptDAO {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
-		
 		return list;
-	}
+	} // selectAll() end
 	
 	// 데이터 1건 추가
 	public void insertOne(DeptVO vo) {
@@ -116,8 +114,7 @@ public class DeptDAO {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
-	}
+	} // insertOne() end
 	
 	// 수정
 	public void updateOne(DeptVO vo) {
@@ -138,7 +135,7 @@ public class DeptDAO {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-	}
+	} // updateOne() end
 	
 	
 	// 삭제
@@ -156,11 +153,9 @@ public class DeptDAO {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-	}
+	} // deleteOne() end
 	
-	public static void main(String[] args) {
-		DeptDAO dao = new DeptDAO();
-	}
+
 	
 	public ArrayList<EmpDeptVO> selectEmpDept() {
 		sb.setLength(0);  // 문자 길이 0으로 ( 있는 내용 삭제)
@@ -188,8 +183,7 @@ public class DeptDAO {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
 		return list;
-	}
+	} // selectEmpDept() end
 }
 

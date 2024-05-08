@@ -6,7 +6,7 @@ import java.util.Date;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-public class NowCommand {
+public class NowCommand implements ActionCommand {
 
 	public String execute(HttpServletRequest req, HttpServletResponse resp) {
 		Date today = new Date();

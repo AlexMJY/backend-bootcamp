@@ -1,3 +1,5 @@
+<%@page import="vo.DeptVO"%>
+<%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -18,12 +20,43 @@
 				<th>지역</th>
 			</tr>
 			
-			<tr>
-				<c:forEach var="i" items="list" >
-				
-				</c:forEach>
-			</tr>
+			<c:forEach var="vo" items="${list}" >
+				<tr>
+					<td>${ vo.deptno }</td>
+					<td>${ vo.dname }</td>
+					<td>${ vo.loc }</td>
+				</tr>
+			</c:forEach>
 		</table>
+		
+		 
+		
+		<hr />
+		
+		<table class="table table-stripe">
+			<tr>
+				<th>부서번호</th>
+				<th>부서명</th>
+				<th>지역</th>
+			</tr>
+			
+			<%
+				Object obj =  request.getAttribute("list");
+				ArrayList<DeptVO> list = (ArrayList<DeptVO>) obj;
+				for (DeptVO v : list) {
+			%>
+				<tr>
+					<td><%= v.getDeptno() %></td>
+					<td><%= v.getDname() %></td>
+					<td><%= v.getLoc() %></td>
+				</tr>
+			<%
+				}
+			%>
+			
+		</table>
+		
+			
 	</div>
 </body>
 </html>

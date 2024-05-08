@@ -1,0 +1,195 @@
+package kr.co.jhata.web.dao;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+
+import kr.co.jhata.web.vo.BoardVO;
+
+public class BoardDAO {
+	private Connection conn;
+	PreparedStatement pstmt = null;
+	ResultSet rs = null;
+	StringBuffer sb = new StringBuffer();
+	
+	
+	public BoardDAO() {  // 생성자
+		conn = DBConnection.getInstance().getConnection();
+	}  // BoardDAO() end
+	 
+	
+	public ArrayList<BoardVO> selectAll(int startNo, int endNo) { 	// 전체 조회
+		sb.setLength(0);
+		sb.append("SELECT rn, bno, writer, title, contents, regdate, hits, ip, status ");
+		sb.append("FROM (SELECT ROWNUM rn, bno, writer, title, contents, regdate, hits, ip, status ");
+		sb.append("FROM (SELECT bno, writer, title, contents, regdate, hits, ip, status ");
+		sb.append("FROM board ");
+		sb.append("ORDER BY bno desc ) ");
+		sb.append("WHERE ROWNUM <= ? ) ");
+		sb.append("WHERE RN >= ? ");
+		
+		ArrayList<BoardVO> list = new ArrayList<BoardVO>();
+		
+		try {
+			pstmt = conn.prepareStatement(sb.toString());
+			pstmt.setInt(1, endNo);
+			pstmt.setInt(2, startNo);
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				int bno = rs.getInt("bno");
+				String writer = rs.getString("writer");
+				String title = rs.getString("title");
+				String contents = rs.getString("contents");
+				String regdate = rs.getString("regdate");
+				int hits = rs.getInt("hits");
+				String ip = rs.getString("ip");
+				int status = rs.getInt("status");
+				
+				BoardVO vo = new BoardVO(bno, writer, title, contents, regdate, hits, ip, status);
+				list.add(vo);
+				
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		close();
+		return list;
+	} // selectAll() end
+	
+	
+	public BoardVO getOne(int bno) {  // 1건 조회
+		sb.setLength(0);
+		sb.append("SELECT bno, writer, title, contents, to_char(regdate, 'yyyy-mm-dd') regdate, hits, ip, status ");
+		sb.append("FROM board WHERE bno = ?");
+		BoardVO vo = null;
+		
+		try {
+			pstmt = conn.prepareStatement(sb.toString());
+			pstmt.setInt(1, bno);
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				String writer = rs.getString("writer");
+				String title = rs.getString("title");
+				String contents = rs.getString("contents");
+				String regdate = rs.getString("regdate");
+				int hits = rs.getInt("hits");
+				String ip = rs.getString("ip");
+				int status = rs.getInt("status");
+				
+				vo = new BoardVO(bno, writer, title, contents, regdate, hits, ip, status);
+				close();
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return vo;
+	} // getOne() end
+	
+	
+	public void addOne(BoardVO vo) {  // 1건 추가
+		sb.setLength(0);
+		sb.append("INSERT INTO board ");
+		sb.append("VALUES (board_bno_seq.nextval, ?, ?, ?, SYSDATE, 0, ?, 1)");
+		
+		try {
+			pstmt = conn.prepareStatement(sb.toString());
+			pstmt.setString(1, vo.getWriter());
+			pstmt.setString(2, vo.getTitle());
+			pstmt.setString(3, vo.getContents());
+			pstmt.setString(4, vo.getIp());
+			
+			int result = pstmt.executeUpdate();
+			System.out.println("insert result : " + result);
+			close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	} // addOne() end
+	
+	
+	public void updateOne(BoardVO vo) {  // 1건 수정
+		// 제목, 내용, 작성자만 변경
+		sb.setLength(0);
+		sb.append("UPDATE board ");
+		sb.append("SET writer = ?, title = ?, contents = ? ");
+		sb.append("WHERE bno = ?");
+		
+		try {
+			pstmt = conn.prepareStatement(sb.toString());
+			pstmt.setString(1, vo.getWriter());
+			pstmt.setString(2, vo.getTitle());
+			pstmt.setString(3, vo.getContents());
+			pstmt.setInt(4, vo.getBno());
+			
+			int result = pstmt.executeUpdate();
+			System.out.println("update result : " + result);
+			close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}  // updateOne() end
+	
+	
+	public void deleteOne(int bno) {  // 1건 삭제
+		// 게시물 번호로 게시물 삭제
+		sb.setLength(0);
+		sb.append("DELETE FROM board ");
+		sb.append("WHERE bno = ?");
+		
+		try {
+			pstmt = conn.prepareStatement(sb.toString());
+			pstmt.setInt(1, bno);
+			int result = pstmt.executeUpdate();
+			System.out.println("delete result : " + result);
+			close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	} // deleteOne() end
+	
+	
+	public void raiseHits(int bno) {  // 조회수 업데이트
+		sb.setLength(0);
+		sb.append("UPDATE board SET hits = hits + 1 WHERE bno = ?");
+		
+		try {
+			pstmt = conn.prepareStatement(sb.toString());
+			pstmt.setInt(1, bno);
+			pstmt.executeUpdate();
+			close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+	} // raiseHits() end
+	
+	
+	public int getTotalCount() {  // 전체 게시물 숫자 계산
+		sb.setLength(0);
+		sb.append("SELECT count(*) cnt FROM board");
+		int cnt = 0;
+		try {
+			pstmt = conn.prepareStatement(sb.toString());
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				cnt = rs.getInt("cnt");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return cnt;
+	} // getTotalCount() end
+	
+	
+	public void close() {  // 메소드 끄기
+		try {
+			if (rs != null) rs.close();
+			if (pstmt != null) pstmt.close();
+			if (conn != null) conn.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	} // close() end
+}

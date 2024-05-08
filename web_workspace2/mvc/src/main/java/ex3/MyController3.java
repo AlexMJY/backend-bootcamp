@@ -27,34 +27,25 @@ public class MyController3 extends HttpServlet {
 		String type = req.getParameter("type");
 		String url = "";
 		String msg = "";
+		ActionCommand ac = null;
 		
+		// 모든 커멘드는 execute 함수를 가져야 한다 => 인터페이스로 만들어서 상속 시키기
 		if (type == null || type.equals("hello")) {
-//			url = "ex3/hello.jsp";
-//			msg = "안녕하세요";
-//			req.setAttribute("msg", msg);
-			
-			HelloCommand hc = new HelloCommand();
-			url = hc.execute(req, resp);
-			
-		} else if (type.equals("ip")) {
-			// url = "ex3/ip.jsp";
-			// msg = req.getRemoteAddr();
+			// url = "ex3/hello.jsp";
+			// msg = "안녕하세요";
 			// req.setAttribute("msg", msg);
-			
-			IPCommand ic = new IPCommand();
-			url = ic.execute(req, resp);
-			
+			ac = new HelloCommand();
+		} else if (type.equals("ip")) {
+			ac = new IPCommand();
 		} else if (type.equals("now")) {
-			NowCommand nc = new NowCommand();
-			url = nc.execute(req, resp);
+			ac = new NowCommand();
 		} else if (type.equals("dept")) {
-			DeptCommand dc = new DeptCommand();
-			url = dc.execute(req, resp);
+			ac = new DeptCommand();
 		}
+		url = ac.execute(req, resp);
 		
 		RequestDispatcher rd = req.getRequestDispatcher(url);
 		rd.forward(req, resp);
-		
 	}
 	
 	@Override
