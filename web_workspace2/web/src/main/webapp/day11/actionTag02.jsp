@@ -1,5 +1,5 @@
-<%@page import="vo.DeptVO"%>
-<%@page import="dao.DeptDAO"%>
+<%@page import="kr.co.jhta.web.vo.DeptVO"%>
+<%@page import="kr.co.jhta.web.dao.DeptDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -12,17 +12,17 @@
 </head>
 <body>
 	<%
-		// 부서번호 객체를 하나 생성하고 부서정보 입력
-		// 99 AI Pusan
+	// 부서번호 객체를 하나 생성하고 부서정보 입력
+			// 99 AI Pusan
+			
+			// DeptVO vo = new DeptVO(99, "AI", "BUSAN");
 		
-		// DeptVO vo = new DeptVO(99, "AI", "BUSAN");
-	
-		// vo (Value Object), javaBean, DTO (Data Transfer Object)
-		// POJO (Plain Old Java Object)
+			// vo (Value Object), javaBean, DTO (Data Transfer Object)
+			// POJO (Plain Old Java Object)
 	%>
 	
 	<!-- DeptVO vo = new DeptVO()와 똑같은 역할 -->
-	<jsp:useBean id="vo" class="vo.DeptVO" scope="session"></jsp:useBean>
+	<jsp:useBean id="vo" class="kr.co.jhta.web.vo.DeptVO" scope="session"></jsp:useBean>
 	
 	<jsp:setProperty property="deptno" name="vo" value="99" />
 	<jsp:setProperty property="dname" name="vo" value="AI" />

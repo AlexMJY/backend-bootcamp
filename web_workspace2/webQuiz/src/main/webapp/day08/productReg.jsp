@@ -1,4 +1,4 @@
-<%@page import="dao.ProductDAO"%>
+<%@page import="kr.co.jhta.web.dao.ProductDAO"%>
 <%@page import="java.util.Enumeration"%>
 <%@page import="com.oreilly.servlet.multipart.DefaultFileRenamePolicy"%>
 <%@page import="com.oreilly.servlet.MultipartRequest"%>

@@ -1,5 +1,5 @@
-<%@page import="dao.FileInfoDAO"%>
-<%@page import="dao.FileDAO"%>
+<%@page import="kr.co.jhta.web.dao.FileInfoDAO"%>
+<%@page import="kr.co.jhta.web.dao.FileDAO"%>
 <%@page import="java.io.File"%>
 <%@page import="java.util.Enumeration"%>
 <%@page import="com.oreilly.servlet.multipart.DefaultFileRenamePolicy"%>

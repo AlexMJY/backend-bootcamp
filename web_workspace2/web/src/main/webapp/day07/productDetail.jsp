@@ -1,5 +1,5 @@
-<%@page import="vo.ProductVO"%>
-<%@page import="dao.ProductDAO"%>
+<%@page import="kr.co.jhta.web.vo.ProductVO"%>
+<%@page import="kr.co.jhta.web.dao.ProductDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>

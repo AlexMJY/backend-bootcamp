@@ -1,5 +1,5 @@
-<%@page import="vo.DeptVO"%>
-<%@page import="dao.DeptDAO"%>
+<%@page import="kr.co.jhta.web.vo.DeptVO"%>
+<%@page import="kr.co.jhta.web.dao.DeptDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -17,7 +17,7 @@
 		DeptVO vo = (DeptVO) obj;
 	%> --%>
 	
-	<jsp:useBean id="vo" class="vo.DeptVO" scope="session"></jsp:useBean>
+	<jsp:useBean id="vo" class="kr.co.jhta.web.vo.DeptVO" scope="session"></jsp:useBean>
 	<div class="container">
 		<h3>actionTag03.jsp</h3>
 		<table class="table table-striped">
