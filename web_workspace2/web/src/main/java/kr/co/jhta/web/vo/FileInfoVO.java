@@ -1,4 +1,4 @@
-package vo;
+package kr.co.jhta.web.vo;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -7,12 +7,9 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class MemberVO {
-	
+public class FileInfoVO {
+	private int fno;
+	private String filePath;
+	private String type;
 	private int no;
-	private String id;
-	private String pw;
-	private String name;
-	private String gender;
-	private String motive;
 }

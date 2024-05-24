@@ -16,16 +16,16 @@
 		String gender = request.getParameter("gender");
 		String motive = request.getParameter("motive");
 		
-		MemberDTO vo = new MemberDTO();
+		MemberVO vo = new MemberVO();
 		vo.setId(id);
 		vo.setPw(pw);
 		vo.setName(name);
 		vo.setGender(gender);
 		vo.setMotive(motive);
 		
-		MemberDAO dao = new MemberDAO();
+		MemberVO dao = new MemberVO();
 		
-		dao.addMember(vo);
+		/* dao.addMember(vo); */
 		
 		response.sendRedirect("login.jsp");
 	%>

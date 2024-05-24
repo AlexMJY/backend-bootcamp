@@ -9,7 +9,7 @@
 
 	if (txt != null) {
 		MemberDAO dao = new MemberDAO();
-		MemberDTO vo = dao.getOne(txt);
+		MemberVO vo = dao.getOne(txt);
 		out.println("<h2>" + vo.getName() + "</h2>");
 		
 	}

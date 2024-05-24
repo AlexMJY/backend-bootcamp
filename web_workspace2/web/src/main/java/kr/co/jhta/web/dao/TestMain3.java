@@ -1,4 +1,4 @@
-package dao;
+package kr.co.jhta.web.dao;
 
 public class TestMain3 {
 	public static void main(String[] args) {

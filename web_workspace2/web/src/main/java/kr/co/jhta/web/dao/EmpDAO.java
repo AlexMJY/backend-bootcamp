@@ -1,4 +1,4 @@
-package dao;
+package kr.co.jhta.web.dao;
 
 import java.sql.Connection;
 import java.sql.Date;
@@ -8,7 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import vo.EmpVO;
+import kr.co.jhta.web.vo.EmpVO;
 
 public class EmpDAO {
 	String driver = "oracle.jdbc.driver.OracleDriver";

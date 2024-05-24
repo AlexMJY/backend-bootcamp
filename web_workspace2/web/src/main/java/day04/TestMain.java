@@ -1,6 +1,6 @@
 package day04;
 
-import dao.DeptDAO;
+import kr.co.jhta.web.dao.DeptDAO;
 
 public class TestMain {
 	public static void main(String[] args) {

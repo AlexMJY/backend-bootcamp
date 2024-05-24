@@ -1,4 +1,4 @@
-package vo;
+package kr.co.jhta.web.vo;
 
 import java.sql.Date;
 

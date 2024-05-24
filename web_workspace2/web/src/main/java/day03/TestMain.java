@@ -1,6 +1,6 @@
 package day03;
 
-import vo.DeptVO;
+import kr.co.jhta.web.vo.DeptVO;
 
 public class TestMain {
 

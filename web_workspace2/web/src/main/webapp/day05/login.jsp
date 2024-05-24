@@ -43,7 +43,7 @@
 				out.println("<h3> vo : " + obj + "</h3>");
 				
 				if (obj != null) {
-					MemberDTO vo = (MemberDTO) obj;
+					MemberVO vo = (MemberVO) obj;
 					out.println("<h3><a href='logout.jsp'>" + vo.getName() + "</a>님 환영합니다. </h3>");
 				} else {
 			%>

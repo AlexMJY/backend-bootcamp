@@ -1,9 +1,9 @@
-package dao;
+package kr.co.jhta.web.dao;
 
 import java.util.ArrayList;
 import java.util.HashSet;
 
-import vo.ProductVO;
+import kr.co.jhta.web.vo.ProductVO;
 
 public class TestMain2 {
 	public static void main(String[] args) {

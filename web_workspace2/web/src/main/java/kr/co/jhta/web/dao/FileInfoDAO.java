@@ -1,4 +1,4 @@
-package dao;
+package kr.co.jhta.web.dao;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -7,7 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import vo.FileInfoVO;
+import kr.co.jhta.web.vo.FileInfoVO;
 
 public class FileInfoDAO {
 	String driver = "oracle.jdbc.driver.OracleDriver";

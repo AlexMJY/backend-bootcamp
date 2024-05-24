@@ -1,7 +1,7 @@
 package day04;
 
-import dao.MemberDAO;
-import vo.MemberVO;
+import kr.co.jhta.web.dao.MemberDAO;
+import kr.co.jhta.web.vo.MemberVO;
 
 public class TestMain2 {
 	public static void main(String[] args) {

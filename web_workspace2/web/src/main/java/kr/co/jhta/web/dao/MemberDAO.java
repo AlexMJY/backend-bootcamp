@@ -1,4 +1,4 @@
-package dao;
+package kr.co.jhta.web.dao;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -7,7 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import vo.MemberVO;
+import kr.co.jhta.web.vo.MemberVO;
 
 public class MemberDAO {
 	String driver = "oracle.jdbc.driver.OracleDriver";

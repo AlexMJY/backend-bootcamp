@@ -11,7 +11,7 @@
 	// 2. id가 널이 아니라면
 	if (id != null) {
 		MemberDAO dao = new MemberDAO();  // 3. dao 객체
-		MemberDTO vo = dao.getOne(id);  // 4. dao.getOne(id) ==> vo 리턴
+		MemberVO vo = dao.getOne(id);  // 4. dao.getOne(id) ==> vo 리턴
 		
 		// 5. vo가 널이라면 존재하지 않는 아이디 : 화면에 true 출력
 		if (vo == null) {
