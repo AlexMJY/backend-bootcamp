@@ -11,19 +11,19 @@
 <body>
 	<%
 	String id = request.getParameter("id");
-			String pw = request.getParameter("pw");
-			String name = request.getParameter("name");
-			String gender = request.getParameter("gender");
-			
-			MemberVO vo = new MemberVO();
-			vo.setId(id);
-			vo.setPw(pw);
-			vo.setName(name);
-			vo.setGender(gender);
-			
-			MemberDAO dao = new MemberDAO();
-			
-			dao.addMember(vo);
+		String pw = request.getParameter("pw");
+		String name = request.getParameter("name");
+		String gender = request.getParameter("gender");
+		
+		MemberDTO vo = new MemberDTO();
+		vo.setId(id);
+		vo.setPw(pw);
+		vo.setName(name);
+		vo.setGender(gender);
+		
+		MemberDAO dao = new MemberDAO();
+		
+		dao.addMember(vo);
 	%>
 	
 	

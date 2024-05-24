@@ -11,23 +11,23 @@
 <body>
 	<%
 	String id = request.getParameter("id");
-			String pw = request.getParameter("pw");
-			String name = request.getParameter("name");
-			String gender = request.getParameter("gender");
-			String motive = request.getParameter("motive");
-			
-			MemberVO vo = new MemberVO();
-			vo.setId(id);
-			vo.setPw(pw);
-			vo.setName(name);
-			vo.setGender(gender);
-			vo.setMotive(motive);
-			
-			MemberDAO dao = new MemberDAO();
-			
-			dao.addMember(vo);
-			
-			response.sendRedirect("login.jsp");
+		String pw = request.getParameter("pw");
+		String name = request.getParameter("name");
+		String gender = request.getParameter("gender");
+		String motive = request.getParameter("motive");
+		
+		MemberDTO vo = new MemberDTO();
+		vo.setId(id);
+		vo.setPw(pw);
+		vo.setName(name);
+		vo.setGender(gender);
+		vo.setMotive(motive);
+		
+		MemberDAO dao = new MemberDAO();
+		
+		dao.addMember(vo);
+		
+		response.sendRedirect("login.jsp");
 	%>
 	
 	

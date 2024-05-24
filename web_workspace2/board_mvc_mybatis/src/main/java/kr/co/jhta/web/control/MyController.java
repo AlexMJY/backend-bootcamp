@@ -26,7 +26,7 @@ public class MyController extends HttpServlet {
 		req.setCharacterEncoding("UTF-8");
 		resp.setContentType("text/html;charset=UTF-8");
 		
-		// cmd 파라미터값 가져오기
+		// cmd 파라미터값 가져오기 
 		String cmd = req.getParameter("cmd");
 		String url = "";
 		Action action = null;

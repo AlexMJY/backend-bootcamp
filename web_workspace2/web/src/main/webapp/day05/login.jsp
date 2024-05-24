@@ -40,15 +40,13 @@
 	
 		<%
 			Object obj = session.getAttribute("vo");
-			out.println("<h3> vo : " + obj + "</h3>");
-			
-			if (obj != null) {
-				MemberVO vo = (MemberVO) obj;
-				out.println("<h3><a href='logout.jsp'>" + vo.getName() + "</a>님 환영합니다. </h3>");
-			} else {
+				out.println("<h3> vo : " + obj + "</h3>");
 				
-			
-		%>
+				if (obj != null) {
+					MemberDTO vo = (MemberDTO) obj;
+					out.println("<h3><a href='logout.jsp'>" + vo.getName() + "</a>님 환영합니다. </h3>");
+				} else {
+			%>
 	
 	
 		<!-- table>(tr>th+td)*2 -->

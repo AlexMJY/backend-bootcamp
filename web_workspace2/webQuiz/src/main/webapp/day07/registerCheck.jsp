@@ -11,33 +11,32 @@
 </head>
 <body>
 	<%
-		String id = request.getParameter("id");
-		String name = request.getParameter("name");
-		String gender = request.getParameter("gender");
-		String pw = request.getParameter("pw");
-		int zipcode = Integer.parseInt(request.getParameter("zipcode")) ;
-		String address = request.getParameter("addr");
+	String id = request.getParameter("id");
+			String name = request.getParameter("name");
+			String gender = request.getParameter("gender");
+			String pw = request.getParameter("pw");
+			int zipcode = Integer.parseInt(request.getParameter("zipcode")) ;
+			String address = request.getParameter("addr");
+			
+			
+			// String phone = request.getParameter("phone1") + "-" + request.getParameter("phone2") + "-" + request.getParameter("phone3");
+			// String socialNum = request.getParameter("socialNum1") + "-" + request.getParameter("socialNum2");
 		
-		
-		// String phone = request.getParameter("phone1") + "-" + request.getParameter("phone2") + "-" + request.getParameter("phone3");
-		// String socialNum = request.getParameter("socialNum1") + "-" + request.getParameter("socialNum2");
-	
-		/* String email;
-		if (!request.getParameter("email2").isEmpty()) {
-			email = request.getParameter("email1") + "@" + request.getParameter("email2");
-		} else {
-			email = request.getParameter("email1") + "@" + request.getParameter("domain-list");
-		} */
+			/* String email;
+			if (!request.getParameter("email2").isEmpty()) {
+		email = request.getParameter("email1") + "@" + request.getParameter("email2");
+			} else {
+		email = request.getParameter("email1") + "@" + request.getParameter("domain-list");
+			} */
 
-		
-		//String[] hobby = request.getParameterValues("hobby");
-		
-		MemberDAO dao = new MemberDAO();
-		
-		MemberVO vo = new MemberVO(id, pw, name, gender, zipcode, address);
+			
+			//String[] hobby = request.getParameterValues("hobby");
+			
+			MemberDAO dao = new MemberDAO();
+			
+			MemberDTO vo = new MemberDTO(id, pw, name, gender, zipcode, address);
 
-		dao.insertOne(vo);
-		
+			dao.insertOne(vo);
 	%>
 </body>
 </html>

@@ -11,15 +11,13 @@
 <body>
 	<%
 	// 요청 객체로부터 파라미터 값 가져오기
-	String id = request.getParameter("id");
-	String pw = request.getParameter("pwd");
-	
-	MemberDAO dao = new MemberDAO();
-	MemberVO vo = dao.searchUser(id, pw);
-	
-	out.println("<h2> 로그인 사용자명 : " + vo.getName() + "<h2>");
-	
-	
+		String id = request.getParameter("id");
+		String pw = request.getParameter("pwd");
+		
+		MemberDAO dao = new MemberDAO();
+		MemberDTO vo = dao.searchUser(id, pw);
+		
+		out.println("<h2> 로그인 사용자명 : " + vo.getName() + "<h2>");
 	%>
 </body>
 </html>

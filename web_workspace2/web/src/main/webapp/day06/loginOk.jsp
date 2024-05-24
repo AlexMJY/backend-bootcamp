@@ -10,20 +10,20 @@
 </head>
 <body>
 	<%
-		String id = request.getParameter("id");
-		String pw = request.getParameter("pw");
-		
-		MemberDAO dao = new MemberDAO();
-		MemberVO vo =  dao.searchUser(id, pw);
-		
-		if (vo != null) {
-			session.setAttribute("vo", vo);
-			session.setAttribute("name", vo.getName());
-			response.sendRedirect("layout.jsp");
+	String id = request.getParameter("id");
+			String pw = request.getParameter("pw");
 			
-		} else {
-			response.sendRedirect("layout.jsp");
-		}
+			MemberDAO dao = new MemberDAO();
+			MemberDTO vo =  dao.searchUser(id, pw);
+			
+			if (vo != null) {
+		session.setAttribute("vo", vo);
+		session.setAttribute("name", vo.getName());
+		response.sendRedirect("layout.jsp");
+		
+			} else {
+		response.sendRedirect("layout.jsp");
+			}
 	%>
 </body>
 </html>

@@ -30,9 +30,9 @@
 			</form>
 			
 			<%
-				} else {
-					MemberVO vo = (MemberVO) obj;
-			%>
+						} else {
+									MemberDTO vo = (MemberDTO) obj;
+						%>
 			
 			 
 				
