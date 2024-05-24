@@ -1,5 +1,5 @@
-<%@page import="vo.ProductVO"%>
-<%@page import="dao.ProductDAO"%>
+<%@page import="kr.co.jhta.web.vo.ProductVO"%>
+<%@page import="kr.co.jhta.web.dao.ProductDAO"%>
 <%@page import="java.util.Set"%>
 <%@page import="java.util.HashMap"%>
 <%@page import="java.util.ArrayList"%>

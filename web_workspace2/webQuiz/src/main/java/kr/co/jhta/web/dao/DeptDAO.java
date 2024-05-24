@@ -1,4 +1,4 @@
-package dao;
+package kr.co.jhta.web.dao;
 
 import java.sql.Connection;
 import java.sql.Date;
@@ -8,8 +8,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import vo.DeptVO;
-import vo.EmpDeptVO;
+import kr.co.jhta.web.vo.DeptVO;
+import kr.co.jhta.web.vo.EmpDeptVO;
 
 // DB에 연결하는 객체
 

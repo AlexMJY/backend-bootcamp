@@ -1,4 +1,5 @@
 <%@page import="kr.co.jhta.web.vo.MemberVO"%>
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -40,7 +41,7 @@
 			Object obj = session.getAttribute("vo");
 				
 				if (obj != null) {
-					MemberDTO vo = (MemberDTO) obj;
+					MemberVO vo = (MemberVO) obj;
 					out.println("<h3><a href='logout.jsp'>" + vo.getName() + "</a>님 환영합니다. </h3>");
 				} else {
 			%>

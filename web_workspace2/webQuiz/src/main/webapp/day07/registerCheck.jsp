@@ -34,7 +34,7 @@
 			
 			MemberDAO dao = new MemberDAO();
 			
-			MemberDTO vo = new MemberDTO(id, pw, name, gender, zipcode, address);
+			MemberVO vo = new MemberVO(id, pw, name, gender, zipcode, address);
 
 			dao.insertOne(vo);
 	%>

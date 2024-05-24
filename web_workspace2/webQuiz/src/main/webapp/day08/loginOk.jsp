@@ -17,7 +17,7 @@
 			out.println("<h3> pwd : " + pwd +"</h3>");
 			
 			MemberDAO dao = new MemberDAO();
-			MemberDTO vo = dao.searchUser(id, pwd);
+			MemberVO vo = dao.searchUser(id, pwd);
 			
 			if (vo != null) {
 		

@@ -1,4 +1,4 @@
-package vo;
+package kr.co.jhta.web.vo;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
