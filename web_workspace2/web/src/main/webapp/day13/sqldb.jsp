@@ -9,28 +9,34 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>testMysql.jsp</title>
+<title>sqldb.jsp</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
 </head>
 <body>
-	<!-- mysql 연결 -->
+	<div class="container">
+					<table class="table">
+						<thead>
+							<tr>
+								<th>Deptno</th>
+								<th>Dname</th>
+								<th>Loc</th>
+							</tr>
+						</thead>
+						<tbody>
+							
 	<%
-		// 1. 환경변수
-		// String driver = "oracle.jdbc.driver.OracleDriver";
-		// String url = "jdbc:oracle:thin:@localhost:1521:xe";
-		// String username = "scott";
-		// String password = "tiger";
 		String driver = "com.mysql.cj.jdbc.Driver";
-		//String url = "jdbc:mysql://서버IP:port번호/dbname";
-		// String url = "jdbc:mysql://xe.cbmu86wie7nw.ap-northeast-2.rds.amazonaws.com:3306/xe";
-		String url = "jdbc:mysql://localhost:3306/xe";
-		String username = "scott";
-		String password = "tiger";
+		String url = "jdbc:mysql://localhost:3306/sqldb";
+		// String url = "jdbc:mysql://192.168.99.30:3306/sqldb";
+		String username = "smith";
+		String password = "oracle";
 		
 		// 밑단 finally에서 불러서 close()할 수 있게 try문 밖에서 선언
 		Connection conn = null;   
 		PreparedStatement pstmt = null; 
 		ResultSet rs = null;
-		
 		
 		// 2. 드라이버 로딩
 		try {
@@ -64,6 +70,12 @@
 				String dname =  rs.getString("dname");
 				String loc = rs.getString("loc");
 				System.out.println(deptno + " : " + dname + " : " + loc);
+				
+				out.println("<tr>");
+				out.println("<td>" + deptno + "</td>");
+				out.println("<td>" + dname + "</td>");
+				out.println("<td>" + loc + "</td>");
+				out.println("</tr>");
 			}
 			
 		} catch (SQLException e) {
@@ -79,8 +91,10 @@
 			}
 			
 		}
-	
 	%>
-	
+		
+			</tbody>
+					</table>
+	</div>
 </body>
 </html>

@@ -11,6 +11,7 @@ cos-22.05/
 FileZilla-3.66.5/
 aws/
 jdk-17/
+docker_workspace/
 
 
 #등록 제외할 파일
