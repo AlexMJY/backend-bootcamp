@@ -31,7 +31,7 @@
 			
 			<%
 						} else {
-									MemberDTO vo = (MemberDTO) obj;
+									MemberVO vo = (MemberVO) obj;
 						%>
 			
 			 

@@ -1,6 +1,6 @@
+<%@page import="kr.co.jhta.web.vo.DeptVO"%>
 <%@page import="java.util.Arrays"%>
 <%@page import="java.util.ArrayList"%>
-<%@page import="DeptVO"%>
 <%@page import="kr.co.jhta.web.dao.DeptDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>

@@ -14,7 +14,7 @@
 			String pw = request.getParameter("pw");
 			
 			MemberDAO dao = new MemberDAO();
-			MemberDTO vo =  dao.searchUser(id, pw);
+			MemberVO vo =  dao.searchUser(id, pw);
 			
 			if (vo != null) {
 		session.setAttribute("vo", vo);

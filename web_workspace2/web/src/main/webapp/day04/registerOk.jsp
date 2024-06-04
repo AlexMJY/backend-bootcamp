@@ -15,7 +15,7 @@
 		String name = request.getParameter("name");
 		String gender = request.getParameter("gender");
 		
-		MemberDTO vo = new MemberDTO();
+		MemberVO vo = new MemberVO();
 		vo.setId(id);
 		vo.setPw(pw);
 		vo.setName(name);

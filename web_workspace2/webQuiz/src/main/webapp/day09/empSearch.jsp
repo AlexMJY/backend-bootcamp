@@ -1,5 +1,5 @@
-<%@page import="vo.EmpVO"%>
-<%@page import="dao.EmpDAO"%>
+<%@page import="kr.co.jhta.web.vo.EmpVO"%>
+<%@page import="kr.co.jhta.web.dao.EmpDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 

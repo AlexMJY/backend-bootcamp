@@ -15,7 +15,7 @@
 		String pw = request.getParameter("pwd");
 		
 		MemberDAO dao = new MemberDAO();
-		MemberDTO vo = dao.searchUser(id, pw);
+		MemberVO vo = dao.searchUser(id, pw);
 		
 		out.println("<h2> 로그인 사용자명 : " + vo.getName() + "<h2>");
 	%>
