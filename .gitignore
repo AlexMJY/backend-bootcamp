@@ -12,6 +12,8 @@ FileZilla-3.66.5/
 aws/
 jdk-17/
 docker_workspace/
+data/
+
 
 
 #등록 제외할 파일
