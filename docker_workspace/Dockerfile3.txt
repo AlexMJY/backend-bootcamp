@@ -1,0 +1,5 @@
+FROM centos:centos7
+
+ENV myName "MJY"
+ENV myOrder PIZZA
+ENV myNumber 1004

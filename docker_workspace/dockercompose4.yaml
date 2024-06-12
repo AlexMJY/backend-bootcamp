@@ -1,0 +1,15 @@
+version: "3"
+
+services:
+  web1:
+    image: tomcat
+    ports:
+    - 8081:8080
+  web2:
+    image: httpd
+    ports:
+    - 8082:80
+  web3:
+    image: nginx
+    ports:
+    - 8083:80

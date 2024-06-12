@@ -1,0 +1,9 @@
+# centos7
+FROM centos:centos7
+ENTRYPOINT ["/bin/ping", "localhost"]
+CMD ["-c", "10"]
+
+# 핑 10번 실행하는 이미지 만들고 실행
+
+# myimage3 이미지 생성
+# pingtest라는 이름의 컨테이너 생성

@@ -1,0 +1,4 @@
+MYSQL_ROOT_PASSWORD=tigerlion2401
+MYSQL_DATABASE=wpdb
+MYSQL_USER=wordpress
+MYSQL_PASSWORD=wordpress

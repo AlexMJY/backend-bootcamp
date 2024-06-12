@@ -1,0 +1,16 @@
+#Dockerfile
+
+# 베이스 이미지 설정
+FROM ubuntu
+
+# nginx install
+RUN apt-get update
+RUN apt-get -y install -q nginx
+
+# index.html 파일을 nginx 홈디렉토리 파일에 복사
+COPY index.html /var/www/html/
+
+EXPOSE 80
+
+# nginx 프로그램을 실행
+CMD ["nginx", "-g", "daemon off;"]

@@ -1,0 +1,20 @@
+#Dockerfile
+
+FROM ubuntu:latest
+
+RUN apt-get update
+RUN apt-get install -y openjdk-17-jdk wget unzip
+RUN wget https://dlcdn.apache.org/tomcat/tomcat-10/v10.1.24/bin/apache-tomcat-10.1.24.tar.gz -O /tmp/tomcat.tar.gz
+RUN mkdir /usr/local/tomcat10
+RUN tar xzf /tmp/tomcat.tar.gz -C  /usr/local/tomcat10 --strip-components=1
+
+# Set environment variables
+ENV CATALINA_HOME /usr/local/tomcat10
+ENV PATH $CATALINA_HOME/bin:$PATH
+
+# Copy custom index.jsp and image
+COPY index.jsp /usr/local/tomcat10/webapps/ROOT/index.jsp
+COPY pororo.jpg /usr/local/tomcat10/webapps/ROOT/pororo.jpg
+
+# Run Tomcat server
+CMD ["catalina.sh", "run"]

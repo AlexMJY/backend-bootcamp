@@ -1,0 +1,19 @@
+version : "3"
+
+services:
+  mysql01:
+    image: mysql
+    networks:
+      - wp_net01
+    volumes:
+      - dbfile:/var/lib/mysql
+    restart: always
+    environment: 
+      MYSQL_ROOT_PASSWORD: tigerlion2401
+      MYSQL_DATABASE: xe
+      MYSQL_USER: scott
+      MYSQL_PASSWORD: tiger
+networks:
+  wp_net01:
+volumes:
+  dbfile:
