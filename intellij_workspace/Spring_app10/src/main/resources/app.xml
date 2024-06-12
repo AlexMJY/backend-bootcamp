@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="collection" class="kr.co.jhta.app.CollectionImple">
+        <constructor-arg name="list">
+            <list>
+                <value>크리스마스</value>
+                <value>산타</value>
+                <value>루돌프</value>
+                <value>붉은코</value>
+                <value>썰매</value>
+            </list>
+        </constructor-arg>
+
+        <constructor-arg name="map">
+            <map>
+                <entry value="교통사고 사망" key="요술공주밍키"/>
+                <entry key="둘리" value="공룡"/>
+            </map>
+        </constructor-arg>
+    </bean>
+</beans>

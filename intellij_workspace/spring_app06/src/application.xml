@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+
+    <bean id="check" class="kr.co.jhta.app.CheckWeapon"></bean> <!-- 자바에서 의존성 주입 못하게 xml에서 처리 -->
+
+    <!-- setter 사용 -->
+    <!--<bean id="w" class="kr.co.jhta.app.AK47">
+        <property name="bullet" value="30"></property>
+        <property name="cw" ref="check"></property>
+    </bean>-->
+
+    <!-- constructor 사용 -->
+    <bean id="w" class="kr.co.jhta.app.AK47">
+        <constructor-arg name="bullet" value="10"></constructor-arg>
+        <constructor-arg name="cw" ref="check"></constructor-arg>
+    </bean>
+
+</beans>

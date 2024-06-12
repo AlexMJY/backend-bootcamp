@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="p" class="kr.co.jhta.test3.InkJetPrinter">
+        <property name="red" value="30"></property>
+        <property name="green" value="30"></property>
+        <property name="blue" value="30"></property>
+        <!--<constructor-arg name="sender" ref="sender"></constructor-arg>-->
+    </bean>
+</beans>
