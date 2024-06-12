@@ -26,11 +26,6 @@ spring-tool-suite-4-4.22.1.RELEASE-e4.31.0-win32.win32.x86_64.self-extracting.ja
 # 'sts-4.22.1.RELEASE' 폴더와 그 내부 모든 내용을 무시
 sts-4.22.1.RELEASE/
 
-# 'sts-4.22.1.RELEASE' 폴더 내부의 'spring_workspace' 폴더는 무시하지 않음
-!sts-4.22.1.RELEASE/spring_workspace/
-
-# 'sts-4.22.1.RELEASE/spring_workspace' 폴더 내부의 모든 내용을 포함
-!sts-4.22.1.RELEASE/spring_workspace/**
 
 # 확장자 제외
 *.zip
