@@ -8,10 +8,10 @@ public class Slingshot implements Weapon {
 
     public void shoot() {
         if (ball > 0) {
-            System.out.println("빡");
+            System.out.println("발사가능 : 빡");
             ball -= 1;
         } else {
-            System.out.println("픽");
+            System.out.println("발사불가능 : 픽");
         }
     }
 

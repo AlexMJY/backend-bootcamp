@@ -10,10 +10,10 @@ public class Gun implements Weapon {
 
     public void fire() {
         if (bullet > 0) {
-            System.out.println("빵~~~");
+            System.out.println("발사가능 : 빵~~~");
             bullet--;
         } else {
-            System.out.println("틱!~~");
+            System.out.println("발사불가능 : 틱!~~");
         }
     }
 

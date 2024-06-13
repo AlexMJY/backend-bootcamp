@@ -12,10 +12,10 @@ public class StunGun implements Weapon {
 
     public void shoot() {
         if (battery > 30) {
-            System.out.println("찌리릿");
+            System.out.println("발사가능 : 찌리릿");
             battery -= 5;
         } else {
-            System.out.println("뾱");
+            System.out.println("발사불가능 : 뾱");
         }
     }
 

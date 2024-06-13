@@ -1,30 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:c="http://www.springframework.org/schema/c"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
     <bean id="g" class="kr.co.jhta.app.Gun">
-        <constructor-arg name="bullet" value="8">
-        </constructor-arg>
+        <constructor-arg name="bullet" value="8"/>
     </bean>
 
-    <bean id="s" class="kr.co.jhta.app.StunGun">
-        <constructor-arg name="battery" value="5">
-        </constructor-arg>
+    <bean id="s" class="kr.co.jhta.app.StunGun" c:battery="100">
     </bean>
 
-    <bean id="ss" class="kr.co.jhta.app.Slingshot">
-        <constructor-arg name="ball" value="5">
-        </constructor-arg>
+    <bean id="ss" class="kr.co.jhta.app.Slingshot" c:ball="5">
     </bean>
 
-    <!--<bean id="ch" class="kr.co.jhta.app.Police">
-        <property name="w" ref="ss">
-        </property>
-    </bean>-->
 
-    <bean id="ch" class="kr.co.jhta.app.Assassin">
-        <property name="w" ref="ss">
-        </property>
+    <!-- Police bean with additional int parameter (e.g., 'rank') -->
+    <bean id="ch" class="kr.co.jhta.app.Police" c:w-ref="ss" c:hp="100">
     </bean>
+
+        <!--    <bean id="ch" class="kr.co.jhta.app.Assassin">-->
+        <!--        <property name="w" ref="s">-->
+        <!--        </property>-->
+        <!--    </bean>-->
 </beans>
