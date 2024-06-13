@@ -5,20 +5,25 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ade11800-a956-46d0-a6eb-4b870869c76a" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/../.idea/intellij_workspace.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../spring_app03/src/application.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../spring_app03/src/main/java/spring_app03/DotPrinter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../spring_app03/src/main/java/spring_app03/LaserPrinter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../spring_app03/src/main/java/spring_app03/Printer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../spring_app03/src/main/java/spring_app03/TestMain.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/application.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/spring_app04/CommonDAO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/spring_app04/DeptDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/spring_app04/OracleDAO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/spring_app04/TestMain.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../spring_app11/src/main/java/HelloImple.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../spring_app11/src/main/java/HelloInter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../spring_app11/src/main/java/NewYorkNowTime.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../spring_app11/src/main/java/NowTime.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../spring_app11/src/main/java/TestMain.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../spring_app11/src/main/resources/app.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../spring_app12_annotation/src/main/java/app/Assassin.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../spring_app12_annotation/src/main/java/app/Character.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../spring_app12_annotation/src/main/java/app/Gun.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../spring_app12_annotation/src/main/java/app/Police.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../spring_app12_annotation/src/main/java/app/Slingshot.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../spring_app12_annotation/src/main/java/app/StunGun.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../spring_app12_annotation/src/main/java/app/TestMain.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../spring_app12_annotation/src/main/java/app/Weapon.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../spring_app12_annotation/src/main/resources/app.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spring_app11/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../spring_app11/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spring_app13_annotation/src/main/java/kr/co/jhta/app/CommonDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/../spring_app13_annotation/src/main/java/kr/co/jhta/app/CommonDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spring_app13_annotation/src/main/java/kr/co/jhta/app/DeptDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/../spring_app13_annotation/src/main/java/kr/co/jhta/app/DeptDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spring_app13_annotation/src/main/java/kr/co/jhta/app/TestMain.java" beforeDir="false" afterPath="$PROJECT_DIR$/../spring_app13_annotation/src/main/java/kr/co/jhta/app/TestMain.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -48,22 +53,22 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.TestMain.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "main",
-    "kotlin-language-version-configured": "true",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "editor.preferences.completion",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.TestMain.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;editor.preferences.completion&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager">
     <configuration name="TestMain" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="spring_app04.TestMain" />
@@ -102,6 +107,7 @@
       <updated>1718095036697</updated>
       <workItem from="1718095037746" duration="789000" />
       <workItem from="1718149767264" duration="492000" />
+      <workItem from="1718244547937" duration="20000" />
     </task>
     <servers />
   </component>
