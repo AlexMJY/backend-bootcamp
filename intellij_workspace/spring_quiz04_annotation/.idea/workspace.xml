@@ -5,27 +5,59 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8be4fec5-d5c2-451a-9129-0cdb5b06bc4c" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/../spring_app16_mybatis/.idea/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../spring_app16_mybatis/.idea/encodings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../spring_app16_mybatis/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../spring_app16_mybatis/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../spring_app16_mybatis/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../spring_app16_mybatis/src/main/java/kr/co/jhta/TestMain.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../spring_app16_mybatis/src/main/java/kr/co/jhta/dao/ConnectionManager.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../spring_app16_mybatis/src/main/java/kr/co/jhta/dao/Dao.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../spring_app16_mybatis/src/main/java/kr/co/jhta/dao/DeptDAO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../spring_app16_mybatis/src/main/java/kr/co/jhta/dto/DeptDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../spring_app16_mybatis/src/main/resources/db.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../spring_app16_mybatis/src/main/resources/dept.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../spring_app16_mybatis/src/main/resources/sqlMapConfig.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/kr/co/jhta/app/TestMain.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/app.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../spring_aop01/src/main/java/kr/co/jhta/app/CustomerService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../spring_aop01/src/main/java/kr/co/jhta/app/CustomerServiceImple.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../spring_aop01/src/main/java/kr/co/jhta/app/HijackBeforeAdvice.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../spring_aop01/src/main/java/kr/co/jhta/app/NowTime.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../spring_aop01/src/main/java/kr/co/jhta/app/TestMain.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../spring_aop01/src/main/resources/app.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../spring_aop02/src/main/java/app/AfterInterceptorAdvice.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../spring_aop02/src/main/java/app/CustomerService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../spring_aop02/src/main/java/app/CustomerServiceImple.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../spring_aop02/src/main/java/app/TestMain.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../spring_aop02/src/main/resources/app.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../spring_aop03/.idea/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../spring_aop03/.idea/encodings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../spring_aop03/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../spring_aop03/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../spring_aop03/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../spring_aop03/src/main/java/kr/co/jhta/app/Bank.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../spring_aop03/src/main/java/kr/co/jhta/app/BankImple.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../spring_aop03/src/main/java/kr/co/jhta/app/LoggingAdvice.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../spring_aop03/src/main/java/kr/co/jhta/app/TestMain.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../spring_aop03/src/main/resources/app.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../spring_aop04/.idea/encodings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../spring_aop04/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../spring_aop04/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../spring_aop04/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../spring_aop04/src/main/java/kr/co/jhta/app/CheckTime.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../spring_aop04/src/main/java/kr/co/jhta/app/CustomerService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../spring_aop04/src/main/java/kr/co/jhta/app/CustomerServiceImple.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../spring_aop04/src/main/java/kr/co/jhta/app/TestMain.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../spring_aop04/src/main/resources/app.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../spring_aop05_dao_checktime/.idea/encodings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../spring_aop05_dao_checktime/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../spring_aop05_dao_checktime/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../spring_aop05_dao_checktime/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../spring_aop05_dao_checktime/src/main/java/kr/co/jhta/app/TestMain.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../spring_aop05_dao_checktime/src/main/java/kr/co/jhta/app/dao/CommonDAO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../spring_aop05_dao_checktime/src/main/java/kr/co/jhta/app/dao/EmpMySQLDAO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../spring_aop05_dao_checktime/src/main/java/kr/co/jhta/app/dao/EmpOracleDAO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../spring_aop05_dao_checktime/src/main/java/kr/co/jhta/app/dao/TimeCheck.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../spring_aop05_dao_checktime/src/main/java/kr/co/jhta/app/dto/EmpDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../spring_aop05_dao_checktime/src/main/java/kr/co/jhta/app/service/DBService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../spring_aop05_dao_checktime/src/main/java/kr/co/jhta/app/service/EmpService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../spring_aop05_dao_checktime/src/main/resources/app.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../spring_app16_mybatis/src/main/resources/app.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spring_app04/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../spring_app04/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spring_app16_mybatis/src/main/java/kr/co/jhta/TestMain.java" beforeDir="false" afterPath="$PROJECT_DIR$/../spring_app16_mybatis/src/main/java/kr/co/jhta/TestMain.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spring_app16_mybatis/src/main/java/kr/co/jhta/dao/Dao.java" beforeDir="false" afterPath="$PROJECT_DIR$/../spring_app16_mybatis/src/main/java/kr/co/jhta/dao/Dao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spring_app16_mybatis/src/main/java/kr/co/jhta/dao/DeptDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/../spring_app16_mybatis/src/main/java/kr/co/jhta/dao/DeptDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spring_app16_mybatis/src/main/resources/dept.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../spring_app16_mybatis/src/main/resources/dept.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spring_quiz03_javaconf/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../spring_quiz03_javaconf/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/kr/co/jhta/app/dao/CommonDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kr/co/jhta/app/dao/CommonDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/kr/co/jhta/app/dao/EmpMySQLDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kr/co/jhta/app/dao/EmpMySQLDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/kr/co/jhta/app/dao/EmpOracleDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kr/co/jhta/app/dao/EmpOracleDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/kr/co/jhta/app/service/DBService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kr/co/jhta/app/service/DBService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/kr/co/jhta/app/service/EmpService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kr/co/jhta/app/service/EmpService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../log/202406121356.log" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -55,30 +87,30 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.TestMain.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "main",
-    "ignore.virus.scanning.warn.message": "true",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "D:/dev/intellij_workspace/spring_quiz04_annotation",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.TestMain.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/dev/intellij_workspace/spring_quiz04_annotation&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "DatabaseDriversLRU": [
-      "oracle",
-      "mysql"
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;oracle&quot;,
+      &quot;mysql&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -98,6 +130,9 @@
       <workItem from="1718257549725" duration="73000" />
       <workItem from="1718257632704" duration="9702000" />
       <workItem from="1718322574155" duration="3942000" />
+      <workItem from="1718342848526" duration="16000" />
+      <workItem from="1718343370983" duration="59000" />
+      <workItem from="1718347102716" duration="543000" />
     </task>
     <servers />
   </component>

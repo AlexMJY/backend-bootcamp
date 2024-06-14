@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="47d30110-5773-4cea-bdcf-b94a6d8c673c" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/../spring_aop01/src/main/java/kr/co/jhta/app/CustomerService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../spring_aop01/src/main/java/kr/co/jhta/app/CustomerServiceImple.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../spring_aop01/src/main/java/kr/co/jhta/app/HijackBeforeAdvice.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../spring_aop01/src/main/java/kr/co/jhta/app/NowTime.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../spring_aop01/src/main/java/kr/co/jhta/app/TestMain.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../spring_aop01/src/main/resources/app.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../spring_aop02/src/main/java/app/AfterInterceptorAdvice.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../spring_aop02/src/main/java/app/CustomerService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../spring_aop02/src/main/java/app/CustomerServiceImple.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../spring_aop02/src/main/java/app/TestMain.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../spring_aop02/src/main/resources/app.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../spring_aop03/.idea/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../spring_aop03/.idea/encodings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../spring_aop03/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../spring_aop03/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../spring_aop03/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../spring_aop03/src/main/java/kr/co/jhta/app/Bank.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../spring_aop03/src/main/java/kr/co/jhta/app/BankImple.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../spring_aop03/src/main/java/kr/co/jhta/app/LoggingAdvice.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../spring_aop03/src/main/java/kr/co/jhta/app/TestMain.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../spring_aop03/src/main/resources/app.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../spring_aop04/.idea/encodings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../spring_aop04/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../spring_aop04/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../spring_aop04/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../spring_aop04/src/main/java/kr/co/jhta/app/CheckTime.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../spring_aop04/src/main/java/kr/co/jhta/app/CustomerService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../spring_aop04/src/main/java/kr/co/jhta/app/CustomerServiceImple.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../spring_aop04/src/main/java/kr/co/jhta/app/TestMain.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../spring_aop04/src/main/resources/app.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/kr/co/jhta/app/TestMain.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/kr/co/jhta/app/dao/CommonDAO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/kr/co/jhta/app/dao/EmpMySQLDAO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/kr/co/jhta/app/dao/EmpOracleDAO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/kr/co/jhta/app/dao/TimeCheck.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/kr/co/jhta/app/dto/EmpDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/kr/co/jhta/app/service/DBService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/kr/co/jhta/app/service/EmpService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/app.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../spring_app16_mybatis/src/main/resources/app.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spring_app04/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../spring_app04/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spring_app16_mybatis/src/main/java/kr/co/jhta/TestMain.java" beforeDir="false" afterPath="$PROJECT_DIR$/../spring_app16_mybatis/src/main/java/kr/co/jhta/TestMain.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spring_app16_mybatis/src/main/java/kr/co/jhta/dao/Dao.java" beforeDir="false" afterPath="$PROJECT_DIR$/../spring_app16_mybatis/src/main/java/kr/co/jhta/dao/Dao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spring_app16_mybatis/src/main/java/kr/co/jhta/dao/DeptDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/../spring_app16_mybatis/src/main/java/kr/co/jhta/dao/DeptDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spring_app16_mybatis/src/main/resources/dept.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../spring_app16_mybatis/src/main/resources/dept.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spring_quiz03_javaconf/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../spring_quiz03_javaconf/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spring_quiz04_annotation/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../spring_quiz04_annotation/.idea/dataSources.local.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spring_quiz04_annotation/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../spring_quiz04_annotation/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../log/202406121356.log" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="spring-beans.schema" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
+  </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 3
+}]]></component>
+  <component name="ProjectId" id="2hrKktD2XqWZEz7kibeCZDZrhMZ" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.TestMain.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "git-widget-placeholder": "main",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "D:/dev/intellij_workspace/spring_aop05_dao_checktime/src/main/java/kr/co/jhat/app",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\dev\intellij_workspace\spring_aop05_dao_checktime\src\main\java\kr\co\jhat\app" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="TestMain" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="kr.co.jhta.app.TestMain" />
+      <module name="spring_aop05_dao_checktime" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="kr.co.jhta.app.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.TestMain" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9f38398b9061-39b83d9b5494-intellij.indexing.shared.core-IU-241.17011.79" />
+        <option value="bundled-js-predefined-1d06a55b98c1-0b3e54e931b4-JavaScript-IU-241.17011.79" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="47d30110-5773-4cea-bdcf-b94a6d8c673c" name="Changes" comment="" />
+      <created>1718346904575</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1718346904575</updated>
+      <workItem from="1718346905644" duration="3450000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>

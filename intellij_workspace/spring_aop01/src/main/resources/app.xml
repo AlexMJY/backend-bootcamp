@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/c"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="imple" class="kr.co.jhta.app.CustomerServiceImple">
+        <property name="name" value="loopy"/>
+        <property name="email" value="aaa@naver.com"/>
+    </bean>
+
+    <bean id="hijack" class="kr.co.jhta.app.HijackBeforeAdvice"/>
+
+    <bean id="NowTime" class="kr.co.jhta.app.NowTime"/>
+
+    <!-- 대행자 -->
+    <bean id="cs" class="org.springframework.aop.framework.ProxyFactoryBean">
+        <property name="target" ref="imple"></property>
+        <property name="interceptorNames">
+            <list>
+                <value>hijack</value>
+                <value>NowTime</value>
+            </list>
+        </property>
+    </bean>
+</beans>

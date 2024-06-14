@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="cs" class="org.springframework.aop.framework.ProxyFactoryBean">
+        <property name="target" ref="imple"/>
+        <property name="interceptorNames">
+            <list>
+                <value>checkTime</value>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="checkTime" class="kr.co.jhta.app.CheckTime"/>
+
+    <bean id="imple" class="kr.co.jhta.app.CustomerServiceImple">
+        <property name="name" value="ningning"/>
+        <property name="email" value="ning@gmail.com"/>
+    </bean>
+</beans>

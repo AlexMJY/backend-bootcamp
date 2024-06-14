@@ -5,6 +5,28 @@
 
 <mapper namespace="kr.co.jhta.dept">
     <select id="selectAll" resultType="ddto">
-        SELECT deptno, dname, loc FROM dept
+        SELECT deptno, dname, loc
+        FROM dept
     </select>
+
+    <select id="selectOne" resultType="ddto" parameterType="int">
+        SELECT deptno, dname, loc
+        FROM dept WHERE deptno = #{deptno}
+    </select>
+
+    <insert id="insertOne" parameterType="ddto">
+        INSERT INTO dept
+        VALUES (#{deptno}, #{dname}, #{loc})
+    </insert>
+
+    <update id="updateOne" parameterType="ddto">
+        UPDATE dept
+        SET dname = #{dname}, loc = #{loc}
+        WHERE deptno = #{deptno}
+    </update>
+
+    <delete id="deleteOne" parameterType="int">
+        DELETE FROM dept
+        WHERE deptno = #{deptno}
+    </delete>
 </mapper>
