@@ -11,6 +11,6 @@ public interface CommonDAO {
     public EmpDTO selectOne(int empno);
     public void insertOne(EmpDTO dto);
     public void updateOne(EmpDTO dto);
-    public void deleteOne(int deptno);
+    public void deleteOne(int empno);
     public void close();
 }

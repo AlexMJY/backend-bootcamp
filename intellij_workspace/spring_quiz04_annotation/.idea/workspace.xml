@@ -5,61 +5,27 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8be4fec5-d5c2-451a-9129-0cdb5b06bc4c" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/../spring_app11/src/main/java/HelloImple.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../spring_app11/src/main/java/HelloInter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../spring_app11/src/main/java/NewYorkNowTime.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../spring_app11/src/main/java/NowTime.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../spring_app11/src/main/java/TestMain.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../spring_app11/src/main/resources/app.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../spring_app12_annotation/src/main/java/app/Assassin.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../spring_app12_annotation/src/main/java/app/Character.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../spring_app12_annotation/src/main/java/app/Gun.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../spring_app12_annotation/src/main/java/app/Police.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../spring_app12_annotation/src/main/java/app/Slingshot.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../spring_app12_annotation/src/main/java/app/StunGun.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../spring_app12_annotation/src/main/java/app/TestMain.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../spring_app12_annotation/src/main/java/app/Weapon.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../spring_app12_annotation/src/main/resources/app.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../spring_app13_annotation/src/main/java/kr/co/jhta/app/TestMain.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../spring_app13_annotation/src/main/java/kr/co/jhta/app/dao/CommonDAO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../spring_app13_annotation/src/main/java/kr/co/jhta/app/dao/MySQLDAO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../spring_app13_annotation/src/main/java/kr/co/jhta/app/dao/OracleDAO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../spring_app13_annotation/src/main/java/kr/co/jhta/app/dto/DeptDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../spring_app13_annotation/src/main/java/kr/co/jhta/app/service/DBService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../spring_app13_annotation/src/main/java/kr/co/jhta/app/service/DeptService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../spring_app13_annotation/src/main/resources/app.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../spring_app14_javaconf/.idea/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../spring_app14_javaconf/.idea/encodings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../spring_app14_javaconf/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../spring_app14_javaconf/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../spring_app14_javaconf/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../spring_app14_javaconf/src/main/java/kr/co/jhat/app/AppConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../spring_app14_javaconf/src/main/java/kr/co/jhat/app/Hello.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../spring_app14_javaconf/src/main/java/kr/co/jhat/app/HelloImple.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../spring_app14_javaconf/src/main/java/kr/co/jhat/app/TestMain.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../spring_app15_lifecycle/src/main/java/kr/co/jhta/app/Message.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../spring_app15_lifecycle/src/main/java/kr/co/jhta/app/MessageImple.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../spring_app15_lifecycle/src/main/java/kr/co/jhta/app/MessageImple2.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../spring_app15_lifecycle/src/main/java/kr/co/jhta/app/TestMain.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../spring_app15_lifecycle/src/main/resources/app.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../spring_quiz03_javaconf/.idea/encodings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../spring_quiz03_javaconf/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../spring_quiz03_javaconf/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../spring_quiz03_javaconf/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../spring_quiz03_javaconf/src/main/java/kr/co/jhta/app/AppConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../spring_quiz03_javaconf/src/main/java/kr/co/jhta/app/LaserPrinter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../spring_quiz03_javaconf/src/main/java/kr/co/jhta/app/Printer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../spring_quiz03_javaconf/src/main/java/kr/co/jhta/app/TestMain.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/kr/co/jhta/app/dao/CommonDAO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/kr/co/jhta/app/dao/EmpMySQLDAO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/kr/co/jhta/app/dao/EmpOracleDAO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/kr/co/jhta/app/dto/EmpDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/kr/co/jhta/app/service/DBService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/kr/co/jhta/app/service/EmpService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../spring_app04/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../spring_app04/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../spring_app11/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../spring_app11/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../spring_app16_mybatis/.idea/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../spring_app16_mybatis/.idea/encodings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../spring_app16_mybatis/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../spring_app16_mybatis/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../spring_app16_mybatis/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../spring_app16_mybatis/src/main/java/kr/co/jhta/TestMain.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../spring_app16_mybatis/src/main/java/kr/co/jhta/dao/ConnectionManager.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../spring_app16_mybatis/src/main/java/kr/co/jhta/dao/Dao.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../spring_app16_mybatis/src/main/java/kr/co/jhta/dao/DeptDAO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../spring_app16_mybatis/src/main/java/kr/co/jhta/dto/DeptDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../spring_app16_mybatis/src/main/resources/db.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../spring_app16_mybatis/src/main/resources/dept.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../spring_app16_mybatis/src/main/resources/sqlMapConfig.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/kr/co/jhta/app/TestMain.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/app.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/kr/co/jhta/app/dao/CommonDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kr/co/jhta/app/dao/CommonDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/kr/co/jhta/app/dao/EmpMySQLDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kr/co/jhta/app/dao/EmpMySQLDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/kr/co/jhta/app/dao/EmpOracleDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kr/co/jhta/app/dao/EmpOracleDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/kr/co/jhta/app/service/DBService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kr/co/jhta/app/service/DBService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/kr/co/jhta/app/service/EmpService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kr/co/jhta/app/service/EmpService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -71,6 +37,7 @@
       <list>
         <option value="Interface" />
         <option value="Class" />
+        <option value="spring-beans.schema" />
       </list>
     </option>
   </component>
@@ -90,9 +57,13 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "Application.TestMain.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "git-widget-placeholder": "main",
+    "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "D:/dev/intellij_workspace/spring_quiz04_annotation",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -125,7 +96,8 @@
       <option name="presentableId" value="Default" />
       <updated>1718257548675</updated>
       <workItem from="1718257549725" duration="73000" />
-      <workItem from="1718257632704" duration="5354000" />
+      <workItem from="1718257632704" duration="9702000" />
+      <workItem from="1718322574155" duration="3942000" />
     </task>
     <servers />
   </component>

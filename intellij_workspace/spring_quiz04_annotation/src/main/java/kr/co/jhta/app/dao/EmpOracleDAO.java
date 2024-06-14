@@ -25,7 +25,7 @@ public class EmpOracleDAO implements CommonDAO {
             Class.forName(DRIVER);
             conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
         } catch (ClassNotFoundException | SQLException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         }
     }
 
@@ -41,7 +41,7 @@ public class EmpOracleDAO implements CommonDAO {
                 int empno = rs.getInt("empno");
                 String ename = rs.getString("ename");
                 String job = rs.getString("job");
-                int mgr = rs.getInt("job");
+                int mgr = rs.getInt("mgr");
                 String hiredate = rs.getString("hiredate");
                 int sal = rs.getInt("sal");
                 int comm = rs.getInt("comm");
@@ -51,7 +51,7 @@ public class EmpOracleDAO implements CommonDAO {
                 list.add(dto);
             }
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         }
 
         return list;
@@ -79,7 +79,7 @@ public class EmpOracleDAO implements CommonDAO {
                 dto = new EmpDTO(empno, ename, job, mgr, hiredate, sal, comm, deptno);
             }
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         }
         return dto;
     }
@@ -102,7 +102,7 @@ public class EmpOracleDAO implements CommonDAO {
             pstmt.executeUpdate();
 
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         }
     }
 
@@ -123,19 +123,33 @@ public class EmpOracleDAO implements CommonDAO {
 
             pstmt.executeUpdate();
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         }
 
 
     }
 
     @Override
-    public void deleteOne(int deptno) {
-
+    public void deleteOne(int empno) {
+        sb.setLength(0);
+        sb.append("DELETE FROM emp WHERE empno = ?");
+        try {
+            pstmt = conn.prepareStatement(sb.toString());
+            pstmt.setInt(1, empno);
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
     public void close() {
-
+        try {
+            if (rs != null) { rs.close(); }
+            if (pstmt != null) { pstmt.close(); }
+            if (conn != null) { conn.close(); }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }
