@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/aop https://www.springframework.org/schema/aop/spring-aop.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
+    <context:annotation-config>
+
+    </context:annotation-config>
+
+    <bean id="oraclesql" class="kr.co.jhta.app.dao.EmpOracleDAO"/>
+    <bean id="mysql" class="kr.co.jhta.app.dao.EmpMySQLDAO"/>
+
+    <!-- ProxyFactoryBean 대신 AspectJ를 사용해서 출력 -->
+    <bean id="service" class="kr.co.jhta.app.service.EmpService"/>
+
+    <bean id="ct" class="kr.co.jhta.app.util.CheckTime"/>
+
+    <aop:config>
+        <aop:aspect id="checkAspect" ref="ct">
+            <aop:pointcut id="checkPoint" expression="execution(public * readAll(..))"/>
+            <aop:around method="check" pointcut-ref="checkPoint"/>
+        </aop:aspect>
+    </aop:config>
+
+</beans>
