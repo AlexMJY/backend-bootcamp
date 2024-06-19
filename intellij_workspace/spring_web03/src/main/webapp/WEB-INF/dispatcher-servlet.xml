@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- handler mapping -->
+    <bean id="beanNameUrlHandlerMapping" class="org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping"/>
+
+    <!-- view resolver -->
+    <bean id="internalResourceViewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/WEB-INF/views/"/>
+        <property name="suffix" value=".jsp"/>
+    </bean>
+
+    <!-- Controller -->
+    <!-- /time.do ==> TimeController (kr.co.jhta.web.control) , time.jsp ==> 현재시간 : -->
+    <bean id="/time.do" class="kr.co.jhta.control.TimeController"/>
+
+    <!-- /hikr.do ==> HelloKoreaController (kr.co.jhta.web.control),
+                  ==> NowTime 멤버변수
+                  ==> 현재시간에 맞는 인사말 리턴 : msg
+        helloKorea.jsp
+     -->
+    <bean id="nowtime" class="kr.co.jhta.control.NowTime"/>
+    <bean id="/hikr.do" class="kr.co.jhta.control.HelloKoreaController">
+        <property name="nt" ref="nowtime"/>
+    </bean>
+
+</beans>

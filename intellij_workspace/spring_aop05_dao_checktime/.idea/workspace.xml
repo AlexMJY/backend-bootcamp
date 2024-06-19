@@ -5,27 +5,26 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="47d30110-5773-4cea-bdcf-b94a6d8c673c" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/../spring_aop06/src/main/java/kr/co/jhta/app/CheckTime.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../spring_aop06/src/main/java/kr/co/jhta/app/CheckTime2.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../spring_aop06/src/main/java/kr/co/jhta/app/CustomerService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../spring_aop06/src/main/java/kr/co/jhta/app/CustomerServiceImple.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../spring_aop06/src/main/java/kr/co/jhta/app/TestMain.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../spring_aop06/src/main/resources/app.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../spring_aop07/.idea/encodings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../spring_aop07/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../spring_aop07/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../spring_aop07/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../spring_aop07/src/main/java/kr/co/jhta/app/TestMain.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../spring_aop07/src/main/java/kr/co/jhta/app/service/DBService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../spring_aop07/src/main/java/kr/co/jhta/app/service/EmpService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../spring_aop07/src/main/java/kr/co/jhta/app/util/CheckTime.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../spring_aop07/src/main/resources/app.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/kr/co/jhta/app/dao/CommonDAO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/kr/co/jhta/app/dao/EmpMySQLDAO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/kr/co/jhta/app/dao/EmpOracleDAO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/kr/co/jhta/app/dao/TimeCheck.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../spring_aop08/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../spring_aop08/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../spring_web01/src/main/java/kr/co/jhta/web/spring_web01/HelloController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../spring_web01/src/main/java/kr/co/jhta/web/spring_web01/WelcomeController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../spring_web01/src/main/webapp/WEB-INF/dispatcher-servlet.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../spring_web01/src/main/webapp/hello.jsp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../spring_web01/src/main/webapp/welcome.jsp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../spring_web02/.idea/encodings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../spring_web02/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../spring_web02/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../spring_web02/src/main/java/kr/co/jhta/web/spring_web02/Hello.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../spring_web02/src/main/java/kr/co/jhta/web/spring_web02/HelloController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../spring_web02/src/main/java/kr/co/jhta/web/spring_web02/HelloImpleController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../spring_web02/src/main/webapp/WEB-INF/spring6-servlet.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../spring_web02/src/main/webapp/views/hello.jsp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../spring_web02/src/main/webapp/views/welcomeHome.jsp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../spring_web03/.idea/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../spring_web03/.idea/encodings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../spring_web03/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../spring_web03/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../spring_web03/src/main/java/kr/co/jhta/control/TimeController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../spring_web03/src/main/webapp/WEB-INF/dispatcher-servlet.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -119,6 +118,7 @@
       <workItem from="1718585287899" duration="2000" />
       <workItem from="1718588965208" duration="1401000" />
       <workItem from="1718591399459" duration="360000" />
+      <workItem from="1718677710118" duration="17000" />
     </task>
     <servers />
   </component>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- handler mapping -->
+    <bean id="beanNameUrlHandlerMapping" class="org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping"/>
+
+    <!-- view resolver -->
+    <bean id="internalResourceViewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/views/"/>
+        <property name="suffix" value=".jsp"/>
+    </bean>
+
+    <!-- controller -->
+    <bean id="/show2.do" class="kr.co.jhta.web.control.ShowController">
+        <constructor-arg name="lunch" value="김밥"/>
+    </bean> <!-- msg => show.jsp -->
+
+    <bean id="/index.do" class="kr.co.jhta.web.control.IndexController"></bean>
+
+    <bean id="/menu.do" class="kr.co.jhta.web.control.MenuController"/>
+
+    <bean id="/selectMenu.do" class="kr.co.jhta.web.control.SelectMenuController"/>
+
+</beans>
