@@ -38,6 +38,7 @@ public class MultipartServlet extends HttpServlet {
 
             if (fileName != null) {
                 part.write(realPath + File.separator + fileName);
+                
             }
         }
 
