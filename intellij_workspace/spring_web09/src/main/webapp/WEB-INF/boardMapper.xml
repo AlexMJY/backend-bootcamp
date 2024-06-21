@@ -4,9 +4,18 @@
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.co.jhta.board">
 
-    <select id="selectAll" resultType="bdto">
-        SELECT * FROM board
-        ORDER BY bno DESC
+    <!-- OraclaSQL Mapper -->
+    <select id="selectAll" parameterType="hashmap" resultType="bdto">
+<!--        SELECT * FROM board-->
+<!--        ORDER BY bno DESC-->
+
+        SELECT bno, writer, title, contents, regdate, hits, ip, status
+        FROM (SELECT ROWNUM rn, bno, writer, title, contents, regdate, hits, ip, status
+            FROM (SELECT bno, writer, title, contents, regdate, hits, ip, status
+                FROM board
+                ORDER BY bno DESC) t
+            WHERE ROWNUM &lt; = #{endNo})
+        WHERE rn &gt; = #{startNo}
     </select>
 
     <select id="selectOne" parameterType="int" resultType="bdto">
@@ -22,4 +31,57 @@
     <delete id="deleteOne" parameterType="int">
         DELETE FROM board WHERE bno = #{bno}
     </delete>
+
+    <update id="updateOne" parameterType="bdto">
+        UPDATE board
+        <set>
+            <if test="title != null"> SET title = #{title}, </if>
+            <if test="contents != null"> contents = #{contents}  </if>
+        </set>
+        WHERE bno = #{bno}
+    </update>
+
+    <select id="getTotal" resultType="int">
+        SELECT count(*) FROM board
+    </select>
+
+
+    <!-- MySQL Mapper -->
+    <select id="selectAllMySQL" parameterType="hashmap" resultType="bdto">
+        SELECT bno, writer, title, contents, regdate, hits, ip, status
+        FROM BOARD
+        ORDER BY bno DESC
+        LIMIT #{offset}, #{countPerPage}
+    </select>
+
+    <select id="selectOneMySQL" parameterType="int" resultType="bdto">
+        SELECT bno, writer, title, contents, regdate, hits, ip, status
+        FROM BOARD
+        WHERE bno = #{bno}
+    </select>
+
+    <insert id="insertOneMySQL" parameterType="bdto">
+        INSERT INTO BOARD (bno, writer, title, contents, regdate, hits, status)
+        VALUES (null, #{writer}, #{title}, #{contents}, SYSDATE(), 0, 1)
+    </insert>
+
+    <delete id="deleteOneMySQL" parameterType="int">
+        DELETE FROM BOARD WHERE bno = #{bno}
+    </delete>
+
+    <update id="updateOneMySQL" parameterType="bdto">
+        UPDATE BOARD
+        <set>
+            <if test="title != null"> SET title = #{title}, </if>
+            <if test="contents != null"> contents = #{contents}  </if>
+        </set>
+        WHERE bno = #{bno}
+    </update>
+
+    <select id="getTotalMySQL" resultType="int">
+        SELECT count(*) FROM BOARD
+    </select>
+
+
+
 </mapper>

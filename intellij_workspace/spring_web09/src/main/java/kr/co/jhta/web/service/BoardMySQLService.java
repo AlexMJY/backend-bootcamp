@@ -9,8 +9,8 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Map;
 
-@Service("oracleService")
-public class BoardServiceImple implements BoardService {
+@Service("mysqlService")
+public class BoardMySQLService implements BoardService {
 
     @Autowired
     @Qualifier("mysqlDB")
@@ -23,7 +23,7 @@ public class BoardServiceImple implements BoardService {
 
     @Override
     public List<BoardDTO> readAll(Map<String, Object> map) {
-        return List.of();
+        return dao.selectAll(map);
     }
 
     @Override
@@ -51,6 +51,4 @@ public class BoardServiceImple implements BoardService {
     public int getTotal() {
         return dao.getTotal();
     }
-
-
 }

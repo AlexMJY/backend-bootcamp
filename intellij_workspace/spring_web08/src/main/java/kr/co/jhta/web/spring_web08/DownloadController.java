@@ -6,6 +6,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.web.context.support.WebApplicationContextUtils;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -16,6 +17,13 @@ import java.io.OutputStream;
 public class DownloadController extends HttpServlet {
 
     final String filePath = "./data";
+    FileDAO dao;
+
+    @Override
+    public void init() throws ServletException {
+        super.init();
+        this.dao = WebApplicationContextUtils.getRequiredWebApplicationContext(getServletContext()).getBean(FileDAO.class);
+    }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -26,7 +34,7 @@ public class DownloadController extends HttpServlet {
             no = Integer.parseInt(n);
         }
 
-        FileDAO dao = new FileDAO();
+//        FileDAO dao = new FileDAO();
         FileDTO dto = dao.selectOne(no);
         String path = getServletContext().getRealPath(filePath);
         File downloadFile = new File(path + "/" + dto.getFileName());

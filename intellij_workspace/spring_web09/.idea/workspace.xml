@@ -10,44 +10,26 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="68349d7e-c67e-40ed-b27b-f169d3fa13ac" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/../spring_web08/src/main/java/kr/co/jhta/web/spring_web08/DownloadController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../spring_web08/src/main/java/kr/co/jhta/web/spring_web08/FileDAO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../spring_web08/src/main/java/kr/co/jhta/web/spring_web08/FileDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../spring_web08/src/main/webapp/views/fileList.jsp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.mvn/wrapper/maven-wrapper.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.mvn/wrapper/maven-wrapper.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mvnw" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mvnw.cmd" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/kr/co/jhta/web/control/BoardController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/kr/co/jhta/web/control/HomeController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/kr/co/jhta/web/dao/CommonDAO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/kr/co/jhta/web/dao/OracleBoardDAO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/kr/co/jhta/web/dto/BoardDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/kr/co/jhta/web/service/BoardService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/kr/co/jhta/web/service/BoardServiceImple.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/kr/co/jhta/web/spring_web09/HelloServlet.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/boardMapper.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/dispatcher-servlet.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/sqlMapConfig.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/index.jsp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/views/detail.jsp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/views/home.jsp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/views/list.jsp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/views/modifyForm.jsp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/views/writeForm.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../spring_web02/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../spring_web02/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../spring_web07/src/main/java/kr/co/jhta/web/control/DeptController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../spring_web07/src/main/java/kr/co/jhta/web/control/DeptController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../spring_web08/src/main/webapp/WEB-INF/applicationContext.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/kr/co/jhta/web/dao/MySQLBoardDAO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/kr/co/jhta/web/service/BoardMySQLService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/kr/co/jhta/web/util/PageUtil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spring_web08/src/main/java/kr/co/jhta/web/spring_web08/DownloadController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../spring_web08/src/main/java/kr/co/jhta/web/spring_web08/DownloadController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../spring_web08/src/main/java/kr/co/jhta/web/spring_web08/MultipartServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/../spring_web08/src/main/java/kr/co/jhta/web/spring_web08/MultipartServlet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../spring_web08/src/main/java/kr/co/jhta/web/spring_web08/UploadController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../spring_web08/src/main/java/kr/co/jhta/web/spring_web08/UploadController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../spring_web08/src/main/webapp/WEB-INF/spring-controller.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../spring_web08/src/main/webapp/WEB-INF/spring-controller.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../spring_web08/src/main/webapp/WEB-INF/web.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../spring_web08/src/main/webapp/WEB-INF/web.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../spring_web08/src/main/webapp/WEB-INF/webapp.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../spring_web08/src/main/webapp/WEB-INF/webapp.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/kr/co/jhta/web/control/BoardController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kr/co/jhta/web/control/BoardController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/kr/co/jhta/web/dao/CommonDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kr/co/jhta/web/dao/CommonDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/kr/co/jhta/web/dao/OracleBoardDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kr/co/jhta/web/dao/OracleBoardDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/kr/co/jhta/web/service/BoardService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kr/co/jhta/web/service/BoardService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/kr/co/jhta/web/service/BoardServiceImple.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kr/co/jhta/web/service/BoardServiceImple.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/boardMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/boardMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/dispatcher-servlet.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/dispatcher-servlet.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/views/detail.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/views/detail.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/views/list.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/views/list.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/views/modifyForm.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/views/modifyForm.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/views/writeForm.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/views/writeForm.jsp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -57,8 +39,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Class" />
         <option value="Jsp File" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -94,25 +76,37 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;Tomcat Server.Tomcat 10.1.20.executor&quot;: &quot;Run&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;D:/dev/intellij_workspace/spring_web09/src/main/webapp/views&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "Tomcat Server.Tomcat 10.1.20.executor": "Run",
+    "database.data.extractors.current.export.id": "SQL Inserts",
+    "git-widget-placeholder": "main",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "D:/",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Global Libraries",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "vue.rearranger.settings.migration": "true"
+  },
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "oracle",
+      "mysql"
+    ]
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="kr.co.jhta.web.util" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\dev\intellij_workspace\spring_web09\src\main\webapp\views" />
       <recent name="D:\dev\intellij_workspace\spring_web09\src\main\webapp\WEB-INF" />
@@ -123,6 +117,9 @@
   </component>
   <component name="RunManager">
     <configuration name="Tomcat 10.1.20" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" APPLICATION_SERVER_NAME="Tomcat 10.1.20" ALTERNATIVE_JRE_ENABLED="false">
+      <option name="OPEN_IN_BROWSER_URL" value="http://localhost:8080/spring_web09" />
+      <option name="COMMON_VM_ARGUMENTS" value="-Dfile.encoding=UTF-8" />
+      <option name="UPDATING_POLICY" value="restart-server" />
       <deployment>
         <artifact name="spring_web09:war exploded">
           <settings>
@@ -228,10 +225,17 @@
       <workItem from="1718862978338" duration="39000" />
       <workItem from="1718863021052" duration="4026000" />
       <workItem from="1718867115621" duration="6325000" />
+      <workItem from="1718927177667" duration="1300000" />
+      <workItem from="1718928491640" duration="23345000" />
+      <workItem from="1718954825791" duration="4875000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
   </component>
 </project>

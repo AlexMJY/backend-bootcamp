@@ -8,8 +8,21 @@
 </head>
 <body>
 
-    <div class="container">
-    <h3>list.jsp</h3>
+    <div class="container" style="max-width: 1200px">
+        <h4>list.jsp</h4>
+
+        <h5>currentPage: ${map.currentPage}</h5>
+        <h5>totalNumber : ${map.totalNumber}</h5>
+        <h5>countPerPage : ${map.countPerPage}</h5>
+        <h5>totalPages : ${map.totalPages}</h5>
+        <h5>startNo : ${map.startNo}</h5>
+        <h5>endNo : ${map.endNo}</h5>
+        <h5>startPageNo : ${map.startPageNo}</h5>
+        <h5>endPageNo : ${map.endPageNo}</h5>
+        <h5>prev : ${map.prev}</h5>
+        <h5>next : ${map.next}</h5>
+
+
 
 <%--        <a href="board/write" class="btn btn-primary">글쓰기</a>--%>
 <%--        <a href="write" class="btn btn-primary">글쓰기</a>--%>
@@ -36,6 +49,27 @@
                     <td>${dto.status}</td>
                 </tr>
             </c:forEach>
+
+            <tr>
+                <td colspan="4">
+                    <nav aria-label="Page navigation example">
+                        <ul class="pagination">
+                            <c:if test="${map.prev}">
+                                <li class="page-item"><a class="page-link" href="list?currentPage=${map.currentPage - 1}">«</a></li>
+                            </c:if>
+
+                            <c:forEach var="i" begin="${map.startPageNo}" end="${map.endPageNo}">
+                                <li class="page-link"><a href="list?currentPage=${i}">${i}</a></li>
+                            </c:forEach>
+
+                            <c:if test="${map.next}">
+                                <li class="page-item"><a class="page-link" href="list?currentPage=${map.currentPage + 1}">»</a></li>
+                            </c:if>
+                        </ul>
+                    </nav>
+                </td>
+            </tr>
+
         </table>
     </div>
 

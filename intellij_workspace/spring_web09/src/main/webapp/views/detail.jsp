@@ -41,11 +41,12 @@
                     <td>${dto.contents}</td>
                 </tr>
 
+
             </table>
         </form>
         <a href="list" class="btn btn-primary">목록</a>
         <a href="modify?bno=${dto.bno}" class="btn btn-warning">수정</a>
-        <a href="delete?bno=${dto.bno}" class="btn btn-danger">삭제</a>
+        <a href="delete/${dto.bno}" class="btn btn-danger">삭제</a>
 
     </div>
 </body>
