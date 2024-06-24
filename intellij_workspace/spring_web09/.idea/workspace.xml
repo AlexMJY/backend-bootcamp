@@ -10,26 +10,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="68349d7e-c67e-40ed-b27b-f169d3fa13ac" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/../spring_web08/src/main/webapp/WEB-INF/applicationContext.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/kr/co/jhta/web/dao/MySQLBoardDAO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/kr/co/jhta/web/service/BoardMySQLService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/kr/co/jhta/web/util/PageUtil.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../spring_web08/src/main/java/kr/co/jhta/web/spring_web08/DownloadController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../spring_web08/src/main/java/kr/co/jhta/web/spring_web08/DownloadController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../spring_web08/src/main/java/kr/co/jhta/web/spring_web08/MultipartServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/../spring_web08/src/main/java/kr/co/jhta/web/spring_web08/MultipartServlet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../spring_web08/src/main/webapp/WEB-INF/web.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../spring_web08/src/main/webapp/WEB-INF/web.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/kr/co/jhta/web/control/BoardController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kr/co/jhta/web/control/BoardController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/kr/co/jhta/web/dao/CommonDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kr/co/jhta/web/dao/CommonDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/kr/co/jhta/web/dao/OracleBoardDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kr/co/jhta/web/dao/OracleBoardDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/kr/co/jhta/web/service/BoardService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kr/co/jhta/web/service/BoardService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/kr/co/jhta/web/service/BoardServiceImple.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kr/co/jhta/web/service/BoardServiceImple.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/boardMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/boardMapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/dispatcher-servlet.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/dispatcher-servlet.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/views/detail.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/views/detail.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/views/list.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/views/list.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/views/modifyForm.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/views/modifyForm.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/views/writeForm.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/views/writeForm.jsp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -84,7 +65,7 @@
     "database.data.extractors.current.export.id": "SQL Inserts",
     "git-widget-placeholder": "main",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "D:/",
+    "last_opened_file_path": "D:/dev/intellij_workspace/spring_web09",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -93,7 +74,7 @@
     "project.structure.last.edited": "Global Libraries",
     "project.structure.proportion": "0.0",
     "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "settings.editor.selected.configurable": "configurable.group.appearance",
     "vue.rearranger.settings.migration": "true"
   },
   "keyToStringList": {
@@ -227,7 +208,10 @@
       <workItem from="1718867115621" duration="6325000" />
       <workItem from="1718927177667" duration="1300000" />
       <workItem from="1718928491640" duration="23345000" />
-      <workItem from="1718954825791" duration="4875000" />
+      <workItem from="1718954825791" duration="4921000" />
+      <workItem from="1719185796279" duration="1900000" />
+      <workItem from="1719192728355" duration="147000" />
+      <workItem from="1719194454314" duration="126000" />
     </task>
     <servers />
   </component>
