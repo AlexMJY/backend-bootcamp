@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>ex6.html</title>
+</head>
+<body>
+    <h3>Object</h3>
+    <ul>
+        <li>${dto1.sno} = <span th:text="${dto1.sno}"></span></li>
+        <li>${dto1.first} = <span th:text="${dto1.first}"></span></li>
+        <li>${dto1.last} = <span th:text="${dto1.last}"></span></li>
+        <li>${dto1.regTime} = <span th:text="${dto1.regTime}"></span></li>
+    </ul>
+    <hr>
+    <ul>
+        <li>${dto2.sno} = <span th:text="${dto2.sno}"></span></li>
+        <li>${dto2.first} = <span th:text="${dto2.first}"></span></li>
+        <li>${dto2.last} = <span th:text="${dto2.last}"></span></li>
+        <li>${dto2.regTime} = <span th:text="${dto2.regTime}"></span></li>
+    </ul>
+    <hr>
+    <ul>
+        <li>${alist[0].first} = <span th:text="${alist[0].first}"></span></li>
+        <li>${alist[0]['first']} = <span th:text="${alist[0]['first']}"></span></li>
+        <li>${alist[0].getFirst()} = <span th:text="${alist[0].getFirst()}"></span></li>
+    </ul>
+    <hr>
+    <h3>지역변수</h3>
+    <div th:with="dto=${alist[0]}">
+        <p>안녕하세요 첫번째 사람은 <span th:text="${dto.first}"></span></p>
+    </div>
+</body>
+</html>

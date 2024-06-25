@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>ex2.html</title>
+</head>
+<body>
+    <h3 th:text="'Hello,' + ${name}"></h3>
+
+    <ul>
+        <li th:each="dto : ${list}">
+            [[${dto}]]
+        </li>
+    </ul>
+</body>
+</html>

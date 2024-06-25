@@ -45,7 +45,6 @@ public class OtherTest {
 
         assertEquals("Seoul", dto2.getLoc());
 //        assertThat(dto2.getLoc()).as("부서위치 : %s", dto2.getLoc()).isEqualTo("서울");
-
         assertEquals(4, list.size());
 
 //        assertThat(list).filteredOn(dto -> dto.getLoc().contains("울")).containsOnly(dto4);

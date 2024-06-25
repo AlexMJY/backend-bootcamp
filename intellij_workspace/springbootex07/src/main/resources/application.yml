@@ -1,0 +1,12 @@
+server:
+    port: 8081
+spring:
+    application:
+        name: springbootex07
+    datasource:
+        driver-class-name: oracle.jdbc.driver.OracleDriver
+        password: tiger
+        url: jdbc:oracle:thin:@localhost:1521:xe
+        username: scott
+    thymeleaf:
+        cache: true

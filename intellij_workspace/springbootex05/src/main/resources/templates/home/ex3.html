@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>ex3.html</title>
+</head>
+<body>
+
+<table>
+    <tr th:each="item : ${list}">
+        <td>[[${item}]]</td>
+        <td th:text="${item}"></td>
+    </tr>
+</table>
+
+<ul>
+</ul>
+</body>
+</html>

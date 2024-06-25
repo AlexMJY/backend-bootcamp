@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
+</head>
+<body>
+    <div class="container">
+        <table class="table table-striped">
+            <tr>
+                <th>부서번호</th>
+                <th>부서명</th>
+                <th>부서지역</th>
+                <th> </th>
+                <th> </th>
+            </tr>
+            <tr th:each="dto, status : ${dList}">
+                <!--        <td th:text="${list}"> </td>-->
+                <td><span th:text="${dto.deptno}"></span></td>
+                <td><span th:text="${dto.dname}"></span></td>
+                <td><span th:text="${dto.loc}"></span></td>
+<!--                <td>-->
+<!--                    index = <span th:text="${status.index}"></span>-->
+<!--                    count = <span th:text="${status.count}"></span>-->
+<!--                    size = <span th:text="${status.size}"></span>-->
+<!--                    even = <span th:text="${status.even}"></span>-->
+<!--                    odd = <span th:text="${status.odd}"></span>-->
+<!--                    first = <span th:text="${status.first}"></span>-->
+<!--                    last = <span th:text="${status.last}"></span>-->
+<!--                </td>-->
+                <td>
+                    <span th:text="서울" th:if="${dto.loc == '서울'}"></span>
+                    <span th:text="비서울" th:unless="${dto.loc == '서울'}"></span>
+                </td>
+
+                <td th:switch="${dto.deptno}">
+                    <span th:case="10">10번부서</span>
+                    <span th:case="20">20번부서</span>
+                    <span th:case="*">기타부서</span>
+                </td>
+            </tr>
+        </table>
+
+        <!-- 반복해서 출력 -->
+        <!-- HTML태그가 아닌 타임리프의 유일한 자체 태그 -->
+        <th:block th:each="dto: ${dList}">
+            <div th:text="'부서명 : ' + ${dto.dname}">부서명 : </div>
+            <div th:text="'부서위치 : ' + ${dto.loc}">부서위치 : </div>
+        </th:block>
+
+<!--        <script>-->
+<!--            let deptno = [[${dto4.deptno}]];-->
+<!--            let dname = "[[${dto4.dname}]]";-->
+<!--            let loc = "[[${dto4.loc}]]";-->
+<!--            let obj = "[[${dto4}]]";-->
+
+<!--            console.log(deptno + "   " + dname + "   " + loc);-->
+<!--            console.log(obj);-->
+<!--        </script>-->
+
+        <!-- 자바스크립트 인라인 -->
+        <script th:inline="javascript">
+            let deptno = [[${dto4.deptno}]];
+            let dname = [[${dto4.dname}]];
+            let loc = [[${dto4.loc}]];
+            let obj = [[${dto4}]];
+
+            console.log(deptno + "   " + dname + "   " + loc);
+            console.log(obj);
+        </script>
+
+        <script th:inline="javascript">
+            [# th:each="dto, status : ${dList}"]
+            let dto[[${status.count}]] = [[${dto}]];
+            console.log(dto[[${status.count}]]);
+            [/]
+        </script>
+    </div>
+</body>
+</html>

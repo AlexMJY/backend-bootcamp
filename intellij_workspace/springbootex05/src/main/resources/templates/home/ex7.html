@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>ex7.html</title>
+</head>
+<body>
+    <ul>
+        <li><a href="@{/hello}">basic url</a></li> <!-- 작동안함 -->
+        <li><a th:href="@{/hello}" href="">thymeleaf1 url</a></li>
+        <li><a th:href="@{/hello(p1 = ${param1}, p2 = ${param2})}" href="">thymeleaf2 url</a></li>
+        <li><a th:href="@{/hello/{p1}/{p2}(p1 = ${param1}, p2 = ${param2})}" href="">thymeleaf3 url</a></li>
+    </ul>
+
+    <hr>
+    <h3>문자</h3>
+
+    <ul>
+        <li><span th:text="'hello'"></span></li>
+        <li><span th:text="hello"></span></li>
+        <li><span th:text="'hello world'"></span></li> <!-- 문자열은 공백이 있을 경우 ''로 묶어줘야 함-->
+        <li><span th:text="'hello' + 'world'"></span></li>
+        <li><span th:text="'hello' + ${param2}"></span></li>
+        <li><span th:text="|hello ${param2}|"></span></li>
+    </ul>
+
+</body>
+</html>
