@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/member")
@@ -46,9 +47,8 @@ public class MainController {
 
     @GetMapping("/updateForm/{no}")
     public String updateForm(Model model, @PathVariable Long no) {
-//        List<Member> dto = memberRepository.findAllById(no);
-//        model.addAttribute("dto", dto);
-//        System.out.println("dto : " + dto);
+        Optional<Member> member = memberRepository.findById(no);
+        model.addAttribute("member", member);
         return "updateForm";
     }
 
