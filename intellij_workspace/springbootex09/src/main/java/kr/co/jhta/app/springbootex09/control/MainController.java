@@ -45,14 +45,15 @@ public class MainController {
         return "redirect:/member/info";
     }
 
-    @GetMapping("/updateForm/{no}")
+    @GetMapping("/update/{no}")
     public String updateForm(Model model, @PathVariable Long no) {
-        Optional<Member> member = memberRepository.findById(no);
+        Member member = memberRepository.findById(no).get();
+        System.out.println("member : " + member);
         model.addAttribute("member", member);
         return "updateForm";
     }
 
-    @PostMapping("/updateForm")
+    @PostMapping("/update")
     public String updateOk(@ModelAttribute Member member) {
         memberRepository.save(member);
         return "redirect:/member/info";

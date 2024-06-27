@@ -8,13 +8,14 @@
 </head>
 <body>
     <div class="container">
-        <form action="/member/add" method="post">
-            ID : <input type="text" name="id" id="id" value="${dto.getId()}"> <br><br>
-            PW : <input type="password" name="pw" id="pw" > <br><br>
-            NAME : <input type="text" name="name" id="name" > <br><br>
-            GENDER : <input type="text" name="gender" id="gender" > <br><br>
-            MOTIVE : <input type="text" name="motive" id="motive" > <br><br>
-            EMAIL : <input type="email" name="email" id="email"> <br><br>
+        <form th:action="@{/member/update}" action="/member/update" method="post">
+            <input type="hidden" name="no" th:value="${member.no}">
+            ID : <input type="text" name="id" id="id" th:value="${member.id}"  readonly> <br><br>
+            PW : <input type="password" name="pw" id="pw" th:value="${member.pw}" readonly> <br><br>
+            NAME : <input type="text" name="name" id="name" th:value="${member.name}"> <br><br>
+            GENDER : <input type="text" name="gender" id="gender" th:value="${member.gender}"> <br><br>
+            MOTIVE : <input type="text" name="motive" id="motive" th:value="${member.motive}"> <br><br>
+            EMAIL : <input type="email" name="email" id="email" th:value="${member.email}"> <br><br>
 
             <input type="submit" value="작성">
         </form>
