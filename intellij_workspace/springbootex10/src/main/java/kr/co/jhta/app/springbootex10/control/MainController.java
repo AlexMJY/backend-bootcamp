@@ -33,7 +33,7 @@ public class MainController {
     public String deptInfo(@PathVariable Long empno, Model model) {
         Emp emp = empRepository.findByEmpno(empno);
 
-        Dept dept = deptRepository.findById(emp.getDeptno().getDeptno()).orElse(null);
+        Dept dept = deptRepository.findById(emp.getDept().getDeptno()).orElse(null);
         model.addAttribute("dept", dept);
         return "deptInfo";
     }

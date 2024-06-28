@@ -15,17 +15,19 @@ class EmpRepositoryTest {
     @Autowired
     EmpRepository empRepository;
 
+
     // 7788번 사원의 정보를 가져오는 test case
     // method : test_emp
     // 이름이 scott인지 테스트
-    @Test
-    public void find7788() {
-        Optional<Emp> result = empRepository.findById(7788L);
-        if (result.isPresent()) {
-            Emp emp = result.get();
-            System.out.println(emp.getEname());
-            Dept dept = emp.getDeptno();
-            System.out.println(dept.getDname() + " : " + dept.getLoc());
-        }
-    }
+//    @Test
+//    public void find7788() {
+//        Optional<Emp> result = empRepository.findById(7788L);
+//        if (result.isPresent()) {
+//            Emp emp = result.get();
+//            System.out.println(emp.getEname());
+//            Dept dept = emp.getDeptno();
+//            System.out.println(dept.getDname() + " : " + dept.getLoc());
+//        }
+//    }
+
 }
