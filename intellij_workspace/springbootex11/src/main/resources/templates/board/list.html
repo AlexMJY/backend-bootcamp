@@ -10,6 +10,32 @@
     <div class="container">
         <h3 th:text="${msg}">MSG</h3>
         <a th:href="@{/board/write}">글쓰기</a>
+
+        <table class="table table-striped mt-2">
+            <tr>
+                <th>BNO</th>
+                <th>WRITER</th>
+                <th>TITLE</th>
+<!--                <th>CONTENTS</th>-->
+                <th>HITS</th>
+                <th>REGDATE</th>
+<!--                <th>IP</th>-->
+<!--                <th>STATUS</th>-->
+            </tr>
+
+            <tr th:each="board : ${list}" th:object="${board}">
+                <td th:text="*{bno}"></td>
+                <td th:text="*{writer}"></td>
+                <td>
+                    <a th:href="@{|/board/detail/*{bno}|}" th:text="*{title}"></a>
+                </td>
+                <!--                <td th:text="*{contents}"></td>-->
+                <td th:text="*{hits}"></td>
+                <td th:text="*{#temporals.format(regDate, 'yyyy-MM-dd')}"></td>
+                <!--                <td th:text="*{ip}"></td>-->
+                <!--                <td th:text="*{status}"></td>-->
+            </tr>
+        </table>
     </div>
 
 
