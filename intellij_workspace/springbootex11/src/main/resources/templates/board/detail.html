@@ -10,7 +10,7 @@
 <div class="container">
     <h3>detail.html</h3>
 
-    <table class="table table-striped" th:object="${dto}">
+    <table class="table table-striped" th:object="${board}">
         <tr>
             <th>게시글번호</th>
             <td th:text="*{bno}"></td>
@@ -35,11 +35,22 @@
             <td colspan="3" th:text="*{contents}"></td>
         </tr>
 
+        <!-- 첨부파일이 있으면 첨부파일 링크 출력 -->
+        <th:block th:if="${board.getAttachedFiles().size() != 0}">
+            <tr th:each="file : ${board.getAttachedFiles()}">
+                <th>첨부파일</th>
+                <td>
+                    <a th:href="@{/board/detail/download/{no}(no=${file.getFilePath()})}" th:text="${file.getFileName()}" href=""></a>
+                </td>
+            </tr>
+        </th:block>
+
+
         <tr>
             <td colspan="4">
                 <a th:href="@{/board/list}" class="btn btn-outline-primary">목록</a>
-                <a th:href="@{/board/modify(bno=${dto.bno})}" class="btn btn-outline-warning">수정</a>
-                <a th:href="@{/board/delete/{bno}(bno=${dto.bno})}" class="btn btn-outline-danger">삭제</a>
+                <a th:href="@{/board/modify(bno=${board.bno})}" class="btn btn-outline-warning">수정</a>
+                <a th:href="@{/board/delete/{bno}(bno=${board.bno})}" class="btn btn-outline-danger">삭제</a>
             </td>
         </tr>
     </table>

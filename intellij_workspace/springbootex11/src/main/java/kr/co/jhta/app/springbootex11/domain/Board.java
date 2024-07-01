@@ -7,6 +7,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Builder
@@ -15,7 +17,8 @@ import java.time.LocalDateTime;
 @Data
 public class Board {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+//    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long bno;
     @Column(length = 30, nullable = false)
     private String writer;
@@ -28,4 +31,7 @@ public class Board {
     private int hits;
     private String ip;
     private int status;
+
+    @OneToMany(mappedBy = "board", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<BoardAttachedFile> attachedFiles = new ArrayList<>();
 }

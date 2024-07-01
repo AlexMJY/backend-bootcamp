@@ -1,6 +1,7 @@
 package kr.co.jhta.app.springbootex11.dto;
 
 
+import kr.co.jhta.app.springbootex11.domain.Board;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -21,4 +22,10 @@ public class BoardDTO {
     private int hits;
     private String ip;
     private int status;
+
+
+    public Board toEntity() {
+        Board board = new Board().builder().bno(bno).writer(writer).title(title).contents(contents).hits(hits).status(status).build();
+        return board;
+    }
 }
