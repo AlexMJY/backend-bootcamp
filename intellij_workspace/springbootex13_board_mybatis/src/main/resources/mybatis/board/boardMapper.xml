@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--namespace의 이름이 DAO의 패키지명과 일치-->
+<mapper namespace="kr.co.jhta.app.springbootex13_board_mybatis.dao.BoardDAO">
+
+<!-- 호출 메서드와 아이디 이름 일치-->
+    <select id="getAll" parameterType="HashMap" resultType="BoardDTO">
+        SELECT RN, BNO, WRITER, TITLE, CONTENTS, REGDATE, HITS, IP, STATUS
+        FROM (SELECT ROWNUM RN, BNO, WRITER, TITLE, CONTENTS, REGDATE, HITS, IP, STATUS
+            FROM (SELECT  BNO, WRITER, TITLE, CONTENTS, REGDATE, HITS, IP, STATUS
+                FROM BOARD
+                ORDER BY BNO DESC)
+                WHERE ROWNUM &lt;= #{endNo})
+        WHERE RN &gt;= #{startNo}
+    </select>
+
+    <select id="getAllByKeyWord" parameterType="HashMap" resultType="BoardDTO">
+        SELECT RN, BNO, WRITER, TITLE, CONTENTS, REGDATE, HITS, IP, STATUS
+        FROM (SELECT ROWNUM RN, BNO, WRITER, TITLE, CONTENTS, REGDATE, HITS, IP, STATUS
+            FROM (SELECT  BNO, WRITER, TITLE, CONTENTS, REGDATE, HITS, IP, STATUS
+                FROM BOARD
+                    WHERE title LIKE '%' || #{keyword} || '%'
+                    OR contents LIKE '%' || #{keyword} || '%'
+                    OR writer LIKE '%' || #{keyword} || '%'
+                ORDER BY BNO DESC)
+            WHERE ROWNUM &lt;= #{endNo})
+        WHERE RN &gt;= #{startNo}
+    </select>
+
+    <select id="getTotal" resultType="int">
+        SELECT count(*) cnt
+        FROM BOARD
+    </select>
+
+    <select id="getOne" parameterType="Long" resultType="BoardDTO">
+        SELECT * FROM BOARD
+        WHERE BNO = #{no}
+    </select>
+
+    <select id="getTotalByKeyword" parameterType="String" resultType="int">
+        SELECT count(*) cnt
+        FROM BOARD
+        WHERE title LIKE '%' || #{keyword} || '%'
+        OR contents LIKE '%' || #{keyword} || '%'
+        OR writer LIKE '%' || #{keyword} || '%'
+    </select>
+
+    <select id="selectSequence" resultType="int">
+        SELECT 시퀀스.NEXTVAL FROM DUAL
+    </select>
+
+    <insert id="addOne" parameterType="BoardDTO" useGeneratedKeys="true" keyProperty="bno">
+        INSERT INTO BOARD(writer, title, contents, ip, regdate, status, hits)
+        VALUES (#{writer}, #{title}, #{contents}, #{ip}, sysdate, 1, 0)
+    </insert>
+
+    <delete id="deleteOne" parameterType="Long">
+        DELETE FROM BOARD
+        WHERE BNO = #{no}
+    </delete>
+
+    <update id="modifyOne" parameterType="BoardDTO">
+        UPDATE BOARD
+        SET title = #{title}, contents = #{contents}
+        WHERE bno = #{bno}
+    </update>
+</mapper>

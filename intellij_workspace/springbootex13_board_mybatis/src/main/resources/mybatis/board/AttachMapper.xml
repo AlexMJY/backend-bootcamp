@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kr.co.jhta.app.springbootex13_board_mybatis.dao.BoardAttachedDAO">
+    <insert id="addOne" parameterType="BoardAttachedFileDTO">
+        INSERT INTO attached_file (FILE_PATH, FILE_NAME, BOARDNO)
+        VALUES (#{filePath}, #{fileName}, #{boardNo} )
+    </insert>
+</mapper>
