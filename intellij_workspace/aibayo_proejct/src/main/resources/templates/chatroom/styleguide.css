@@ -1,0 +1,30 @@
+:root {
+    --x-1: rgba(133, 199, 233, 1);
+    --x-2: rgba(13, 17, 83, 1);
+    --x-3: rgba(255, 255, 255, 1);
+    --lightbackgroundpaper: rgba(255, 255, 255, 1);
+    --iris-100: rgba(93, 95, 239, 1);
+    --iris-60: rgba(165, 166, 246, 1);
+    --lightprimarymain: rgba(25, 118, 210, 1);
+    --iris-80: rgba(120, 121, 241, 1);
+    --grey-400: rgba(189, 189, 189, 1);
+    --lighttextprimary: rgba(0, 0, 0, 0.87);
+    ---font-family: "Noto Sans", Helvetica;
+    ---font-weight: 500;
+    ---font-size: 100px;
+    ---letter-spacing: -5px;
+    ---line-height: 89.99999761581421%;
+    ---font-style: normal;
+    --components-avatar-initials-font-family: "Roboto", Helvetica;
+    --components-avatar-initials-font-weight: 400;
+    --components-avatar-initials-font-size: 20px;
+    --components-avatar-initials-letter-spacing: 0.14000000059604645px;
+    --components-avatar-initials-line-height: 20px;
+    --components-avatar-initials-font-style: normal;
+    --components-button-medium-font-family: "Roboto", Helvetica;
+    --components-button-medium-font-weight: 500;
+    --components-button-medium-font-size: 14px;
+    --components-button-medium-letter-spacing: 0.4000000059604645px;
+    --components-button-medium-line-height: 24px;
+    --components-button-medium-font-style: normal;
+  }

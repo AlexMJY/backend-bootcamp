@@ -11,5 +11,5 @@ public class BoardAttachedFileDTO {
     private int fileNo;
     private String fileName;
     private String filePath;
-    private int boardNo;
+    private Long boardNo;
 }

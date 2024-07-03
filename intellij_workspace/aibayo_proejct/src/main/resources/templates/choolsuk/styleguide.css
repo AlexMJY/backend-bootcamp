@@ -1,0 +1,12 @@
+:root {
+    --x-1: rgba(133, 199, 233, 1);
+    --x-2: rgba(13, 17, 83, 1);
+    --x-3: rgba(255, 255, 255, 1);
+    ---font-family: "Noto Sans", Helvetica;
+    ---font-weight: 500;
+    ---font-size: 100px;
+    ---letter-spacing: -5px;
+    ---line-height: 89.99999761581421%;
+    ---font-style: normal;
+  }
+  

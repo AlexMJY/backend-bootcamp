@@ -55,6 +55,9 @@
     <insert id="addOne" parameterType="BoardDTO" useGeneratedKeys="true" keyProperty="bno">
         INSERT INTO BOARD(writer, title, contents, ip, regdate, status, hits)
         VALUES (#{writer}, #{title}, #{contents}, #{ip}, sysdate, 1, 0)
+        <selectKey keyProperty="bno" resultType="Long">
+            SELECT max(bno) bno FROM board
+        </selectKey>
     </insert>
 
     <delete id="deleteOne" parameterType="Long">

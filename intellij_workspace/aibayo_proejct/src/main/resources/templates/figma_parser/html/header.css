@@ -1,0 +1,44 @@
+body {
+    font-family: 'Noto Sans KR', sans-serif;
+}
+
+.class_69 { 
+    width: 1280px; 
+    height: 150px;
+}
+
+.class_78 { 
+    width: 280px; 
+    height: 150px; 
+    float: left; 
+    margin-left: 20px;
+}
+
+.class_79 { 
+    color: #FFDB21; 
+    font-size: 80px; 
+    font-weight: 500; 
+    line-height: 140px; 
+    word-wrap: break-word; 
+}
+
+.class_71 { 
+    width: 960px;
+    height: 150px; 
+    justify-content: end; 
+    align-items: center; 
+    gap: 30px; 
+    display: flex; 
+    margin-right: 20px;
+}
+
+.class_75 { 
+    font-size: 20px; 
+    font-weight: 500; 
+    word-wrap: break-word 
+}
+
+.nav-link {
+    color: black;
+}
+

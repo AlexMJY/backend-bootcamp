@@ -3,6 +3,7 @@ package kr.co.jhta.app.springbootex13_board_mybatis.service;
 
 //import kr.co.jhta.app.springbootex13_board_mybatis.domain.Board;
 
+import kr.co.jhta.app.springbootex13_board_mybatis.dto.BoardAttachedFileDTO;
 import kr.co.jhta.app.springbootex13_board_mybatis.dto.BoardDTO;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -25,6 +26,8 @@ public interface BoardService {
     int getTotalByKeyword(String keyword);
 
     List<BoardDTO> getListByKeyword(int startNo, int endNo, String keyword);
+
+    List<BoardAttachedFileDTO> readFiles(Long bno);
 
 
 //    Long register(BoardDTO dto, MultipartFile[] files);

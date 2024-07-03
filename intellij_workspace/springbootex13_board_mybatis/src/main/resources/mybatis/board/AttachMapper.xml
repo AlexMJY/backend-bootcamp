@@ -8,4 +8,11 @@
         INSERT INTO attached_file (FILE_PATH, FILE_NAME, BOARDNO)
         VALUES (#{filePath}, #{fileName}, #{boardNo} )
     </insert>
+
+
+    <select id="getList" parameterType="Long" resultType="BoardAttachedFileDTO">
+        SELECT no as fileno, file_path as filePath, file_name as fileName, boardNo
+        FROM attached_file
+        WHERE boardno = #{bno}
+    </select>
 </mapper>

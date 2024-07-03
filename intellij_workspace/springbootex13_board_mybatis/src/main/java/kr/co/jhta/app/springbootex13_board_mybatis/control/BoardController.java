@@ -1,6 +1,7 @@
 package kr.co.jhta.app.springbootex13_board_mybatis.control;
 
 import jakarta.servlet.http.HttpServletRequest;
+import kr.co.jhta.app.springbootex13_board_mybatis.dto.BoardAttachedFileDTO;
 import kr.co.jhta.app.springbootex13_board_mybatis.dto.BoardDTO;
 import kr.co.jhta.app.springbootex13_board_mybatis.service.BoardService;
 import kr.co.jhta.app.springbootex13_board_mybatis.util.PageUtil;
@@ -71,7 +72,12 @@ public class BoardController {
     @GetMapping("/detail/{no}") // 게시물 상세 정보를 보여주는 메서드
     public String detail(@PathVariable Long no, Model model) {
         BoardDTO dto = boardService.getOne(no);
+        List<BoardAttachedFileDTO> fileList = boardService.readFiles(dto.getBno());
+
+        System.out.println("fileList : " + fileList.size());
+
         model.addAttribute("board", dto);
+        model.addAttribute("fileList", fileList);
         return "board/detail";
     }
 

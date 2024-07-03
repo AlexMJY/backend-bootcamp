@@ -36,14 +36,14 @@
         </tr>
 
         <!-- 첨부파일이 있으면 첨부파일 링크 출력 -->
-<!--        <th:block th:if="${board.getAttachedFiles().size() != 0}">-->
-<!--            <tr th:each="file : ${board.getAttachedFiles()}">-->
-<!--                <th>첨부파일</th>-->
-<!--                <td>-->
-<!--                    <a th:href="@{/board/detail/download/{no}(no=${file.getFilePath()})}" th:text="${file.getFileName()}" href=""></a>-->
-<!--                </td>-->
-<!--            </tr>-->
-<!--        </th:block>-->
+        <th:block th:if="${fileList.size() != 0}">
+            <tr th:each="file : ${fileList}">
+                <th>첨부파일</th>
+                <td colspan="3">
+                    <a th:href="@{/board/detail/download/{filename}(filename=${file.filePath})}" th:text="${file.fileName}" href=""></a>
+                </td>
+            </tr>
+        </th:block>
 
 
         <tr>

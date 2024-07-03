@@ -39,13 +39,12 @@ public class BoardServiceImpl implements BoardService {
 
     @Override
     public void register(BoardDTO dto, MultipartFile[] files) {
-//        int seqno = dao.selectSequence();
-//        dto.setBno((long) seqno);
+
         System.out.println("dto : " + dto.toString());
         dao.addOne(dto);
         System.out.println("dto sequence : " + dto.getBno());
         System.out.println("files : " + files);
-        System.out.println("저장될 디텍터리 : " + uploadDirectory);
+        System.out.println("저장 디텍터리 : " + uploadDirectory);
 
         File uploadDir = new File(uploadDirectory);
         if (!uploadDir.exists()) {
@@ -61,7 +60,7 @@ public class BoardServiceImpl implements BoardService {
                 BoardAttachedFileDTO bdto = new BoardAttachedFileDTO();
                 bdto.setFilePath(fileFullName);
                 bdto.setFileName(file.getOriginalFilename());
-//                bdto.setBoardNo(seqno);
+                bdto.setBoardNo(dto.getBno());
                 bdao.addOne(bdto);
 
             } catch (IOException e) {
@@ -106,6 +105,12 @@ public class BoardServiceImpl implements BoardService {
         map.put("keyword", keyword);
         List<BoardDTO> list = dao.getAllByKeyWord(map);
         return list;
+    }
+
+    @Override
+    public List<BoardAttachedFileDTO> readFiles(Long bno) {
+
+        return bdao.getList(bno);
     }
 
 
