@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>fragments.html</title>
+</head>
+<body>
+    <h3>fragments.html</h3>
+
+    <div th:fragment="header">
+        <header>
+            <h1>사이트 헤더</h1>
+            <nav>
+                <ul>
+                    <li><a th:href="@{/home}">HOME</a></li>
+                    <li><a th:href="@{/about}">우리회사는</a></li>
+                    <li><a th:href="@{/product}">제품소개</a></li>
+                    <li><a th:href="@{/customer}">고객지원</a></li>
+                </ul>
+            </nav>
+        </header>
+    </div>
+
+
+    <div th:fragment="footer">
+        <footer>
+            <p>여기는 푸터</p>
+            <p>우리 회사는 오늘 만들어진 신생회사로 블랙기업입니다. </p>
+        </footer>
+    </div>
+</body>
+</html>

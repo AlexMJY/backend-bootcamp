@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>인증 코드 확인</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container">
+<!--    <h2 class="mt-5">인증 코드 확인</h2>-->
+    <form action="#" method="post">
+        <div class="form-group">
+            <label for="inputCode">인증 코드</label>
+            <input type="text" class="form-control" id="inputCode" name="inputCode" placeholder="인증 코드를 입력하세요" required>
+        </div>
+        <input type="hidden" name="sentCode" th:value="${code}">
+        <input type="submit" class="btn btn-primary" value="확인">
+    </form>
+<!--    <div>-->
+<!--        <p>이메일로 전송된 인증 코드: <strong th:text="${code}"></strong></p>-->
+<!--    </div>-->
+</div>
+</body>
+</html>
