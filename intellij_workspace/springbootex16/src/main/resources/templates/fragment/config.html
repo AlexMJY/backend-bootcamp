@@ -1,0 +1,18 @@
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://ultraq.net.nz/thymeleaf/layout">
+
+<!--설정-->
+<th:block th:fragment="configFragment">
+    <head>
+        <meta charset="UTF-8">
+        <title>main</title>
+        <!--공용 css-->
+        <th:block th:replace="~{common/css}"></th:block>
+        <!--현재 페이지를 위한 css-->
+        <th:block layout:fragment="css"></th:block>
+
+        <!--공용 javascript-->
+        <th:block th:replace="~{common/javascript}"></th:block>
+        <!--현재 페이지를 위한 javascript-->
+        <th:block layout:fragment="javascript"></th:block>
+    </head>
+</th:block>

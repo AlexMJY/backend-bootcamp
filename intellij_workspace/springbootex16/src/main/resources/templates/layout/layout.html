@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://ultraq.net.nz/thymeleaf/layout">
+<!--설정 head tag-->
+<th:block th:replace="~{fragment/config :: configFragment}"></th:block>
+
+<body>
+
+<div class="container">
+    <!-- 외부 코드 가져오기-->
+    <!-- <div th:replace="~{파일명 :: 코드조각}"></div>-->
+
+    <!--헤더-->
+    <div th:replace="~{fragment/header :: headerFragment}"></div>
+
+    <!--본문-->
+    <div layout:fragment="content"></div>
+
+    <!--푸터-->
+    <div th:replace="~{fragment/footer :: footerFragment}"></div>
+</div>
+</body>
+</html>

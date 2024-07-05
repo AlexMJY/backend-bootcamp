@@ -1,6 +1,7 @@
 package kr.co.jhta.app.springbootex11.control;
 
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.validation.Valid;
 import kr.co.jhta.app.springbootex11.domain.Board;
 import kr.co.jhta.app.springbootex11.dto.BoardDTO;
 import kr.co.jhta.app.springbootex11.service.BoardService;
@@ -9,6 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -61,14 +63,19 @@ public class BoardController {
     }
 
     @GetMapping("/write") // 게시물 작성 폼을 보여주는 메서드
-    public String write() {
+    public String write(Model model) {
+        model.addAttribute("boardDTO", new BoardDTO());
         return "board/writeForm";
     }
 
     @PostMapping("/write") // 게시물 작성 후 저장하는 메서드
-    public String write(Model model, @ModelAttribute BoardDTO dto, HttpServletRequest request, @RequestParam("fileUpload") MultipartFile[] files) {
+    public String write(@Valid @ModelAttribute("boardDTO") BoardDTO dto, BindingResult bindingResult, HttpServletRequest request, @RequestParam("fileUpload") MultipartFile[] files) {
         log.info("files : {}", files.length);
         log.info("전달받은 DTO : " + dto);
+
+        if (bindingResult.hasErrors()) {
+            return "board/writeForm";
+        }
 
         // 작성자의 IP 주소를 DTO에 설정
         dto.setIp(request.getRemoteAddr());
