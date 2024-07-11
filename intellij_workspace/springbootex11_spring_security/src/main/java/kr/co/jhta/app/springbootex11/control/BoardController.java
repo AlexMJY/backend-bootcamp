@@ -6,16 +6,13 @@ import kr.co.jhta.app.springbootex11.dto.BoardDTO;
 import kr.co.jhta.app.springbootex11.service.BoardService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.hibernate.annotations.IdGeneratorType;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.net.http.HttpRequest;
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Slf4j
 @Controller
