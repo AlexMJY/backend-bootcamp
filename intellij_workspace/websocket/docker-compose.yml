@@ -1,7 +1,7 @@
 services:
   mongodb:
     image: mongo
-    container_name: mongo_db
+    container_name: mongoDb
     ports:
       - 27017:27017
     volumes:
@@ -11,7 +11,7 @@ services:
       - MONGO_INITDB_ROOT_PASSWORD=aibayo
   mongo-express:
     image: mongo-express
-    container_name: mongo_express
+    container_name: mongoExpress
     restart: always
     ports:
       - 8081:8081
