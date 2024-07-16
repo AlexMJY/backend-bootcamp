@@ -13,7 +13,6 @@ import java.util.List;
 @Controller
 @RequiredArgsConstructor
 public class UserController {
-
     private final UserService service;
 
     /*
