@@ -1,4 +1,4 @@
-package kr.co.jhta.springboot_websocket;
+package kr.co.jhta.app.springboot_websocket;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
