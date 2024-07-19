@@ -143,7 +143,7 @@ function onError() {
 }
 
 // 메시지 전송 함수
-function sendMessage(event) {
+function sendMessage(event)  {
     const messageContent = messageInput.value.trim();
     if (messageContent && stompClient) {
         const chatMessage = {
