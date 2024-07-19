@@ -128,80 +128,52 @@ function appendUserElement(user, connectedUsersList) {
 
 // 사용자 목록 항목 클릭 시 호출되는 함수
 function userItemClick(event) {
-    // 모든 사용자 목록 항목에서 'active' 클래스를 제거하여 비활성화 상태로 만듦
     document.querySelectorAll('.user-item').forEach(item => {
         item.classList.remove('active');
     });
+    messageForm.classList.remove('hidden');  // 메시지 폼 표시
 
-    // 메시지 폼을 보이도록 설정하여 사용자가 메시지를 입력할 수 있게 함
-    messageForm.classList.remove('hidden');
-
-    // 클릭된 사용자 항목을 가져옴
     const clickedUser = event.currentTarget;
-    // 클릭된 사용자 항목에 'active' 클래스를 추가하여 활성화 상태로 만듦
-    clickedUser.classList.add('active');
+    clickedUser.classList.add('active');  // 활성화된 사용자 항목 표시
 
-    // 클릭된 사용자의 ID를 가져와 'selectedUserId' 변수에 저장
-    selectedUserId = clickedUser.getAttribute('id');
+    selectedUserId = clickedUser.getAttribute('id');  // 선택된 사용자 ID 저장
+    fetchAndDisplayUserChat().then();  // 사용자 채팅 내용 가져오기
 
-    // 선택된 사용자의 채팅 내용을 가져와 표시
-    fetchAndDisplayUserChat().then();
-
-    // 클릭된 사용자 항목에서 메시지 수를 표시하는 요소를 가져옴
     const nbrMsg = clickedUser.querySelector('.nbr-msg');
-    // 메시지 수 표시 요소를 숨김
-    nbrMsg.classList.add('hidden');
-    // 메시지 수 초기화
-    nbrMsg.textContent = '0';
-}
-
-// 사용자 채팅 내용을 가져와 표시하는 함수
-async function fetchAndDisplayUserChat() {
-    // 선택된 사용자와 현재 사용자 간의 채팅 내용을 서버에서 가져옴
-    const userChatResponse = await fetch(`/messages/${nickname}/${selectedUserId}`);
-    // 서버에서 받은 응답을 JSON 형태로 변환
-    const userChat = await userChatResponse.json();
-    // 채팅 영역을 초기화하여 기존 메시지를 모두 제거
-    chatArea.innerHTML = '';
-    // 채팅 내용을 하나씩 화면에 표시
-    userChat.forEach(chat => {
-        displayMessage(chat.senderId, chat.content);
-    });
-    // 채팅 영역의 스크롤을 맨 아래로 이동하여 최신 메시지가 보이도록 함
-    chatArea.scrollTop = chatArea.scrollHeight;
+    nbrMsg.classList.add('hidden');  // 메시지 수 숨기기
+    nbrMsg.textContent = '0';  // 메시지 수 초기화
 }
 
 // 메시지를 화면에 표시하는 함수
 function displayMessage(senderId, content) {
-    // 새로운 메시지를 담을 div 요소를 생성
     const messageContainer = document.createElement('div');
-    // 메시지에 공통적으로 적용될 클래스 추가
     messageContainer.classList.add('message');
-
-    // 메시지의 발신자가 현재 사용자일 경우
     if (senderId === nickname) {
-        // 발신자 메시지 스타일을 적용할 클래스 추가
-        messageContainer.classList.add('sender');
+        messageContainer.classList.add('sender');  // 발신자 메시지 스타일
     } else {
-        // 수신자 메시지 스타일을 적용할 클래스 추가
-        messageContainer.classList.add('receiver');
+        messageContainer.classList.add('receiver');  // 수신자 메시지 스타일
     }
-
-    // 메시지 내용을 담을 p 요소를 생성
     const message = document.createElement('p');
-    // p 요소에 메시지 텍스트를 설정
     message.textContent = content;
-    // p 요소를 메시지 컨테이너에 추가
     messageContainer.appendChild(message);
-    // 메시지 컨테이너를 채팅 영역에 추가
     chatArea.appendChild(messageContainer);
+}
+
+// 사용자 채팅 내용을 가져와 표시하는 함수
+async function fetchAndDisplayUserChat() {
+    const userChatResponse = await fetch(`/messages/${nickname}/${selectedUserId}`);
+    const userChat = await userChatResponse.json();
+    chatArea.innerHTML = '';  // 채팅 영역 초기화
+    userChat.forEach(chat => {
+        displayMessage(chat.senderId, chat.content);  // 각 메시지 표시
+    });
+    chatArea.scrollTop = chatArea.scrollHeight;  // 스크롤 하단으로 이동
 }
 
 
 
-
 // 메시지 전송 함수
-function sendMessage(event)  {
+function sendMessage(event) {
     const messageContent = messageInput.value.trim();
     if (messageContent && stompClient) {
         const chatMessage = {

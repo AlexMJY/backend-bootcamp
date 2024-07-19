@@ -19,6 +19,11 @@ public class ChatController {
 
     @MessageMapping("/chat") // 클라이언트에서 "/chat" 경로로 메시지를 보낼 때 호출됩니다.
     public void processMessage(@Payload ChatMessage chatMessage) {
+        // 수신자의 ID가 null이거나 비어있는지 확인
+        if (chatMessage.getRecipientId() == null || chatMessage.getRecipientId().isEmpty()) {
+            throw new IllegalArgumentException("Recipient ID must not be null or empty");
+        }
+
         ChatMessage savedMsg = chatMessageService.save(chatMessage); // 받은 메시지를 저장합니다.
         messagingTemplate.convertAndSendToUser( // 특정 사용자에게 메시지를 전송합니다.
                 chatMessage.getRecipientId(), "/queue/messages", // 수신자의 ID와 메시지 큐 경로를 지정합니다.

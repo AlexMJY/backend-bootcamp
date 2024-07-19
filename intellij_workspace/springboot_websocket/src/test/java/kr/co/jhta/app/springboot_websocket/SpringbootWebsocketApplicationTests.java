@@ -1,4 +1,4 @@
-package kr.co.jhta.springboot_websocket;
+package kr.co.jhta.app.springboot_websocket;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
