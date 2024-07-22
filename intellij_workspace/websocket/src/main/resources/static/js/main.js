@@ -25,10 +25,10 @@ function connect(event) {
         chatPage.classList.remove('hidden');  // 채팅 페이지 보이기
 
 
-        const socket = new SockJS('/ws');  // SockJS 객체 생성
+        const socket = new SockJS('/ws');  // SockJS 객체 생성 (/ws 위치는 WebSocketConfig에서 설정)
         stompClient = Stomp.over(socket);  // STOMP 클라이언트 생성
 
-        stompClient.connect({}, onConnected, onError);  // 서버에 연결
+        stompClient.connect({}, onConnected, onError);  // 서버에 연결 ex) stompClient.connect(headers, connectCallback, errorCallback);
     }
     event.preventDefault();
 }

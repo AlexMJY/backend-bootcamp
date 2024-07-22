@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+
+  mysql:
+    image: mysql  # 최신 버전을 사용하기 위해 태그를 생략함
+    container_name: mysql_security
+    ports:
+      - 3306:3306
+    volumes:
+      - mysql:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=aico
+      - MYSQL_DATABASE=aicoMySQL
+      - MYSQL_USER=aico
+      - MYSQL_PASSWORD=aico
+
+volumes:
+  mysql: {}

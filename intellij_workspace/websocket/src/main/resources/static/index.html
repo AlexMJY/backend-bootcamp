@@ -3,12 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
     <link rel="stylesheet" href="css/main.css">
     <title>Chat Application</title>
 </head>
-<body>
+<body class="show-chatbot">
 
-<h2>One to One Chat | Spring boot & Websocket</h2>
+<h2>One to One Chat | Spring boot & Websocket | By Alibou</h2>
 
 <div class="user-form" id="username-page">
     <h2>Enter Chatroom</h2>
@@ -48,6 +49,13 @@
         </form>
     </div>
 </div>
+
+<!-- Chat Toggler Button -->
+<button class="chat-toggler">
+    <span class="material-symbols-outlined">mode_comment</span>
+    <span class="material-symbols-outlined">close</span>
+</button>
+
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.4/sockjs.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
