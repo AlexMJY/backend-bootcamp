@@ -3,19 +3,16 @@ package com.aico.security_jwt.service;
 import com.aico.security_jwt.dto.JoinDTO;
 import com.aico.security_jwt.entity.UserEntity;
 import com.aico.security_jwt.repository.UserRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
+@RequiredArgsConstructor
 public class JoinService {
-
     private final UserRepository userRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    public JoinService(UserRepository userRepository, BCryptPasswordEncoder bCryptPasswordEncoder) {
-        this.userRepository = userRepository;
-        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
-    }
 
     public void joinProcess(JoinDTO joinDTO) {
         String username = joinDTO.getUsername();
