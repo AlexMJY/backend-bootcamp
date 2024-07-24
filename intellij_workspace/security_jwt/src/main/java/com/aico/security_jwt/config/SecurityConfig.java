@@ -1,5 +1,6 @@
 package com.aico.security_jwt.config;
 
+import com.aico.security_jwt.jwt.JWTUtil;
 import com.aico.security_jwt.jwt.LoginFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -20,6 +21,7 @@ public class SecurityConfig {
 
     // AuthenticationManager를 구성하는 데 필요한 설정을 포함한 객체
     private final AuthenticationConfiguration authenticationConfiguration;
+    private final JWTUtil jwtUtil;
 
     @Bean // AuthenticationManager 빈 생성
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
@@ -50,7 +52,7 @@ public class SecurityConfig {
                 );
 
         http // 커스텀 로그인 필터 추가
-                .addFilterAt(new LoginFilter(authenticationManager(authenticationConfiguration)), UsernamePasswordAuthenticationFilter.class); // LoginFilter를 UsernamePasswordAuthenticationFilter 위치에 추가
+                .addFilterAt(new LoginFilter(authenticationManager(authenticationConfiguration), jwtUtil), UsernamePasswordAuthenticationFilter.class); // LoginFilter를 UsernamePasswordAuthenticationFilter 위치에 추가
         // AuthenticationConfiguration: SpringSecurity에서 제공하는 설정 객체로, AuthenticationManager를 구성하는 데 필요한 정보를 제공
 
         http // 세션 관리 설정
