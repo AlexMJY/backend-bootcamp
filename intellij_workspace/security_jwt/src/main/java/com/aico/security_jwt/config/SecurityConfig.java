@@ -3,6 +3,7 @@ package com.aico.security_jwt.config;
 import com.aico.security_jwt.jwt.JWTFilter;
 import com.aico.security_jwt.jwt.JWTUtil;
 import com.aico.security_jwt.jwt.LoginFilter;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,6 +15,10 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+
+import java.util.Collections;
 
 @Configuration // 이 클래스가 설정 클래스임을 나타냄
 @EnableWebSecurity // 웹 보안을 활성화
@@ -36,6 +41,21 @@ public class SecurityConfig {
 
     @Bean // SecurityFilterChain 빈 생성
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+
+        http
+                .cors((corsCustomizer -> corsCustomizer.configurationSource(new CorsConfigurationSource() {
+                    @Override
+                    public CorsConfiguration getCorsConfiguration(HttpServletRequest request) {
+                        CorsConfiguration configuration = new CorsConfiguration();
+                        configuration.setAllowedOrigins(Collections.singletonList("http://localhost:3000")); // 허용할 도메인 설정
+                        configuration.setAllowedMethods(Collections.singletonList("*")); // 모든 HTTP 메서드 허용 (GET, POST, etc.)
+                        configuration.setAllowCredentials(true); // 자격 증명 허용 (쿠키, 인증 헤더 등)
+                        configuration.setAllowedHeaders(Collections.singletonList("*")); // 모든 헤더 허용
+                        configuration.setMaxAge(3600L); // CORS 관련 정보를 캐시할 시간을 지정
+
+                        return configuration;
+                    }
+                })));
 
         http // CSRF 보호 비활성화
                 .csrf((csrf) -> csrf.disable());
