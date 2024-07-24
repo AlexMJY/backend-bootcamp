@@ -1,5 +1,6 @@
 package com.aico.security_jwt.config;
 
+import com.aico.security_jwt.jwt.JWTFilter;
 import com.aico.security_jwt.jwt.JWTUtil;
 import com.aico.security_jwt.jwt.LoginFilter;
 import lombok.RequiredArgsConstructor;
@@ -50,6 +51,9 @@ public class SecurityConfig {
                         .requestMatchers("/login", "/", "/join").permitAll() // 로그인, 홈, 회원가입 경로는 모든 사용자에게 허용
                         .anyRequest().authenticated() // 그 외의 모든 요청은 인증 필요
                 );
+
+        http // JWT 검증
+                .addFilterBefore(new JWTFilter(jwtUtil), LoginFilter.class);
 
         http // 커스텀 로그인 필터 추가
                 .addFilterAt(new LoginFilter(authenticationManager(authenticationConfiguration), jwtUtil), UsernamePasswordAuthenticationFilter.class); // LoginFilter를 UsernamePasswordAuthenticationFilter 위치에 추가
